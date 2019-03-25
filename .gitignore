@@ -1,0 +1,12 @@
+# Empresa
+django/curso-django/empresa/blog/__pycache__
+django/curso-django/empresa/core/__pycache__
+django/curso-django/empresa/empresa/__pycache__
+django/curso-django/empresa/services/__pycache__
+# Personal
+django/curso-django/personal/core/__pycache__
+django/curso-django/personal/personal/__pycache__
+django/curso-django/personal/portfolio/__pycache__
+# Playground
+django/curso-django/playground//__pycache__
+django/curso-django/playground/playground/__pycache__
