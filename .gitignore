@@ -1,8 +1,18 @@
+# Curso - Django
+django/curso-django/.sonarlint/
+django/curso-django/.vscode/
+django/curso-django/.mypy_cache/
 # Empresa
 django/curso-django/empresa/blog/__pycache__
+django/curso-django/empresa/blog/migrations/__pycache__
 django/curso-django/empresa/core/__pycache__
+django/curso-django/empresa/core/migrations/__pycache__
 django/curso-django/empresa/empresa/__pycache__
+django/curso-django/empresa/empresa/migrations/__pycache__
 django/curso-django/empresa/services/__pycache__
+django/curso-django/empresa/services/migrations/__pycache__
+django/curso-django/empresa/social/__pycache__
+django/curso-django/empresa/social/migrations/__pycache__
 # Personal
 django/curso-django/personal/core/__pycache__
 django/curso-django/personal/personal/__pycache__
