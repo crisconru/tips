@@ -20,8 +20,3 @@ def store(request):
 def contact(request):
     template = 'core/contact.html'
     return render(request, template)
-
-
-def sample(request):
-    template = 'core/sample.html'
-    return render(request, template)
