@@ -1,1 +1,8 @@
-site_name: My Docs
+site_name: Tips de Cristo
+
+theme:
+ #  name: mkdocs
+#  name: readthedocs
+#  name: rtd-dropdown
+#  name: material
+  name: windmill
