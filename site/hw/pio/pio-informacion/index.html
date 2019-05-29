@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Platformio - Tips de Cristo</title>
+    <link href="../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Platformio", url: "#_top", children: [
+              {title: "Instalaci\u00f3n", url: "#instalacion" },
+              {title: "Estructura proyecto", url: "#estructura-proyecto" },
+              {title: "platformio.ini", url: "#platformioini" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+
+    <h1 id="platformio">Platformio</h1>
+<p>Crear código para hardware embebido no es sumamente complicado. El problema mayor que hay es programar / cargar el programa en los chips:</p>
+<ul>
+<li>Necesitas ciertas configuraciones para cada chip.</li>
+<li>Unas herramientas que por lo general son de cada fabricante, cerradas, y que suelen dejar bastante que desear.</li>
+<li>Depende también de la placa que use el chip.</li>
+<li>Etc</li>
+</ul>
+<p><a href="https://platformio.org/">Platformio</a> es un ecosistema Open Source, multiplataforma, pensado para evitar todo esto. Con él podremos programar desde un Arduino, a un ARM, o alguna de las muchísimas placas que soporta. Lo único que necesita para funcionar es tener instalado Python 2 en el ordenador.</p>
+<p>Documentación Oficial de Platformio -&gt; <a href="https://docs.platformio.org/en/latest/what-is-platformio.html">aquí</a></p>
+<h2 id="instalacion">Instalación</h2>
+<p>Platformio tiene varias herramientas, pero para nosotros, las podemos dividir en dos:</p>
+<ul>
+<li>Platformio Core (CLI)</li>
+<li>Es el núcleo de todo.</li>
+<li>Con esto gestionamos y cargamos nuestro código en los chips.</li>
+<li>Tiene una herramienta de comandos (CLI) muy útil.</li>
+<li>Platformio IDE</li>
+<li>Es una extensión / plugin que se le pone a entornos gráficos para poder usar Platformio Core de manera más sencilla.</li>
+<li>El IDE "por defecto" donde usarlo es Visual Studio Code.</li>
+</ul>
+<p>Documentación oficial para su instalación -&gt; <a href="https://docs.platformio.org/en/latest/installation.html">aquí</a></p>
+<blockquote>
+<blockquote>
+<p>Nota:<br />
+Si usas Linux, debes instalar las <a href="https://docs.platformio.org/en/latest/faq.html#faq-udev-rules">99-platformio-udev.rules</a> para que vaya mejor la detección de placas.<br />
+A partir de ahora nos referiremos a Platformio también como PIO, para abreviar.</p>
+</blockquote>
+</blockquote>
+<p>Si solo vamos a usar PIO Core, desde Python 2.7 hacemos</p>
+<pre><code class="bash">pip install platformio
+</code></pre>
+
+<p>Si quisieramos el PIO Ide, buscamos la extensión <strong><em>Platformio IDE</em></strong> en las extensiones de VSCode e instalará tanto el IDE como el Core.</p>
+<h2 id="estructura-proyecto">Estructura proyecto</h2>
+<p>Cuando creamos un proyecto, podemos hacerlo por el IDE o con el CLI a través de</p>
+<pre><code class="bash">platformio init
+</code></pre>
+
+<p>Se puede usar <code>pio</code> en lugar de <code>platformio</code></p>
+<pre><code class="bash">pio init
+</code></pre>
+
+<p>Una vez tenemos el proyecto generado, tiene la siguiente estructura:</p>
+<ul>
+<li><strong>.pioenvs</strong> -&gt; Directorio que <strong>no se debe de tocar</strong> donde PIO guarda los <strong><em>build</em></strong>.</li>
+<li><strong>include</strong> -&gt; Directorio donde van los headers (<code>.h</code>, <code>.hpp</code>) del código (si los hubiera).</li>
+<li><strong>lib</strong> -&gt; Directorio donde van las librerías privadas del proyecto (si las hubiera).</li>
+<li><strong>src</strong> -&gt; Directorio donde va o van los source (<code>.c</code>, <code>.cpp</code>) del código.</li>
+<li><strong>.gitignore</strong> -&gt; Fichero .gitignore con la plantilla de PIO.</li>
+<li><strong>.travis.yml</strong> -&gt; Fichero para CI (Integración Continua), es para usuarios avanzados.</li>
+<li><strong>platformio.ini</strong> -&gt; Fichero INI donde va la configuración del proyecto.</li>
+</ul>
+<h3 id="ejemplo-blink">Ejemplo Blink</h3>
+<p>Si hicieramos el típico blink de Arduino, tendríamos que hacer en el IDE:</p>
+<ul>
+<li>Elegir nombre del proyecto</li>
+<li>Seleccionar la placa (Arduino UNO R3)</li>
+<li>Seleccionar el framework (Arduino)</li>
+</ul>
+<p>Desde el CLI haríamos</p>
+<pre><code class="bash">pio init --board uno
+</code></pre>
+
+<p>El fichero <code>platformio.ini</code> tiene</p>
+<pre><code class="ini">[env:uno]
+platform = atmelavr
+board = uno
+framework = arduino
+</code></pre>
+
+<p>Solo debemos crear un fichero <code>main.cpp</code> dntro de <code>src</code>, con el código</p>
+<pre><code class="cpp">#include &quot;Arduino.h&quot;
+
+// Set LED_BUILTIN if it is not defined by Arduino framework
+// #define LED_BUILTIN 13
+
+void setup()
+{
+  // initialize LED digital pin as an output.
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop()
+{
+  // turn the LED on (HIGH is the voltage level)
+  digitalWrite(LED_BUILTIN, HIGH);
+  // wait for a second
+  delay(1000);
+  // turn the LED off by making the voltage LOW
+  digitalWrite(LED_BUILTIN, LOW);
+   // wait for a second
+  delay(1000);
+}
+</code></pre>
+
+<p>Primero lo compilamos para ver si tiene algún error:</p>
+<ul>
+<li>IDE -&gt; Con el botón de <code>PlatformIO: Build</code></li>
+<li>CLI -&gt; Con el comando <code>pio run</code></li>
+</ul>
+<p>Conectamos la placa y le subimos el programa con:</p>
+<ul>
+<li>IDE -&gt; Con el botón <code>PlatformIO: Upload</code></li>
+<li>CLI -&gt; Con el comando <code>pio run -t upload</code></li>
+</ul>
+<h2 id="platformioini">platformio.ini</h2>
+
+  <br>
+    
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

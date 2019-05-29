@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Comandos docker - Tips de Cristo</title>
+    <link href="../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Comandos para trabajar con Docker", url: "#_top", children: [
+              {title: "docker search - Buscar im\u00e1genes", url: "#docker-search-buscar-imagenes" },
+              {title: "docker pull - Descargar im\u00e1genes", url: "#docker-pull-descargar-imagenes" },
+              {title: "docker images - Ver im\u00e1genes descargadas en el sistema", url: "#docker-images-ver-imagenes-descargadas-en-el-sistema" },
+              {title: "docker ps - Ver los contenedores ejecut\u00e1ndose / ejecutados", url: "#docker-ps-ver-los-contenedores-ejecutandose-ejecutados" },
+              {title: "docker run - Lanzar contenedores", url: "#docker-run-lanzar-contenedores" },
+              {title: "docker start / restart - Arrancar un contenedor parado", url: "#docker-start-restart-arrancar-un-contenedor-parado" },
+              {title: "docker attach - Entrar en un contenedor activo", url: "#docker-attach-entrar-en-un-contenedor-activo" },
+              {title: "docker exec - Ejecutar comandos en un contenedor activo", url: "#docker-exec-ejecutar-comandos-en-un-contenedor-activo" },
+              {title: "docker stop - Parar un contenedor", url: "#docker-stop-parar-un-contenedor" },
+              {title: "docker rm / rmi - Borrar contenedor / imagen", url: "#docker-rm-rmi-borrar-contenedor-imagen" },
+              {title: "docker history - Ver el historial de una imagen", url: "#docker-history-ver-el-historial-de-una-imagen" },
+              {title: "docker logs - Ver los logs (salidas) de un contenedor", url: "#docker-logs-ver-los-logs-salidas-de-un-contenedor" },
+              {title: "docker stats - Ver consumo de recursos de un contenedor", url: "#docker-stats-ver-consumo-de-recursos-de-un-contenedor" },
+              {title: "docker cp - Copiar ficheros a / desde un contenedor activo", url: "#docker-cp-copiar-ficheros-a-desde-un-contenedor-activo" },
+              {title: "docker inspect - Obtener informaci\u00f3n de bajo nivel de un contenedor", url: "#docker-inspect-obtener-informacion-de-bajo-nivel-de-un-contenedor" },
+              {title: "docker commit - Crear una imagen a partir de un contenedor (modificado)", url: "#docker-commit-crear-una-imagen-a-partir-de-un-contenedor-modificado" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../docker-dockerfile/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../docker-dockerfile/" class="btn btn-xs btn-link">
+        Dockerfile
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../docker-hub/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../docker-hub/" class="btn btn-xs btn-link">
+        Docker Hub
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="comandos-para-trabajar-con-docker">Comandos para trabajar con Docker</h1>
+<h2 id="docker-search-buscar-imagenes">docker search - Buscar imágenes</h2>
+<p>Una vez hecha la cuenta, podemos buscar imágenes tanto desde la web, como desde la terminal con el comando <code>docker search</code>. Por ejemplo si quiero buscar una imagen de Ubuntu por ejemplo haría  </p>
+<pre><code class="bash">docker search ubuntu
+</code></pre>
+
+<p>Y veremos la cantidad de imágenes disponibles de ubuntu que se han creado, oficiales o no, y cuantas estrellas / likes tienen. Si solo quisieramos ver por ejemplo las imagenes de ubuntu que sean de 14.04, haríamos</p>
+<pre><code class="bash">docker search ubuntu:14.04
+</code></pre>
+
+<h2 id="docker-pull-descargar-imagenes">docker pull - Descargar imágenes</h2>
+<p>Para poder descargar una imagen basta con poner <code>docker pull &lt;nombre-de-la-imagen&gt;</code>. Por ejemplo si queremos descargar la ubuntu oficial haríamos</p>
+<pre><code class="bash">docker pull ubuntu
+</code></pre>
+
+<p>Pero si por ejemplo nos interesa más la ubuntu de pivotaldata, es tan sencillo como</p>
+<pre><code class="bash">docker pull pivotaldata/ubuntu
+</code></pre>
+
+<h2 id="docker-images-ver-imagenes-descargadas-en-el-sistema">docker images - Ver imágenes descargadas en el sistema</h2>
+<p>Con este comando podemos ver todas las imagenes que se han descargado en el sistema. <strong>OJO</strong>, imagén es distinto de contenedor, podemos tener varios contenedores de la misma imagen.</p>
+<pre><code class="bash">docker images
+</code></pre>
+
+<p>Veremos como después de descargar la imagen, la ejecuta y obtenemos un mensaje por pantalla generado por el contenedor.</p>
+<h2 id="docker-ps-ver-los-contenedores-ejecutandose-ejecutados">docker ps - Ver los contenedores ejecutándose / ejecutados</h2>
+<p>Para poder ver los contenedores ejecutándose hacemos</p>
+<pre><code class="bash">docker ps
+</code></pre>
+
+<p>Si en cambio queremos ver los que se han ejecutado</p>
+<pre><code class="bash">docker ps -a
+</code></pre>
+
+<p>Más info con el comando <code>docker ps --help</code></p>
+<h2 id="docker-run-lanzar-contenedores">docker run - Lanzar contenedores</h2>
+<p>Para lanzar un contenedor basta con usar (tanto las opciones como los comandos son opcionales)</p>
+<pre><code class="bash">docker run [&lt;opciones&gt;] &lt;contenedor&gt; [&lt;comandos&gt;]
+</code></pre>
+
+<p>Más info -&gt; <code>docker run --help</code>.</p>
+<h3 id="hello-world">Hello World</h3>
+<p>Para hacer un <strong><em>Hola mundo</em></strong> en Docker, lo que se hace es ejecutar un contenedor de la imagen <strong>hello-world</strong>. Para ello podemos bajar la imagen con <code>docker pull hello-world</code> y luego ejecutarlo. O bien ejecutarlo directamente y ya docker se encarga de bajar la imagen si n está y ejecutarla. Para ello hacemos</p>
+<pre><code class="bash">docker run hello-world
+</code></pre>
+
+<h3 id="puertos">Puertos</h3>
+<p>Por defecto todos los contenedores tienen todos los puertos cerrados. En muchos casos tienen ciertos puertos para poder consumir un servicio y el propio contenedor te dice que puertos y que tráfico soportan. La gracia aquí está en que nosotros podemos asignarle cualquier puerto del Host a ese puerto del contenedor con la opción <code>-p &lt;puerto-host&gt;:&lt;puerto-contenedor&gt;</code>. En el ejemplo ejecuto un docker con un jenkins, y le asígno el puerto 80 de mi máquina (que es el que usan los navegadores) al puerto 8080 del contenedor (que es por donde se despacha el jenkins).</p>
+<pre><code class="bash">docker run -p 80:8080 jenkins
+</code></pre>
+
+<p>Esto es un buena solución en cuestiones de seguridad y de escalabilidad, ya que el contenedor tiene los puertos por defecto pero el host no.</p>
+<h3 id="lanzar-contenedor-con-comando">Lanzar contenedor con comando</h3>
+<p>Para ver por ejemplo el filesystem del contenedor ubuntu hacemos <code>docker run ubuntu ls</code>.  </p>
+<h3 id="contenedores-interactivos">Contenedores interactivos</h3>
+<p>Para que el contenedor ubuntu no se pare por ejemplo, podemos acceder con la opción <strong>interactive</strong> y con <strong>tty</strong></p>
+<pre><code class="bash">docker run -i -t ubuntu bash
+</code></pre>
+
+<p>Ahora estamos dentro del container y podemos ejecutar comandos o lo que queramos.</p>
+<h3 id="asignarle-un-nombre-al-contenedor">Asignarle un nombre al contenedor</h3>
+<p>Para asignarle un nombre al contenedor para ser usado de manera más cómoda, hay que usar la opción <code>--name</code>. Este nombre se podrá usar en sustitución del <strong>id</strong> del contenedor en muchos comandos, haciendo así más fácil su uso.</p>
+<pre><code class="bash">docker run --name perico -it ubuntu
+</code></pre>
+
+<p>Si queremos renombrar un contenedor debemos usar el comando <code>docker rename</code>.</p>
+<pre><code class="bash">docker rename &lt;nombre-actual-del-contenedor&gt; &lt;nuevo-nombre-del-contenedor&gt;
+</code></pre>
+
+<h3 id="salir-del-contenedor">Salir del contenedor</h3>
+<ul>
+<li>Salir del contenedor y apagarlo / matarlo:</li>
+<li>Para salir del contenedor podemos ejecutar el comando <code>exit</code></li>
+<li>Usar la combinación <strong><em>Ctrl+D</em></strong>.</li>
+<li>Salir del contenedor pero mantenerlo activo:</li>
+<li>Mantener todo el rato la tecla <strong><em>Ctrl</em></strong></li>
+<li>Luego pulsar <strong><em>P</em></strong></li>
+<li>Después <strong><em>Q</em></strong></li>
+<li>Es decir -&gt; <strong><em>Ctrl+P</em></strong>, <strong><em>D</em></strong></li>
+</ul>
+<h3 id="limitar-recursos">Limitar recursos</h3>
+<p>Ejemplo, limitar memoria a 500MB y solo usar hasta 2 cores</p>
+<pre><code class="bash">docker run -m &quot;500mb&quot; --cpu-set-cpus 0-1 &lt;imagen&gt;
+</code></pre>
+
+<h2 id="docker-start-restart-arrancar-un-contenedor-parado">docker start / restart - Arrancar un contenedor parado</h2>
+<p>Con <code>docker ps -a</code> podemos ver los contenedores que ya no están activos (<code>STATUS = Exited</code>). Si queremos volver a la lanzar uno, debemos de copiar su id (podemos usar el <strong>name</strong> del contenedor en lugar de su id) y ejecutar</p>
+<pre><code class="bash">docker start &lt;id-contenedor&gt;
+</code></pre>
+
+<p>También existe el comando <code>docker restart</code></p>
+<h2 id="docker-attach-entrar-en-un-contenedor-activo">docker attach - Entrar en un contenedor activo</h2>
+<p>Para poder entrar dentro de un contenedor que se está ejecutando debemos de tener su id y ejecutar</p>
+<pre><code class="bash">docker attach &lt;id-contenedor&gt;
+</code></pre>
+
+<p>También podemos usar el <strong>name</strong> del contenedor en lugar de su id.</p>
+<h2 id="docker-exec-ejecutar-comandos-en-un-contenedor-activo">docker exec - Ejecutar comandos en un contenedor activo</h2>
+<p>Si queremos que dentro de un contenedor que ya se encuentra activo se ejecute algún comando se usa</p>
+<pre><code class="bash">docker exec [&lt;opciones&gt;] &lt;id-o-name-contenedor&gt; &lt;comando&gt; [&lt;argumentos&gt;]
+</code></pre>
+
+<h2 id="docker-stop-parar-un-contenedor">docker stop - Parar un contenedor</h2>
+<p>Para acabar con la ejecución de un contenedor usamos el comando</p>
+<pre><code class="bash">docker stop &lt;id-o-nombre-del-contenedor&gt;
+</code></pre>
+
+<h2 id="docker-rm-rmi-borrar-contenedor-imagen">docker rm / rmi - Borrar contenedor / imagen</h2>
+<p>Para borrar imagen</p>
+<pre><code class="bash">docker rmi &lt;imagen&gt;
+</code></pre>
+
+<p>Para borrar contenedor hacemos</p>
+<pre><code class="bash">docker rm &lt;id-o-name-del-contenedor&gt;
+</code></pre>
+
+<p>Si quisieramos que un contenedor se borrase una vez se dejara de ejecutar</p>
+<pre><code class="bash">docker run --rm &lt;imagen&gt;
+</code></pre>
+
+<p>Más info -&gt; <code>docker rm --help</code> | <code>docker rmi --help</code></p>
+<h2 id="docker-history-ver-el-historial-de-una-imagen">docker history - Ver el historial de una imagen</h2>
+<p>Para poder ver todos los pasos que ha llevado a cabo hacer una imagen se usa</p>
+<pre><code class="bash">docker history &lt;id-o-name-de-la-imagen&gt;
+</code></pre>
+
+<p>Se recomienda usar la opción <code>-H</code> para poder leerlo mejor</p>
+<pre><code class="bash">docker history -H &lt;imagen&gt;
+</code></pre>
+
+<p>Más info -&gt; <code>docker history --help</code></p>
+<h2 id="docker-logs-ver-los-logs-salidas-de-un-contenedor">docker logs - Ver los logs (salidas) de un contenedor</h2>
+<pre><code class="bash">docker logs [&lt;opciones&gt;] &lt;contenedor&gt;
+</code></pre>
+
+<h2 id="docker-stats-ver-consumo-de-recursos-de-un-contenedor">docker stats - Ver consumo de recursos de un contenedor</h2>
+<pre><code class="bash">docker stats [&lt;opciones&gt;] &lt;contenedor1&gt; &lt;contenedor2&gt; ...
+</code></pre>
+
+<h2 id="docker-cp-copiar-ficheros-a-desde-un-contenedor-activo">docker cp - Copiar ficheros a / desde un contenedor activo</h2>
+<pre><code class="bash">docker cp [&lt;options&gt;] &lt;src-path&gt; &lt;contenedor&gt;:&lt;dest-path&gt;
+docker cp [&lt;options&gt;] &lt;contenedor&gt;:&lt;src-path&gt; &lt;dest-path&gt;
+</code></pre>
+
+<h2 id="docker-inspect-obtener-informacion-de-bajo-nivel-de-un-contenedor">docker inspect - Obtener información de bajo nivel de un contenedor</h2>
+<pre><code class="bash">docker inspect [&lt;opciones&gt;] &lt;contenedor&gt; [&lt;contenedor2&gt; &lt;contenedor3&gt; ...]
+</code></pre>
+
+<h2 id="docker-commit-crear-una-imagen-a-partir-de-un-contenedor-modificado">docker commit - Crear una imagen a partir de un contenedor (modificado)</h2>
+<p>Supongamos que hemos abierto un contenedor, hemos modificado cosas y lo tenemos listo para trabajar. Si queremos crear una imagen así para poder usarla, lo que haríamos sería</p>
+<pre><code class="bash">docker commit &lt;contenedor-modificado&gt; &lt;nombre-imagen-nueva&gt;
+</code></pre>
+
+<p>Podemos además ejecutar comandos previos al commit para crear la nueva imagen. Por ejemplo, supongamos una imagen de ubuntu que le hemos instalado el servidor Apache2 y hemos lanzado el servicio. Con</p>
+<pre><code class="bash">docker commit --change='CMD [&quot;apache2ctl&quot;, &quot;-D FOREGROUND&quot;]' -c &quot;EXPOSE 85&quot; &lt;contenedor&gt; &lt;nombre-de-la-nueva-imagen&gt;
+</code></pre>
+
+<p>exponemos el puerto 85 del contenedor y tenemos el apache2 en primer plano.</p>
+<p>Más info -&gt; <code>docker commit --help</code></p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../docker-dockerfile/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../docker-dockerfile/" class="btn btn-xs btn-link">
+        Dockerfile
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../docker-hub/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../docker-hub/" class="btn btn-xs btn-link">
+        Docker Hub
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

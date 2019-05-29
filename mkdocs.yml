@@ -1,8 +1,62 @@
 site_name: Tips de Cristo
 
+nav:
+  - Contenido: 'index.md'
+  - Code:
+    - Devops:
+      - Ansible: 'code/devops/ansible/ansible.md'
+      - Docker:
+        - Aclaraciones: 'code/devops/docker/docker-aclaraciones.md'
+        - Instalación: 'code/devops/docker/docker-instalacion.md'
+        - Docker Hub: 'code/devops/docker/docker-hub.md'
+        - Comandos docker: 'code/devops/docker/docker-comandos.md'
+        - Dockerfile: 'code/devops/docker/docker-dockerfile.md'
+        - Volumes: 'code/devops/docker/docker-volumes.md'
+        - Network: 'code/devops/docker/docker-network.md'
+        - Docker Compose: 'code/devops/docker/docker-dockercompose.md'
+  - IDEs:
+    - Visual Studio code:
+      - Índice: 'code/ides/vscode/vscode.md'
+  - Python:
+    - Entornos virtuales:
+      - Introducción: 'code/python/venv/venv-introduccion.md'
+      - virtualenv: 'code/python/venv/venv-virtualenv.md'
+      - virtualenvwrapper: 'code/python/venv/venv-virtualenvwrapper.md'
+      - pipenv: 'code/python/venv/venv-pipenv.md'
+      - pyenv: 'code/python/venv/venv-pyenv.md'
+    - PYTHONPATH: 'code/python/python-pythonpath.md'
+  - Web:
+    - Frontend:
+      - HTML:
+        - Indice: 'code/web/frontend/html/html-indice.md'
+      - CSS:
+        - Plugins: 'code/web/frontend/css/css-plugins.md'
+      - JS:
+        - Indice: 'code/web/frontend/js/js-indice.md'
+    - Backend:
+      - Django:
+        - Django: 'code/web/backend/django/django.md'
+        - Principiante: 'code/web/backend/django/django-principiante.md'
+        - Intermedio: 'code/web/backend/django/django-intermedio.md'
+  - Software:
+    - Linux:
+      - Fecha y Hora: 'code/sw/linux/linux-fecha-hora.md'
+      - Ficheros: 'code/sw/linux/linux-ficheros.md'
+    - Redes:
+      - Linux: 'code/sw/redes/redes-linux.md'
+      - SSH: 'code/sw/redes/redes-ssh.md'
+      - iptables: 'code/sw/redes/redes-iptables.md'
+      - IPv6: 'code/sw/redes/redes-ipv6.md'
+    - Terminal:
+      - ZSH: 'code/sw/terminal/terminal-zsh.md'
+  - Hardware:
+    - Micropython:
+      - Informacion: 'code/hw/upython/upython-informacion.md'
+    - Platformio:
+      - Informacion: 'code/hw/pio/pio-informacion.md'
 theme:
- #  name: mkdocs
-#  name: readthedocs
-#  name: rtd-dropdown
-#  name: material
+  #name: mkdocs
+  #name: readthedocs
+  #name: rtd-dropdown
+  #name: material
   name: windmill

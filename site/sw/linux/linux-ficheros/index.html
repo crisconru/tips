@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Encontrar un fichero - Tips de Cristo</title>
+    <link href="../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Encontrar un fichero", url: "#_top", children: [
+              {title: "Referencias", url: "#referencias" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+
+    <h1 id="encontrar-un-fichero">Encontrar un fichero</h1>
+<p>Supongamos que quiero encontrar el fichero <strong>config.ini</strong> y por ejemplo queremos buscarlo en el directorio <strong>home</strong> (~/). Desde la terminal pondría  </p>
+<pre><code class="bash">find ~/ -type f -name &quot;config.ini&quot;
+</code></pre>
+
+<p>La versión Python de esto se explica aquí -&gt; <a href="https://stackoverflow.com/questions/1724693/find-a-file-in-python">Python version</a><br />
+Aquí por ejemplo buscamos todos los ficheros <strong>.txt</strong> en el directorio <strong>home</strong></p>
+<pre><code class="python">import os, fnmatch
+
+def find(pattern, path):
+    result = []
+    for root, dirs, files in os.walk(path):
+        for name in files:
+            if fnmatch.fnmatch(name, pattern):
+                result.append(os.path.join(root, name))
+    return result
+
+find('*.txt', '/home')
+</code></pre>
+
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li><a href="https://askubuntu.com/questions/144698/find-a-file-by-name-using-command-line">Link de ayuda</a> </li>
+</ul>
+
+  <br>
+    
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

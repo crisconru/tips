@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>SSH - Tips de Cristo</title>
+    <link href="../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "SSH", url: "#_top", children: [
+              {title: "Instalaci\u00f3n y configuraci\u00f3n", url: "#instalacion-y-configuracion" },
+              {title: "Acceso con usuario-contrase\u00f1a", url: "#acceso-con-usuario-contrasena" },
+              {title: "Acceso con par clave p\u00fablico-privada sin passphrase", url: "#acceso-con-par-clave-publico-privada-sin-passphrase" },
+              {title: "Acceso con par p\u00fablico-privada con passphrase", url: "#acceso-con-par-publico-privada-con-passphrase" },
+              {title: "authorized_keys -&gt; Gestionar accesos a mi equipo", url: "#authorized_keys-gestionar-accesos-a-mi-equipo" },
+              {title: "known_hosts -&gt; Gestionar equipos a los que accedo", url: "#known_hosts-gestionar-equipos-a-los-que-accedo" },
+              {title: "Forwarding", url: "#forwarding" },
+              {title: "Transferir ficheros por SSH", url: "#transferir-ficheros-por-ssh" },
+              {title: "T\u00faneles SSH", url: "#tuneles-ssh" },
+              {title: "Conexi\u00f3n a Github con par clave p\u00fablico-privada", url: "#conexion-a-github-con-par-clave-publico-privada" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+
+    <h1 id="ssh">SSH</h1>
+<h2 id="instalacion-y-configuracion">Instalación y configuración</h2>
+<h3 id="servidor">Servidor</h3>
+<p>Instalación</p>
+<pre><code class="bash">sudo apt install openssh-server
+</code></pre>
+
+<p>Esto genera 4 pares de ficheros de clave pública-privada en el servidor con 4 algoritmos de cifrado:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Algoritmo</th>
+<th align="center">Fichero Clave Privada</th>
+<th align="center">Fichero Clave Pública</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">DSA</td>
+<td align="center">ssh_host_dsa_key</td>
+<td align="center">ssh_host_dsa_key.pub</td>
+</tr>
+<tr>
+<td align="center">ECDSA</td>
+<td align="center">ssh_host_ecdsa_key</td>
+<td align="center">ssh_host_ecdsa_key.pub</td>
+</tr>
+<tr>
+<td align="center">ED25519</td>
+<td align="center">ssh_host_ed25519_key</td>
+<td align="center">ssh_host_ed25519_key.pub</td>
+</tr>
+<tr>
+<td align="center">RSA</td>
+<td align="center">ssh_host_rsa_key</td>
+<td align="center">ssh_host_rsa_key.pub</td>
+</tr>
+</tbody>
+</table>
+<p>Configuración en <code>/etc/ssh/sshd_config</code>.</p>
+<p>Una buena práctica es configurar que el acceso por <strong>root</strong> solo se haga a través de clave pública con</p>
+<pre><code class="bash">PermitRootLogin without-password
+</code></pre>
+
+<h3 id="cliente">Cliente</h3>
+<p>Instalación</p>
+<pre><code class="bash">sudo apt install openssh-client
+</code></pre>
+
+<p>Configuración en <code>/etc/ssh/ssh_config</code>  </p>
+<h2 id="acceso-con-usuario-contrasena">Acceso con usuario-contraseña</h2>
+<p>Lo típico para iniciar sesión en SSH es usar las credenciales del usuario y contraseña</p>
+<pre><code class="bash">ssh &lt;usuario&gt;@&lt;ip&gt;
+</code></pre>
+
+<p>O también se puede usar  </p>
+<pre><code class="bash">ssh -l &lt;usuarios&gt; &lt;ip&gt;
+</code></pre>
+
+<p>Luego nos pedirá la contraseña, y la primera vez nos pedirá aceptar la conexión.</p>
+<h3 id="ejecutar-comandos-sin-abrir-una-terminal-remota">Ejecutar comandos sin abrir una terminal remota</h3>
+<p>También se pueden ejecutar comandos o scripts sin abrir una consola remota</p>
+<pre><code class="bash">ssh &lt;user&gt;@&lt;ip&gt; &lt;comando&gt;
+ssh &lt;user&gt;@&lt;ip&gt; '&lt;script&gt;'
+</code></pre>
+
+<h2 id="acceso-con-par-clave-publico-privada-sin-passphrase">Acceso con par clave público-privada sin passphrase</h2>
+<p>Lo lógico en SSH es usar el par claves público-privada para acceder por SSH, y no tener que estar poniendo usuario-contraseña cada vez que queremos acceder (a parte de que es menos inseguro).</p>
+<ol>
+<li>
+<p>Crear par de clave privada-pública (en el equipo local):</p>
+<ul>
+<li>Para crear el par de claves usamos el comando</li>
+</ul>
+<p><code>bash
+  ssh-keygen -t &lt;algoritmo&gt;</code></p>
+<ul>
+<li><code>&lt;algortimo&gt;</code> -&gt; <code>dsa</code> | <code>ed25519</code> | <code>rsa</code> | <code>rsa1</code></li>
+<li>Saldrá un diálogo y nos pedirá el nombre para el fichero.</li>
+<li>También nos pedirá un <code>passphrase</code> (frase de paso), que es opcional, lo dejamos en blanco.</li>
+<li>Esto lo vemos en la siguiente sección.</li>
+<li>Esto generará dos ficheros, por ejemplo si usamos rsa y el nombre por defecto, tendremos:</li>
+<li>En <strong>~/.ssh/</strong> los ficheros de claves.</li>
+<li><strong>id_rsa</strong> clave privada.</li>
+<li><strong>id_rsa.pub</strong> clave pública.</li>
+</ul>
+</li>
+<li>
+<p>Copiar clave pública (en el equipo remoto):</p>
+<ul>
+<li>Para poder acceder con este método, hay que "publicar" la clave pública en el equipo remoto.</li>
+<li>Esto consiste en meter la clave pública en el fichero <strong>~/.ssh/authorized_keys</strong> del equipo remoto.</li>
+<li>Hay varios métodos pero el más sencillo es con el comando</li>
+</ul>
+<p><code>bash
+  ssh-copy-id -i &lt;ruta al fichero de clave privada&gt; &lt;usuario&gt;@&lt;ip&gt;</code></p>
+<ul>
+<li>Por ejemplo, si queremos copiar nuestra rsa clave que está en <strong>~/.ssh/</strong> en el equipo con usuario <strong>pepe</strong> con la ip <strong>192.168.1.13</strong> haremos  </li>
+</ul>
+<p><code>bash
+  ssh-copy-id -i ~/.ssh/id_rsa pepe@192.168.1.13</code></p>
+</li>
+</ol>
+<p>Ahora para acceder no nos pedirá contraseña.<br />
+Ventajas:</p>
+<ul>
+<li>Es más seguro</li>
+<li>Si se cambia el password del usuario, nosotros no necesitaremos saberlo (no nos afecta).</li>
+</ul>
+<h2 id="acceso-con-par-publico-privada-con-passphrase">Acceso con par público-privada con passphrase</h2>
+<p>El passphrase es un second factor authentication. Si añadimos una passphrase a nuestro par de claves, al acceder por ssh nos la pedirá, como cuando accedemos por usuario y la contraseña.</p>
+<p>Ventajas:</p>
+<ul>
+<li>Es más seguro.</li>
+<li>Si alguien nos roba la clave privada, no podrá usarla si no sabe la passphrase.</li>
+</ul>
+<p>Para que sea más cómodo esto, usamos el programa <strong>ssh-agent</strong>, y así solo tendremos que poner el passphrase la primera vez y ya está.</p>
+<h3 id="ssh-agent">ssh-agent</h3>
+<p>El programa / servicio <code>ssh-agent</code> nos permite no tener que estar introduciendo la passphrase cada vez que nos conectemos. Lo ponemos una vez y listo. Los pasos para que todo esto funcionen son:</p>
+<ol>
+<li>
+<p>Comprobamos que esté ejecutando ssh-agent</p>
+<p><code>bash
+ps aux | grep ssh-agent</code></p>
+<ul>
+<li>Si no se está ejecutando lo activamos con</li>
+</ul>
+<p><code>bash
+  ssh-agent /bin/bash</code></p>
+</li>
+<li>
+<p>Una vez se está ejecutando, se añade la clave privada</p>
+<p><code>bash
+ssh-add &lt;ruta fichero clave privada&gt;</code></p>
+<ul>
+<li>Por ejemplo</li>
+</ul>
+<p><code>bash
+  ssh-add ~/.ssh/id_rsa</code></p>
+</li>
+<li>
+<p>Utilidades de <strong>ssh-agent</strong>:</p>
+<ul>
+<li>Ver las claves cargadas</li>
+</ul>
+<p><code>bash
+  ssh-add -L</code></p>
+<ul>
+<li>Ver sus huellas</li>
+</ul>
+<p><code>bash
+  ssh-add -l</code></p>
+<ul>
+<li>Para eliminar una clave</li>
+</ul>
+<p><code>bash
+  ssh-add -d &lt;fichero-clave-privada&gt;</code></p>
+<ul>
+<li>Eliminar todas las claves</li>
+</ul>
+<p><code>bash
+  ssh-add -D</code></p>
+</li>
+<li>
+<p>Crear clave pública (si no existe) desde la clave privada</p>
+<ul>
+<li>Supongamos que por lo que sea solo tenemos una clave privada y queremos generar la pública</li>
+</ul>
+<p><code>bash
+  ssh-keygen -y -f &lt;fichero clave privada&gt; &gt;&gt; &lt;fichero clave pública&gt;</code></p>
+<pre><code>* Por ejemplo
+
+  ```bash
+  ssh-keygen -y -f id_rsa &gt;&gt; id_rsa.pub
+  ```
+</code></pre>
+<ul>
+<li>El proceso inverso, sacar la privada de la pública, no es posible.</li>
+</ul>
+</li>
+</ol>
+<h2 id="authorized_keys-gestionar-accesos-a-mi-equipo">authorized_keys -&gt; Gestionar accesos a mi equipo</h2>
+<p>El servidor SSH guarda las claves públicas autorizadas para que puedan en el fichero <code>~/.ssh/authorized_keys</code>. Si quisiera que una clave pública no se pudiera usar para acceder en mi servidor, la borro de ese fichero.</p>
+<p>El formato que tiene cada línea es</p>
+<pre><code class="bash">&lt;tipo-clave&gt; &lt;clave-pública-cliente&gt; &lt;comentario&gt;
+</code></pre>
+
+<p>El <code>&lt;tipo-clave&gt;</code> me dice el algoritmo con el que se ha creado.<br />
+La <code>&lt;clave-publica-cliente&gt;</code> es la clave del cliente que se va a conectar a mi equipo.<br />
+El <code>&lt;comentario&gt;</code> suele ser el <code>&lt;usuario&gt;@&lt;equipo&gt;</code>.</p>
+<h2 id="known_hosts-gestionar-equipos-a-los-que-accedo">known_hosts -&gt; Gestionar equipos a los que accedo</h2>
+<p>El cliente tiene un control de todos los servidores SSH a los que se conecta. Esto lo hace guardando las claves públicas de los servidores en el fichero <code>~/.ssh/known_hosts</code>.</p>
+<p>Tiene 3 campos</p>
+<pre><code class="bash">&lt;hash-ip-equipo-remoto&gt; &lt;tipo-clave&gt; &lt;clave-publica-servidor&gt;
+</code></pre>
+
+<h3 id="problemas-con-acceso-a-la-misma-ip-pero-distintos-hosts">Problemas con acceso a la misma ip pero distintos hosts</h3>
+<p>Supongamos que yo tenía un pc al que accedía con la ip <code>192.168.1.120</code>. Por lo que sea, he formateado y trato de volver a acceder a esa máquina formateada. Lo más seguro es que me salga un mensaje de error diciendome que el <strong>remote host</strong> ha cambiado (del que yo tenía guardado), y puedo sufrir un ataque <strong>man-in-the-middle</strong>. Si estamos completamente seguros que no hay nadie en medio, y accedo directamente a mi máquina, l que debemos hacer es borrar el <code>known_hosts</code> el anterior equipo. Tranquilos, que el propio comando te lo dan en el mensaje de ayuda, solo hay que hacer copia-pega. El comando es así:</p>
+<pre><code class="bash">ssh-keygen [-f &quot;&lt;path-to-known_hosts&gt;&quot;] -R &lt;ip&gt;
+</code></pre>
+
+<p>En nuestro caso sería <code>ssh-keygen -f "~/.ssh/known_hosts" -R 192.168.1.120</code>. La parte de <code>-f "~/.ssh/known_hosts"</code> es opcional, podríamos hacer <code>ssh-keygen -R 192.168.1.120</code> y sería totalmente válido.</p>
+<h2 id="forwarding">Forwarding</h2>
+<p>Esta técnica permite reenviar "algo", desde un equipo al otro, pasando por otro.</p>
+<h3 id="agent-forwarding">Agent Forwarding</h3>
+<p>Imaginemos que existen 3 máquinas, A, B, C, y tenemos el siguiente problema:</p>
+<ul>
+<li>A &lt;-&gt; B = A y B se pueden comunicar por SSH.</li>
+<li>B &lt;-&gt; C = B y C se pueden comunicar por SSH.</li>
+<li>A </> C = A y C no se pueden comunicar por SSH.</li>
+</ul>
+<p>Agent forwarding nos permite que A &lt;-&gt; C a través de B, es decir A &lt;-B-&gt; C.</p>
+<p>Esto es posible haciendo:</p>
+<ol>
+<li>
+<p>Activando en el servidor de B <code>/etc/ssh/sshd_config</code> la opción</p>
+<p><code>bash
+AllowAgentForwarding yes</code></p>
+</li>
+<li>
+<p>Activando en el agente / cliente de B <code>/etc/ssh/ssh_config</code> la opción</p>
+<p><code>bash
+ForwardAgent yes</code></p>
+</li>
+</ol>
+<p>Así ahora, para hacer A &lt;-&gt; C, lo que haría es:</p>
+<ol>
+<li>Accedo desde A por SSH a B = A -&gt; B.</li>
+<li>Accedo desde B por SSH a C = B -&gt; C.</li>
+</ol>
+<p>Y ahora en la shell veré que estoy en C. Parece obvio, pero si estas opciones no están activadas, no se podría hacer.</p>
+<p>La idea al final de todo esto, es que si tengo muchas máquinas C's: C1, C2, C3, etc. Es recomendable que no estén expuestas al exterior. Lo mejor es tener un "bastión", es decir, una máquina B, que está autenticada con claves publico-privada + passphrase con cada Cx, y yo desde A solo tengo acceso a B.</p>
+<h3 id="x11-forwarding">X11 Forwarding</h3>
+<p>Si accedo por SSH de una máquina A a otra B, A -&gt; B, y ejecuto una aplicación gráfica (X11), no la veo en mi equipo A, solo se ve en el equipo B. La forma de poder ver en A una app X11 ejecutada en B es con la técnica X11 forwarding. Para poder aplicar esta técnica tengo que:</p>
+<ul>
+<li>
+<p>Habilitar en el servidor de B <code>/etc/ssh/sshd_config</code> las opciones</p>
+<p><code>bash
+X11Forwarding yes
+X11DisplayOffset 10</code></p>
+</li>
+</ul>
+<p>Si lo que quiero es ejecutar una aplicación gráfica de C en mi máquina A, debo de:</p>
+<ul>
+<li>
+<p>Habilitar en el cliente/agente de B <code>/etc/ssh/ssh_config</code> la opción</p>
+<p><code>bash
+FordwardX11 yes</code></p>
+</li>
+</ul>
+<p>Al ejecutar una app X11 remota, aunque la vea en mi equipo local, los recursos que consume son de la máquina remota.</p>
+<h2 id="transferir-ficheros-por-ssh">Transferir ficheros por SSH</h2>
+<p>SSH no solo permite iniciar sesiones o ejecutar comandos en remoto. También permite la transferencia de ficheros a través de dos protocolos, SCP y SFTP.</p>
+<h3 id="scp">SCP</h3>
+<p>SCP es un protocolo que se puede usar con SSH para poder compartir ficheros. Su sintaxis es similar a la <code>cp</code>, pero "generalizada"</p>
+<pre><code class="bash">scp [[&lt;usuario-origen&gt;@]&lt;host-origen&gt;:]&lt;fichero-origen&gt; [[&lt;usuario-destino&gt;@]&lt;host-destino&gt;:]&lt;fichero-destino&gt;
+scp -r [[&lt;usuario-origen&gt;@]&lt;host-origen&gt;:]&lt;directorio-origen&gt; [[&lt;usuario-destino&gt;@]&lt;host-destino&gt;:]&lt;directorio-destino&gt;
+</code></pre>
+
+<p>Visto así es muy lioso, vamos a verlo con ejemplos.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Máquina</th>
+<th align="center">Usuario</th>
+<th align="center">Host</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">A</td>
+<td align="center">usera</td>
+<td align="center">192.168.1.120</td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td align="center">userb</td>
+<td align="center">192.168.1.121</td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td align="center">userc</td>
+<td align="center">192.168.1.122</td>
+</tr>
+</tbody>
+</table>
+<p>En todos los ejemplos voy a suponer que estoy en la máquina A:</p>
+<ul>
+<li>Pasar fichero <code>mifichero.txt</code> en el <code>$HOME</code> origen, a la carpeta <code>micarpeta</code> del <code>$HOME</code> destino</li>
+<li>
+<p>A -&gt; B (de local a remoto)</p>
+<p><code>bash
+  scp $HOME/mifichero.txt userb@192.168.1.121:$HOME/micarpeta/</code></p>
+</li>
+<li>
+<p>B -&gt; A (de remoto a local)</p>
+<p><code>bash
+  scp userb@192.168.121:$HOME/fichero.txt $HOME/micarpeta/</code></p>
+</li>
+<li>
+<p>B -&gt; C (de remoto a remoto)</p>
+<p><code>bash
+scp userb@192.168.1.121:$HOME/fichero.txt userc@192.168.1.122:$HOME/micarpeta/</code></p>
+</li>
+<li>
+<p>Pasar la carpeta <code>micarpeta</code> del <code>$HOME</code> origen al <code>$HOME</code> destino</p>
+</li>
+<li>
+<p>A -&gt; B (de local a remoto)</p>
+<p><code>bash
+scp -r $HOME/micarpeta userb@192.168.1.121:$HOME/</code></p>
+</li>
+<li>
+<p>B -&gt; A (de remoto a local)</p>
+<p><code>bash
+scp -r userb@192.168.1.121:$HOME/micarpeta $HOME/</code></p>
+</li>
+<li>
+<p>B -&gt; C (de remoto a remoto)</p>
+<p><code>bash
+scp -r userb@192.168.1.121:$HOME/micarpeta userc@192.168.1.122:$HOME/</code></p>
+</li>
+</ul>
+<h3 id="sftp">SFTP</h3>
+<p>SFTP es SSH FTP, es decir, una comunicación FTP sobre SSH. No confundir con FTPS, que es una variación de FTP securizada. Para usarla hacemos</p>
+<pre><code class="bash">sftp &lt;usuario&gt;@&lt;host&gt;
+</code></pre>
+
+<p>Se nos abrirá una shell que podemos usar como si fuera una shell FTP. También podemos abrir una conexión SFTP desde cualquier programa FTP cliente como Filezilla</p>
+<h2 id="tuneles-ssh">Túneles SSH</h2>
+<p>Esto se conoce como Port Fordwarding o TCP Fordwarding. Supongamos que tenemos:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Maquina</th>
+<th align="center">Usuario</th>
+<th align="center">Host</th>
+<th align="center">Puerto</th>
+<th align="center">SSH</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">A</td>
+<td align="center">usera</td>
+<td align="center">hosta</td>
+<td align="center">porta</td>
+<td align="center">A&lt;-&gt;B</td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td align="center">userb</td>
+<td align="center">hostb</td>
+<td align="center">portb</td>
+<td align="center">B&lt;-&gt;A, B&lt;-&gt;C</td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td align="center">userc</td>
+<td align="center">hostc</td>
+<td align="center">portc</td>
+<td align="center">C&lt;-&gt;B</td>
+</tr>
+</tbody>
+</table>
+<p>Con este escenario, tenemos 3 tipos de túneles:</p>
+<ul>
+<li>Local Fordwarding (-L): Traer un puerto (servicio) remoto (de A ó C) a uno local (de C ó A) por B.</li>
+<li>Remote Fordwarding (-R): Enviar un puerto (servicio) local (de A ó C) a uno remoto (de C ó A) por B.</li>
+<li>Dynamic Fordwarding (-D): ni idea</li>
+</ul>
+<p>Básicamente consiste en traer / enviar un puerto local / remoto desde una máquina a otra, pasando por una máquina intermedia.</p>
+<h3 id="local-fordwarding">Local Fordwarding</h3>
+<p>Local Fordwarding consiste en traer un puerto remoto (de otra máquina) a un puerto de mi máquina local. Es decir, es como si desde mi puerto local estuviera en el puerto remoto de la otra máquina.</p>
+<p>Comando y variantes:</p>
+<pre><code class="bash">ssh -f -N -L [&lt;bind-address&gt;:]&lt;port&gt;:&lt;host&gt;:&lt;host-port&gt; [&lt;user&gt;@&lt;host&gt;]
+ssh -f -N -L [&lt;bind-address&gt;:]&lt;port&gt;:&lt;remote-socket&gt; [&lt;user&gt;@&lt;host&gt;]
+ssh -f -N -L &lt;local-socket&gt;:&lt;host&gt;:&lt;host-port&gt; [&lt;user&gt;@&lt;host&gt;]
+ssh -f -N -L &lt;local-socket&gt;:&lt;remote-socket&gt; [&lt;user&gt;@&lt;host&gt;]
+</code></pre>
+
+<p>Supongamos que A con acceso libre a Internet, y C con acceso restringido Internet (no puede acceder a ciertos servicios / web). Así que nos interesaría:</p>
+<ul>
+<li>
+<p>Desde C, traer hosta:porta a hostc:portc, por B</p>
+<p><code>bash
+ssh -f -NL portc:hosta:porta userb@hostb</code></p>
+</li>
+</ul>
+<p>Ahora supongamos que C tiene un servicio NGINX en su puerto 80, y lo queremos poder consumir:</p>
+<ul>
+<li>
+<p>Desde A, traer el puerto 80 de C al puerto 1080 de A, por B</p>
+<p><code>bash
+ssh -f -NL 1080:hostc:80 userb@hostb</code></p>
+</li>
+<li>
+<p>También podríamos hacer:</p>
+</li>
+<li>
+<p>Desde B, traer el pierto de C al puerto 1080 de B</p>
+<p><code>bash
+  ssh -f -NL</code></p>
+</li>
+<li>
+<p>Desde A, consumir ese NGINX accediendo en el navegador a <code>hostb:1080</code></p>
+</li>
+</ul>
+<h3 id="remote-forwarding">Remote Forwarding</h3>
+<p>Remote Fordwarding consiste en enviar un puerto local (de mi máquina) a un puerto de una máquina remota. Es decir, es como si desde un puerto de una máquina remota estuviera en el puerto de mi máquina local.</p>
+<p>Comando y sus variantes:</p>
+<pre><code class="bash">ssh -f -N -R [&lt;bind-address&gt;:]&lt;port&gt;:&lt;host&gt;:&lt;host-port&gt; [&lt;user&gt;@&lt;host&gt;]
+ssh -f -N -R [&lt;bind-address&gt;:]&lt;port&gt;:&lt;local-socket&gt; [&lt;user&gt;@&lt;host&gt;]
+ssh -f -N -R &lt;remote-socket&gt;:&lt;host&gt;:&lt;host-port&gt; [&lt;user&gt;@&lt;host&gt;]
+ssh -f -N -R &lt;remote-socket&gt;:&lt;local-socket&gt; [&lt;user&gt;@&lt;host&gt;]
+ssh -f -N -R [&lt;bind-address&gt;:]&lt;port&gt; [&lt;user&gt;@&lt;host&gt;]
+</code></pre>
+
+<p>Supongamos que </p>
+<h3 id="dynamic-fordwarding">Dynamic Fordwarding</h3>
+<pre><code class="bash">ssh -f -N -D [&lt;bind-address&gt;:]&lt;port&gt;
+</code></pre>
+
+<h2 id="conexion-a-github-con-par-clave-publico-privada">Conexión a Github con par clave público-privada</h2>
+<ol>
+<li>
+<p>Generar par de claves con passphrase mediante</p>
+<p><code>bash
+ssh-keygen -t rsa -b 4096 -C "&lt;github email&gt;"</code></p>
+</li>
+<li>
+<p>Añadir la clave al ssh-agent  </p>
+<p><code>bash
+ssh-add -K &lt;ruta al fichero de clave privada&gt;</code></p>
+</li>
+<li>
+<p>Añadir la clave pública en Github</p>
+</li>
+<li>
+<p>Copiar la clave pública en el clipboard</p>
+<p><code>bash
+   pbcopy &lt; &lt;ruta al fichero de clave pública&gt;</code></p>
+</li>
+<li>
+<p>Pegar la clave pública en Github</p>
+<ol>
+<li>Ir a <strong>Settings</strong> -&gt; <strong>SSH and GPG Keys</strong> -&gt; <strong>New SSH</strong> or <strong>Add SSH Key</strong></li>
+<li>Poner un título para que se entienda de que equipo es la clave y pegar la clave en el campo <strong>Key</strong></li>
+<li>Por último, darle al botón <strong>Add SSH key</strong>, confirmar y listo.</li>
+</ol>
+</li>
+</ol>
+
+  <br>
+    
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
