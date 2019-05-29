@@ -4,6 +4,11 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pylint = "*"
+"pep8" = "*"
+"flake8" = "*"
+pylama = "*"
+mypy = "*"
 
 [packages]
 mkdocs = "*"
