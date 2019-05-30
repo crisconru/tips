@@ -17,8 +17,7 @@ nav:
         - Network: 'code/devops/docker/docker-network.md'
         - Docker Compose: 'code/devops/docker/docker-dockercompose.md'
   - IDEs:
-    - Visual Studio code:
-      - Índice: 'code/ides/vscode/vscode.md'
+    - Visual Studio code: 'code/ides/vscode/vscode.md'
   - Python:
     - Entornos virtuales:
       - Introducción: 'code/python/venv/venv-introduccion.md'
