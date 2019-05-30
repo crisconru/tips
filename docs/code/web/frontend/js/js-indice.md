@@ -1,3 +1,3 @@
-# Indice
+# JavaScript
 
 TODO

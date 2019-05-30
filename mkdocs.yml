@@ -28,12 +28,10 @@ nav:
     - PYTHONPATH: 'code/python/python-pythonpath.md'
   - Web:
     - Frontend:
-      - HTML:
-        - Indice: 'code/web/frontend/html/html-indice.md'
+      - HTML: 'code/web/frontend/html/html-indice.md'
       - CSS:
         - Plugins: 'code/web/frontend/css/css-plugins.md'
-      - JS:
-        - Indice: 'code/web/frontend/js/js-indice.md'
+      - JS: 'code/web/frontend/js/js-indice.md'
     - Backend:
       - Django:
         - Django: 'code/web/backend/django/django.md'
