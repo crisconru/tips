@@ -1,5 +1,7 @@
 # Editar $PYTHONPATH
 
+TODO
+
 La solución ha sido obtenida de [aquí](https://stackoverflow.com/a/17963979/3616381).  
 Supongamos que estuvieramos creando un proyecto python con la siguiente estructura:  
 
