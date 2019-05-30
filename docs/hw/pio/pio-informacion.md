@@ -1,5 +1,7 @@
 # Platformio
 
+TODO
+
 Crear código para hardware embebido no es sumamente complicado. El problema mayor que hay es programar / cargar el programa en los chips:
 
 * Necesitas ciertas configuraciones para cada chip.
