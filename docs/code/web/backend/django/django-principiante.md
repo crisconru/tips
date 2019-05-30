@@ -1,5 +1,7 @@
 # Django Principiante
 
+TODO
+
 Vamos a ver como empezar con Django a través de un mini ejemplo.
 
 ## Crear proyecto Django

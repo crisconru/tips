@@ -1,5 +1,7 @@
 # Django Intermedio
 
+TODO
+
 ## Relación entre modelos
 
 Los modelos se pueden conectar, a través de las claves foráneas, con dos tipos de relaciones:
