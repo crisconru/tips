@@ -2,105 +2,124 @@
 
 Info oficial -> [aquí](https://docs.docker.com/engine/reference/builder/)
 
-Para poder crear una imagen desde otra con todo lo que necesita, pero de manera más cómoda, lo que se usan son unos ficheros de texto llamados `Dockerfile`.
+Para poder crear una imagen desde otra con todo lo que necesita, pero de manera más cómoda, lo que se usan son unos ficheros de texto llamados `Dockerfile`. Por defecto los ficheros se tienen que llamar así, aunque se pueden cambiar.
 
 ## Estructura / Directivas del Dockerfile
 
 Este fichero tiene ciertas palabras clave o directivas:
 
-* `FROM` -> Imagen base en la que se va a basar la nueva.
+### `FROM`
 
-  ```bash
-  FROM <image> [AS <name>]
-  FROM <image>[:<tag>] [AS <name>]
-  FROM <image>[@<digest>] [AS <name>]
-  ```
+Imagen base en la que se va a basar la nueva.
 
-  * Es la **primera** **directiva** del `Dockerfile`.
-  * Puede haber varias `FROM` para usar lo que se llama el ***Multi-Stage-Build***.
-  * Puede ir precedida de la directiva `ARG`
+```bash
+FROM <image> [AS <name>]
+FROM <image>[:<tag>] [AS <name>]
+FROM <image>[@<digest>] [AS <name>]
+```
 
-    ```bash
-    ARG  CODE_VERSION=latest
-    FROM base:${CODE_VERSION}
-    CMD  /code/run-app
+* Es la **primera** **directiva** del `Dockerfile`.
+* Puede haber varias `FROM` para usar lo que se llama el ***Multi-Stage-Build***.
+* Puede ir precedida de la directiva `ARG`
 
-    FROM extras:${CODE_VERSION}
-    CMD  /code/run-extras
-    ```
+```bash
+ARG  CODE_VERSION=latest
+FROM base:${CODE_VERSION}
+CMD  /code/run-app
 
-* `LABEL` -> Es para añadir metadata a la imagen (autor, mantenedor, versión, etc).
+FROM extras:${CODE_VERSION}
+CMD  /code/run-extras
+```
 
-  ```bash
-  LABEL <key>=value<value>
-  LABEL <key1>=<value1> <key2>=<value2> ...
-  ```
+### `LABEL`
 
-  * Puede haber más de una `LABEL` por `Dockerfile`.
-  * Consiste en un conjunto de clave-valor, y pueden ir varias por línea.
-  * `MAINTAINER` -> Creador de la imagen, pero está deprecated. Usar `LABEL`.
-* `RUN` -> Comandos a ejecutar ANTES de ser creada (por ejemplo, paquetes a instalarle a la imagen base).
+Es para añadir metadata a la imagen (autor, mantenedor, versión, etc).
 
-  ```bash
-  RUN <command>
-  RUN ["executable", "param1", "param2"]
-  ```
+```bash
+LABEL <key>=value<value>
+LABEL <key1>=<value1> <key2>=<value2> ...
+```
 
-  * Puede haber varias directivas `RUN` en un `Dockerfile`.
-  * Se debe usar comillas dobles `"` no comillas simples `'`.
-* `COPY` -> Copia ficheros locales a la imagen.
+* Puede haber más de una `LABEL` por `Dockerfile`.
+* Consiste en un conjunto de clave-valor, y pueden ir varias por línea.
+* `MAINTAINER` -> Creador de la imagen, pero está deprecated. Usar `LABEL`.
 
-  ```bash
-  COPY <src> <dest>
-  COPY <src1> <src2> ... <dest>
-  COPY [--chown=<user>:<group>] <src> ... <dest>
-  COPY [--chown=<user>:<group>] ["<src>", ... "<dest>"]
-  ```
+### `RUN`
 
-  * Puede haber varios `COPY` por `Dockerfile`.
-  * `--chown` solo se puede usar en Linux (en Windows no).
-* `ADD` -> Hace lo mismo que `COPY`, pero además solo copia ficheros locales. Puedes copiar contenido desde una URL, o si el fichero está comprimido, al usar `ADD` lo descomprime.
+Comandos a ejecutar ANTES de ser creada (por ejemplo, paquetes a instalarle a la imagen base).
 
-  ```bash
-  ADD <src> <dest>
-  ADD <src1> <src2> ... <dest>
-  ADD [--chown=<user>:<group>] <src> ... <dest>
-  ADD [--chown=<user>:<group>] ["<src>", ... "<dest>"]
-  ```
+```bash
+RUN <command>
+RUN ["executable", "param1", "param2"]
+```
 
-  * Puede haber varios `ADD` en el `Dockerfile`.
-  * `--chown` solo sirve en Linux (en Windows no va).
-  * Se pueden usar ciertas reglas en `<src>` y `<dest>` como `*.py` (todos los ficheros que acaben en *.py*).
-* `ENV` -> Variable de entorno.
+* Puede haber varias directivas `RUN` en un `Dockerfile`.
+* Se debe usar comillas dobles `"` no comillas simples `'`.
 
-  ```bash
-  ENV key value
-  ENV <key1>=<value1> <key2>=<value2> ...
-  ```
+### `COPY`
 
-  * Puede haber varias `ENV` por `Dockerfile`.
-  * Si alguna `ENV` es igual que alguna `ARG`, la sobreescribe (`ENV` > `ARG`).
-* `WORKDIR` -> Directorio de trabajo de la imagen.
+Copia ficheros locales a la imagen.
 
-  ```bash
-  WORKDIR <path>
-  ```
+```bash
+COPY <src> <dest>
+COPY <src1> <src2> ... <dest>
+COPY [--chown=<user>:<group>] <src> ... <dest>
+COPY [--chown=<user>:<group>] ["<src>", ... "<dest>"]
+```
 
-  * Puede haber varios `WORKDIR` dentro del `Dockerfile` (aunque no tiene sentido).
-  * Sirve para definir el directorio con las directivas `RUN`, `CMD`, `ENTRYPOINT`, `COPY`, `ADD`.
-  * Este ejemplo hace que el directorio de trabajo sea `/a/b/c`
+* Puede haber varios `COPY` por `Dockerfile`.
+* `--chown` solo se puede usar en Linux (en Windows no).
 
-    ```bash
-    WORKDIR /a
-    WORKDIR b
-    WORKDIR c
-    ```
+### `ADD`
 
-    Que se podría poner de manera más simple con
+Hace lo mismo que `COPY`, pero además solo copia ficheros locales. Puedes copiar contenido desde una URL, o si el fichero está comprimido, al usar `ADD` lo descomprime.
 
-    ```bash
-    WORKDIR /a/b/c
-    ```
+```bash
+ADD <src> <dest>
+ADD <src1> <src2> ... <dest>
+ADD [--chown=<user>:<group>] <src> ... <dest>
+ADD [--chown=<user>:<group>] ["<src>", ... "<dest>"]
+```
+
+* Puede haber varios `ADD` en el `Dockerfile`.
+* `--chown` solo sirve en Linux (en Windows no va).
+* Se pueden usar ciertas reglas en `<src>` y `<dest>` como `*.py` (todos los ficheros que acaben en *.py*).
+
+### `ENV`
+
+Variable de entorno.
+
+```bash
+ENV key value
+ENV <key1>=<value1> <key2>=<value2> ...
+```
+
+* Puede haber varias `ENV` por `Dockerfile`.
+* Si alguna `ENV` es igual que alguna `ARG`, la sobreescribe (`ENV` > `ARG`).
+
+### `WORKDIR`
+
+Directorio de trabajo de la imagen.
+
+```bash
+WORKDIR <path>
+```
+
+* Puede haber varios `WORKDIR` dentro del `Dockerfile` (aunque no tiene sentido).
+* Sirve para definir el directorio con las directivas `RUN`, `CMD`, `ENTRYPOINT`, `COPY`, `ADD`.
+* Este ejemplo hace que el directorio de trabajo sea `/a/b/c`
+
+```bash
+WORKDIR /a
+WORKDIR b
+WORKDIR c
+```
+
+Que se podría poner de manera más simple con
+
+```bash
+WORKDIR /a/b/c
+```
 
 * `EXPOSE` -> Exponer por defecto un puerto del contenedor.
 
@@ -147,13 +166,21 @@ Este fichero tiene ciertas palabras clave o directivas:
 
   * **Solo** puede haber **una CMD por Dockerfile**.
 
-## .dockerignore - Descartar ficheros para crear una imagen
+## `.dockerignore` - Descartar ficheros para crear una imagen
 
-El `.dockerignore` equivale al `.gitignore` de git. Es un fichero donde indicarle al `Dockerfile` que archivos y/o directorios no cargar en la imagen.
+El `.dockerignore` equivale al `.gitignore` de git.
 
-## docker build - Construir imagen desde el Dockerfile
+Es un fichero donde indicarle al `Dockerfile` que archivos y/o directorios no cargar en la imagen.
 
-Por defecto el fichero se tiene que llamar `Dockerfile`, y para crear la imagen se hace
+## `docker build` - Construir imagen desde el Dockerfile
+
+```bash
+docker build [<opciones>] [<path> | <url> | -]
+```
+
+Info oficial -> [aquí](https://docs.docker.com/engine/reference/commandline/build/)
+
+Para crear la imagen con un Dockerfile que se llama `Dockerfile` se jecuta
 
 ```bash
 docker build
@@ -162,7 +189,7 @@ docker build
 Si queremos usar otro fichero con otro nombre como `Dockerfile` hay que usar la opción `-f`
 
 ```bash
-docker build -f <nombre-fichero-dockerfile>
+docker build -f <fichero-dockerfile>
 ```
 
 Se recomienda usar siempre la opción `-t` para asignarle un nombre y opcionalmente un tag a la imagen. Si no se especifica el tag, docker pone por defecto `latest`
@@ -177,12 +204,7 @@ Se le puede indicar el path donde está el `Dockerfile`, y este path puede ser i
 docker build -t <nombre>:<tag> <path-absoluto-hasta-el-dockerfile>
 ```
 
-Más info:
-
-* [Oficial](https://docs.docker.com/engine/reference/commandline/build/)
-* `docker build --help`
-
-## Imágenes huérfanas / colgadas - Dangling images
+## Dangling images - Imágenes huérfanas / colgadas
 
 Si al construir varias imágenes del mismo `Dockerfile`, estas se llaman igual (porque no hemos especificado nombres y tags distintos), solo la más nueva tiene el nombre y todas las demás quedan huérfanas. Al usar `docker images` vemos come en su `REPOSITORY` pone `<none>` y en `TAG` pasa igual. Por eso **HAY QUE USAR TAGS**.
 
@@ -227,8 +249,8 @@ Info oficial -> [aquí](https://docs.docker.com/develop/develop-images/dockerfil
 * Un servicio por contenedor
 * Crear un .dockerignore para evitar archivos pesados
 * Cuantas menos capas mejor:
-  * Argumentos largos separados con `\`.
-  * Varios argumentos en una sola capa (en vez de muchas capas).
+    * Argumentos largos separados con `\`.
+    * Varios argumentos en una sola capa (en vez de muchas capas).
 * No instalar paquetes innecesarios (solo el servicio).
 * Usar Multi-Stage-Build.
 * Usar `LABEL` para documentar (versiones, descripciones, etc).

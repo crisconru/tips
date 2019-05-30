@@ -2,8 +2,9 @@
 
 Información oficial -> [aquí](https://docs.docker.com/compose/)
 
-Es para aplicaciones multicontenedor.  
-La nomenclatura que se sigue a la hora de nombrar el fichero es `docker-compose-<nombre>.yml`, y su formato es `YAML`.
+Es para aplicaciones multicontenedor.
+
+La nomenclatura que se sigue a la hora de nombrar el fichero es `docker-compose-<nombre>.yml`, y su formato es `YAML`. Si no se especifica nada, el fichero tiene que llamarse `docker-compose.yml`.
 
 ## Instalación de Docker Compose
 
@@ -14,9 +15,13 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-## docker-compose up - Levantar contenedores con docker-compose
+## `docker-compose up` - Levantar contenedores con docker-compose
 
-Con este comando lanza docker-compose y ejecuta el fichero por defecto `docker-compose.yml`
+```bash
+docker-compose up [<opciones>] [--scale <servicio>=<numero-instancias>] [<servicio1> <servicio2> ...]
+```
+
+Con este comando lanza docker-compose y ejecuta el fichero por defecto `docker-compose.yml`.
 
 ```bash
 docker-compose [-p <nombre-proyecto>] up [-d]
@@ -28,7 +33,7 @@ Si queremos que levante un fichero docker-compose especifico, hacemos
 docker-compose [-p <nombre-proyecto>] -f <fichero-docker-compose> up [-d]
 ```
 
-## docker-compose down - Parar y eliminar todo lo que ha hecho docker-compose
+## `docker-compose down` - Parar y eliminar todo lo que ha hecho docker-compose
 
 ```bash
 docker-compose [-f <fichero-docker-compose>] down [-d]
@@ -38,12 +43,12 @@ docker-compose [-f <fichero-docker-compose>] down [-d]
 
 Tiene cuatro secciones:
 
-* version -> Indica la version de Docker-Compose que se va a usar (poner `'3'` a menos que).
-  * Es OBLIGATORIA
-* services -> Son los distintos servicios / contenedores que se van a crear
-  * Es OBLIGATORIA
-* volumes -> opcional
-* networks -> opcional
+* `version` -> Indica la version de Docker-Compose que se va a usar (poner `'3'` a menos que).
+    * Es OBLIGATORIA
+* `services` -> Son los distintos servicios / contenedores que se van a crear
+    * Es OBLIGATORIA
+* `volumes` -> opcional
+* `networks` -> opcional
 
 ```yml
 version:
@@ -82,42 +87,43 @@ Para eliminar todo lo que ha hecho el anterior fichero hacemos
 docker-compose down
 ```
 
-## services
+### services
 
 * `container_name` -> Nombre del contenedor
 * `image` -> Imagen con la que se va a crear
 * `build` -> Ruta hasta el `Dockerfile` usar una imagen propia
-  * Versión corta
+  
+Versión corta
 
-    ```yml
-    version: '3'
-    services:
-      web:
-        build: .
-    ```
+```yml
+version: '3'
+services:
+  web:
+build: .
+```
 
-  * Versión extendida
+Versión extendida
 
-    ```yml
-    version: '3'
-    services:
-    webapp:
-        build:
-        context: ./dir
-        dockerfile: mi-dockerfile
-        args:
-            buildno: 1
-    ```
+```yml
+version: '3'
+services:
+webapp:
+  build:
+  context: ./dir
+  dockerfile: mi-dockerfile
+  args:
+    buildno: 1
+```
 
 * `command` -> Mandarle un comando, sobreescribiendo el del `Dockerfile` (si lo hubiera).
 * `ports` -> Exponer los puertos
 * `restart` -> Política de reinicio (información [aquí](https://docs.docker.com/config/containers/start-containers-automatically/))
-  * `no` -> Por defecto.
-  * `on-failure` -> Reiniciar el contenedor si hay un error.
-  * `always` -> Reiniciar si el contenedor se para (si se ha parado a mano, se reiniciará cuando se reinicie el demonio de docker).
-  * `unless-stopped` -> Parecido a `always` pero no se reinicia cuando se reinicia el demonio de docker.
+    * `no` -> Por defecto.
+    * `on-failure` -> Reiniciar el contenedor si hay un error.
+    * `always` -> Reiniciar si el contenedor se para (si se ha parado a mano, se reiniciará cuando se reinicie el demonio de docker).
+    * `unless-stopped` -> Parecido a `always` pero no se reinicia cuando se reinicia el demonio de docker.
 
-## volumes
+### volumes
 
 ```yml
 version: "3.2"
@@ -145,7 +151,7 @@ volumes:
   dbdata:
 ```
 
-## networks
+### networks
 
 ```yml
 version: '3'

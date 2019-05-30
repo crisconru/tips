@@ -1,8 +1,26 @@
-# Comandos para trabajar con Docker
+# Comandos de Docker
 
-## docker search - Buscar imágenes
+Todos los comandos de Docker cuentan con ayuda. Para poder verla hacemos
 
-Una vez hecha la cuenta, podemos buscar imágenes tanto desde la web, como desde la terminal con el comando `docker search`. Por ejemplo si quiero buscar una imagen de Ubuntu por ejemplo haría  
+```bash
+docker <comando> --help
+```
+
+Por ejemplo, `docker search --help` nos sacará la ayuda del comando `search`.
+
+Para ver todos los comandos por la terminal podemos usar
+
+```bash
+docker --help
+```
+
+## `docker search` - Buscar imágenes
+
+```bash
+docker search [<opciones>] <imagen>
+```
+
+Podemos buscar imágenes tanto desde la web, como desde la terminal con el comando `docker search`. Por ejemplo si quiero buscar una imagen de Ubuntu  
 
 ```bash
 docker search ubuntu
@@ -14,9 +32,13 @@ Y veremos la cantidad de imágenes disponibles de ubuntu que se han creado, ofic
 docker search ubuntu:14.04
 ```
 
-## docker pull - Descargar imágenes
+## `docker pull` - Descargar imágenes
 
-Para poder descargar una imagen basta con poner `docker pull <nombre-de-la-imagen>`. Por ejemplo si queremos descargar la ubuntu oficial haríamos
+```bash
+docker pull [<opciones>] <imagen>[:<tag>|@<digest>]
+```
+
+Para poder descargar una imagen basta con poner `docker pull <imagen>`. Por ejemplo si queremos descargar la ubuntu oficial haríamos
 
 ```bash
 docker pull ubuntu
@@ -28,17 +50,25 @@ Pero si por ejemplo nos interesa más la ubuntu de pivotaldata, es tan sencillo 
 docker pull pivotaldata/ubuntu
 ```
 
-## docker images - Ver imágenes descargadas en el sistema
+## `docker images` - Imágenes en el sistema
 
-Con este comando podemos ver todas las imagenes que se han descargado en el sistema. **OJO**, imagén es distinto de contenedor, podemos tener varios contenedores de la misma imagen.
+```bash
+docker images [<opciones>] [<repositorio>[:<tag>]]
+```
+
+Con este comando podemos ver todas las imagenes que se han descargado en el sistema.
+
+**OJO**, imagén es distinto de contenedor, podemos tener varios contenedores de la misma imagen.
 
 ```bash
 docker images
 ```
 
-Veremos como después de descargar la imagen, la ejecuta y obtenemos un mensaje por pantalla generado por el contenedor.
+## `docker ps` - Contenedores ejecutándose / ejecutados
 
-## docker ps - Ver los contenedores ejecutándose / ejecutados
+```bash
+docker ps [<opciones>]
+```
 
 Para poder ver los contenedores ejecutándose hacemos
 
@@ -52,196 +82,117 @@ Si en cambio queremos ver los que se han ejecutado
 docker ps -a
 ```
 
-Más info con el comando `docker ps --help`
-
-## docker run - Lanzar contenedores
-
-Para lanzar un contenedor basta con usar (tanto las opciones como los comandos son opcionales)
+## `docker run` - Lanzar contenedores
 
 ```bash
-docker run [<opciones>] <contenedor> [<comandos>]
+docker run [<opciones>] <imagen> [<comando>] [<parametros>]
 ```
 
-Más info -> `docker run --help`.
+Es el **comando estrella** y sirve para lanzar un contenedor.
 
-### Hello World
+Se comenta con más detalle en la siguiente sección -> [Lanzar contenedores](docker-contenedores.md)
 
-Para hacer un ***Hola mundo*** en Docker, lo que se hace es ejecutar un contenedor de la imagen **hello-world**. Para ello podemos bajar la imagen con `docker pull hello-world` y luego ejecutarlo. O bien ejecutarlo directamente y ya docker se encarga de bajar la imagen si n está y ejecutarla. Para ello hacemos
+## `docker start / restart` - Arrancar un contenedor parado / pausado
 
 ```bash
-docker run hello-world
+docker start [<opciones>] <contenedor> [<contenedor1> <contenedor2> ...]
+docker restart [<opciones>] <contenedor> [<contenedor1> <contenedor2> ...]
 ```
 
-### Puertos
-
-Por defecto todos los contenedores tienen todos los puertos cerrados. En muchos casos tienen ciertos puertos para poder consumir un servicio y el propio contenedor te dice que puertos y que tráfico soportan. La gracia aquí está en que nosotros podemos asignarle cualquier puerto del Host a ese puerto del contenedor con la opción `-p <puerto-host>:<puerto-contenedor>`. En el ejemplo ejecuto un docker con un jenkins, y le asígno el puerto 80 de mi máquina (que es el que usan los navegadores) al puerto 8080 del contenedor (que es por donde se despacha el jenkins).
-
-```bash
-docker run -p 80:8080 jenkins
-```
-
-Esto es un buena solución en cuestiones de seguridad y de escalabilidad, ya que el contenedor tiene los puertos por defecto pero el host no.
-
-### Lanzar contenedor con comando
-
-Para ver por ejemplo el filesystem del contenedor ubuntu hacemos `docker run ubuntu ls`.  
-
-### Contenedores interactivos
-
-Para que el contenedor ubuntu no se pare por ejemplo, podemos acceder con la opción **interactive** y con **tty**
-
-```bash
-docker run -i -t ubuntu bash
-```
-
-Ahora estamos dentro del container y podemos ejecutar comandos o lo que queramos.
-
-### Asignarle un nombre al contenedor
-
-Para asignarle un nombre al contenedor para ser usado de manera más cómoda, hay que usar la opción `--name`. Este nombre se podrá usar en sustitución del **id** del contenedor en muchos comandos, haciendo así más fácil su uso.
-
-```bash
-docker run --name perico -it ubuntu
-```
-
-Si queremos renombrar un contenedor debemos usar el comando `docker rename`.
-
-```bash
-docker rename <nombre-actual-del-contenedor> <nuevo-nombre-del-contenedor>
-```
-
-### Salir del contenedor
-
-* Salir del contenedor y apagarlo / matarlo:
-  * Para salir del contenedor podemos ejecutar el comando `exit`
-  * Usar la combinación ***Ctrl+D***.
-* Salir del contenedor pero mantenerlo activo:
-  * Mantener todo el rato la tecla ***Ctrl***
-  * Luego pulsar ***P***
-  * Después ***Q***
-  * Es decir -> ***Ctrl+P***, ***D***
-
-### Limitar recursos
-
-Ejemplo, limitar memoria a 500MB y solo usar hasta 2 cores
-
-```bash
-docker run -m "500mb" --cpu-set-cpus 0-1 <imagen>
-```
-
-## docker start / restart - Arrancar un contenedor parado
-
-Con `docker ps -a` podemos ver los contenedores que ya no están activos (`STATUS = Exited`). Si queremos volver a la lanzar uno, debemos de copiar su id (podemos usar el **name** del contenedor en lugar de su id) y ejecutar
+Con `docker ps -a` podemos ver los contenedores que ya no están activos (`STATUS = Exited`). Si queremos volver a la lanzar uno
 
 ```bash
 docker start <id-contenedor>
 ```
 
-También existe el comando `docker restart`
+También existe el comando `docker restart` para reiniciar un contenedor.
 
-## docker attach - Entrar en un contenedor activo
-
-Para poder entrar dentro de un contenedor que se está ejecutando debemos de tener su id y ejecutar
+## `docker attach` - Entrar en un contenedor activo
 
 ```bash
-docker attach <id-contenedor>
+docker attach [<opciones>] <contenedor>
 ```
 
-También podemos usar el **name** del contenedor en lugar de su id.
+Para poder entrar dentro de un contenedor que se está ejecutando y ver que se está ejecutando.
 
-## docker exec - Ejecutar comandos en un contenedor activo
-
-Si queremos que dentro de un contenedor que ya se encuentra activo se ejecute algún comando se usa
+## `docker exec` - Ejecutar comandos en un contenedor activo
 
 ```bash
-docker exec [<opciones>] <id-o-name-contenedor> <comando> [<argumentos>]
+docker exec [<opciones>] <contenedor> <comando> [<parámetros>]
 ```
 
-## docker stop - Parar un contenedor
-
-Para acabar con la ejecución de un contenedor usamos el comando
+Si queremos que en un contenedor activo se ejecute algún comando. Por ejemplo abrir una consola
 
 ```bash
-docker stop <id-o-nombre-del-contenedor>
+docker exec -it <contenedor> bash
 ```
 
-## docker rm / rmi - Borrar contenedor / imagen
-
-Para borrar imagen
+## `docker stop` - Parar un contenedor
 
 ```bash
-docker rmi <imagen>
+docker stop [<opciones>] <contenedor> [<contenedor1> <contenedor2> ...]
 ```
 
-Para borrar contenedor hacemos
+Para acabar con la ejecución de un contenedor.
+
+## `docker rm / rmi` - Borrar contenedor / imagen
 
 ```bash
-docker rm <id-o-name-del-contenedor>
+docker rm [<opciones>] <contenedor> [<contenedor1> <contenedor2> ...]
+docker rmi [<opciones>] <imagen> [<imagen1> <imagen2> ...]
 ```
+
+El primero sirve para borrar contenedores y el segundo para imágenes.
 
 Si quisieramos que un contenedor se borrase una vez se dejara de ejecutar
 
 ```bash
-docker run --rm <imagen>
+docker run --rm <contenedor>
 ```
 
-Más info -> `docker rm --help` | `docker rmi --help`
-
-## docker history - Ver el historial de una imagen
-
-Para poder ver todos los pasos que ha llevado a cabo hacer una imagen se usa
+## `docker history` - Ver el historial de creacion de una imagen
 
 ```bash
-docker history <id-o-name-de-la-imagen>
+docker history [<opciones>] <imagen>
 ```
 
-Se recomienda usar la opción `-H` para poder leerlo mejor
+Para poder ver todos los pasos que ha llevado a cabo hacer una imagen. Se recomienda usar la opción `-H` para poder leerlo mejor
 
 ```bash
 docker history -H <imagen>
 ```
 
-Más info -> `docker history --help`
-
-## docker logs - Ver los logs (salidas) de un contenedor
+## `docker logs` - Ver los logs (salidas) de un contenedor
 
 ```bash
 docker logs [<opciones>] <contenedor>
 ```
 
-## docker stats - Ver consumo de recursos de un contenedor
+## `docker stats` - Ver consumo de recursos de un contenedor
 
 ```bash
-docker stats [<opciones>] <contenedor1> <contenedor2> ...
+docker stats [<opciones>] <contenedor> [<contenedor1> <contenedor2> ...]
 ```
 
-## docker cp - Copiar ficheros a / desde un contenedor activo
+## `docker cp` - Copiar ficheros a / desde un contenedor al sistema local
 
 ```bash
-docker cp [<options>] <src-path> <contenedor>:<dest-path>
-docker cp [<options>] <contenedor>:<src-path> <dest-path>
+# Copiar del sistema al contenedor
+docker cp [<optiones>] <src-path> <contenedor>:<dest-path>
+# Copiar del contenedor al sistema
+docker cp [<optiones>] <contenedor>:<src-path> <dest-path>
 ```
 
-## docker inspect - Obtener información de bajo nivel de un contenedor
+## `docker inspect` - Obtener información de bajo nivel de un contenedor
 
 ```bash
 docker inspect [<opciones>] <contenedor> [<contenedor2> <contenedor3> ...]
 ```
 
-## docker commit - Crear una imagen a partir de un contenedor (modificado)
-
-Supongamos que hemos abierto un contenedor, hemos modificado cosas y lo tenemos listo para trabajar. Si queremos crear una imagen así para poder usarla, lo que haríamos sería
+## `docker commit` - Crear una imagen a partir de un contenedor (modificado)
 
 ```bash
-docker commit <contenedor-modificado> <nombre-imagen-nueva>
+docker commit [<opciones>] contenedor [<repositorio>[:<tag>]]
 ```
 
-Podemos además ejecutar comandos previos al commit para crear la nueva imagen. Por ejemplo, supongamos una imagen de ubuntu que le hemos instalado el servidor Apache2 y hemos lanzado el servicio. Con
-
-```bash
-docker commit --change='CMD ["apache2ctl", "-D FOREGROUND"]' -c "EXPOSE 85" <contenedor> <nombre-de-la-nueva-imagen>
-```
-
-exponemos el puerto 85 del contenedor y tenemos el apache2 en primer plano.
-
-Más info -> `docker commit --help`
+Esto se ve con más detalle en -> [Crear imágenes Docker](docker-imagenes.md)

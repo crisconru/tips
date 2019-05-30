@@ -10,6 +10,8 @@ nav:
         - Instalación: 'code/devops/docker/docker-instalacion.md'
         - Docker Hub: 'code/devops/docker/docker-hub.md'
         - Comandos docker: 'code/devops/docker/docker-comandos.md'
+        - Lanzar contenedores: 'code/devops/docker/docker-contenedores.md'
+        - Crear imágenes: 'code/debops/docker/docker-imagenes.md'
         - Dockerfile: 'code/devops/docker/docker-dockerfile.md'
         - Volumes: 'code/devops/docker/docker-volumes.md'
         - Network: 'code/devops/docker/docker-network.md'

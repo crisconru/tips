@@ -2,15 +2,17 @@
 
 Información oficial -> [aquí](https://docs.docker.com/network/)
 
+## `docker network`
+
 ```bash
-docker network <command>
+docker network <comando>
 ```
 
 Tipos de driver de redes:
 
 * `bridge` -> Red por defecto en los contenedores.
-  * Todos los contenedores de un mismo host están (en principio) conectados a esta red.
-  * Pueden comunicarse entre ellos, hacerse ping, etc.
+    * Todos los contenedores de un mismo host están (en principio) conectados a esta red.
+    * Pueden comunicarse entre ellos, hacerse ping, etc.
 * `host` -> Es la red del propio Docker Host.
 * `none` -> Es para crear contenedor sin red.
 * `overlay` -> Para conectar distintos docker daemons y permitir a docker Swarm hablar con ellos.

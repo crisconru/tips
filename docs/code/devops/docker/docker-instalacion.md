@@ -1,8 +1,8 @@
 # Instalación
 
-En este [enlace](https://get.docker.com/) está el script para instalar docker.
+Script para la instalación de docker -> [aquí](https://get.docker.com/)
 
-En consola haríamos  
+En consola haríamos
 
 ```bash
 curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh -y
