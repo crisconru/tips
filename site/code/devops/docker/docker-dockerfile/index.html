@@ -36,7 +36,7 @@
               {title: "Estructura / Directivas del Dockerfile", url: "#estructura-directivas-del-dockerfile" },
               {title: ".dockerignore - Descartar ficheros para crear una imagen", url: "#dockerignore-descartar-ficheros-para-crear-una-imagen" },
               {title: "docker build - Construir imagen desde el Dockerfile", url: "#docker-build-construir-imagen-desde-el-dockerfile" },
-              {title: "Im\u00e1genes hu\u00e9rfanas / colgadas - Dangling images", url: "#imagenes-huerfanas-colgadas-dangling-images" },
+              {title: "Dangling images - Im\u00e1genes hu\u00e9rfanas / colgadas", url: "#dangling-images-imagenes-huerfanas-colgadas" },
               {title: "Multi-Stage-Build", url: "#multi-stage-build" },
               {title: "Buenas pr\u00e1cticas Dockerfile", url: "#buenas-practicas-dockerfile" },
           ]},
@@ -75,10 +75,10 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     </div>
     
     <div class="wm-article-nav">
-      <a href="../docker-comandos/" class="btn btn-xs btn-default pull-left">
+      <a href="../docker-contenedores/" class="btn btn-xs btn-default pull-left">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../docker-comandos/" class="btn btn-xs btn-link">
-        Comandos docker
+        Previous</a><a href="../docker-contenedores/" class="btn btn-xs btn-link">
+        Lanzar contenedores
       </a>
     </div>
     
@@ -88,97 +88,106 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
     <h1 id="dockerfile-crear-imagen-desde-cero">Dockerfile - Crear imagen desde cero</h1>
 <p>Info oficial -&gt; <a href="https://docs.docker.com/engine/reference/builder/">aquí</a></p>
-<p>Para poder crear una imagen desde otra con todo lo que necesita, pero de manera más cómoda, lo que se usan son unos ficheros de texto llamados <code>Dockerfile</code>.</p>
+<p>Para poder crear una imagen desde otra con todo lo que necesita, pero de manera más cómoda, lo que se usan son unos ficheros de texto llamados <code>Dockerfile</code>. Por defecto los ficheros se tienen que llamar así, aunque se pueden cambiar.</p>
 <h2 id="estructura-directivas-del-dockerfile">Estructura / Directivas del Dockerfile</h2>
 <p>Este fichero tiene ciertas palabras clave o directivas:</p>
-<ul>
-<li><code>FROM</code> -&gt; Imagen base en la que se va a basar la nueva.</li>
-</ul>
-<p><code>bash
-  FROM &lt;image&gt; [AS &lt;name&gt;]
-  FROM &lt;image&gt;[:&lt;tag&gt;] [AS &lt;name&gt;]
-  FROM &lt;image&gt;[@&lt;digest&gt;] [AS &lt;name&gt;]</code></p>
+<h3 id="from"><code>FROM</code></h3>
+<p>Imagen base en la que se va a basar la nueva.</p>
+<pre><code class="bash">FROM &lt;image&gt; [AS &lt;name&gt;]
+FROM &lt;image&gt;[:&lt;tag&gt;] [AS &lt;name&gt;]
+FROM &lt;image&gt;[@&lt;digest&gt;] [AS &lt;name&gt;]
+</code></pre>
+
 <ul>
 <li>Es la <strong>primera</strong> <strong>directiva</strong> del <code>Dockerfile</code>.</li>
 <li>Puede haber varias <code>FROM</code> para usar lo que se llama el <strong><em>Multi-Stage-Build</em></strong>.</li>
-<li>
-<p>Puede ir precedida de la directiva <code>ARG</code></p>
-<p>```bash
-ARG  CODE_VERSION=latest
-FROM base:${CODE_VERSION}
-CMD  /code/run-app</p>
-<p>FROM extras:${CODE_VERSION}
-CMD  /code/run-extras
-```</p>
-</li>
-<li>
-<p><code>LABEL</code> -&gt; Es para añadir metadata a la imagen (autor, mantenedor, versión, etc).</p>
-</li>
+<li>Puede ir precedida de la directiva <code>ARG</code></li>
 </ul>
-<p><code>bash
-  LABEL &lt;key&gt;=value&lt;value&gt;
-  LABEL &lt;key1&gt;=&lt;value1&gt; &lt;key2&gt;=&lt;value2&gt; ...</code></p>
+<pre><code class="bash">ARG  CODE_VERSION=latest
+FROM base:${CODE_VERSION}
+CMD  /code/run-app
+
+FROM extras:${CODE_VERSION}
+CMD  /code/run-extras
+</code></pre>
+
+<h3 id="label"><code>LABEL</code></h3>
+<p>Es para añadir metadata a la imagen (autor, mantenedor, versión, etc).</p>
+<pre><code class="bash">LABEL &lt;key&gt;=value&lt;value&gt;
+LABEL &lt;key1&gt;=&lt;value1&gt; &lt;key2&gt;=&lt;value2&gt; ...
+</code></pre>
+
 <ul>
 <li>Puede haber más de una <code>LABEL</code> por <code>Dockerfile</code>.</li>
 <li>Consiste en un conjunto de clave-valor, y pueden ir varias por línea.</li>
 <li><code>MAINTAINER</code> -&gt; Creador de la imagen, pero está deprecated. Usar <code>LABEL</code>.</li>
-<li><code>RUN</code> -&gt; Comandos a ejecutar ANTES de ser creada (por ejemplo, paquetes a instalarle a la imagen base).</li>
 </ul>
-<p><code>bash
-  RUN &lt;command&gt;
-  RUN ["executable", "param1", "param2"]</code></p>
+<h3 id="run"><code>RUN</code></h3>
+<p>Comandos a ejecutar ANTES de ser creada (por ejemplo, paquetes a instalarle a la imagen base).</p>
+<pre><code class="bash">RUN &lt;command&gt;
+RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]
+</code></pre>
+
 <ul>
 <li>Puede haber varias directivas <code>RUN</code> en un <code>Dockerfile</code>.</li>
 <li>Se debe usar comillas dobles <code>"</code> no comillas simples <code>'</code>.</li>
-<li><code>COPY</code> -&gt; Copia ficheros locales a la imagen.</li>
 </ul>
-<p><code>bash
-  COPY &lt;src&gt; &lt;dest&gt;
-  COPY &lt;src1&gt; &lt;src2&gt; ... &lt;dest&gt;
-  COPY [--chown=&lt;user&gt;:&lt;group&gt;] &lt;src&gt; ... &lt;dest&gt;
-  COPY [--chown=&lt;user&gt;:&lt;group&gt;] ["&lt;src&gt;", ... "&lt;dest&gt;"]</code></p>
+<h3 id="copy"><code>COPY</code></h3>
+<p>Copia ficheros locales a la imagen.</p>
+<pre><code class="bash">COPY &lt;src&gt; &lt;dest&gt;
+COPY &lt;src1&gt; &lt;src2&gt; ... &lt;dest&gt;
+COPY [--chown=&lt;user&gt;:&lt;group&gt;] &lt;src&gt; ... &lt;dest&gt;
+COPY [--chown=&lt;user&gt;:&lt;group&gt;] [&quot;&lt;src&gt;&quot;, ... &quot;&lt;dest&gt;&quot;]
+</code></pre>
+
 <ul>
 <li>Puede haber varios <code>COPY</code> por <code>Dockerfile</code>.</li>
 <li><code>--chown</code> solo se puede usar en Linux (en Windows no).</li>
-<li><code>ADD</code> -&gt; Hace lo mismo que <code>COPY</code>, pero además solo copia ficheros locales. Puedes copiar contenido desde una URL, o si el fichero está comprimido, al usar <code>ADD</code> lo descomprime.</li>
 </ul>
-<p><code>bash
-  ADD &lt;src&gt; &lt;dest&gt;
-  ADD &lt;src1&gt; &lt;src2&gt; ... &lt;dest&gt;
-  ADD [--chown=&lt;user&gt;:&lt;group&gt;] &lt;src&gt; ... &lt;dest&gt;
-  ADD [--chown=&lt;user&gt;:&lt;group&gt;] ["&lt;src&gt;", ... "&lt;dest&gt;"]</code></p>
+<h3 id="add"><code>ADD</code></h3>
+<p>Hace lo mismo que <code>COPY</code>, pero además solo copia ficheros locales. Puedes copiar contenido desde una URL, o si el fichero está comprimido, al usar <code>ADD</code> lo descomprime.</p>
+<pre><code class="bash">ADD &lt;src&gt; &lt;dest&gt;
+ADD &lt;src1&gt; &lt;src2&gt; ... &lt;dest&gt;
+ADD [--chown=&lt;user&gt;:&lt;group&gt;] &lt;src&gt; ... &lt;dest&gt;
+ADD [--chown=&lt;user&gt;:&lt;group&gt;] [&quot;&lt;src&gt;&quot;, ... &quot;&lt;dest&gt;&quot;]
+</code></pre>
+
 <ul>
 <li>Puede haber varios <code>ADD</code> en el <code>Dockerfile</code>.</li>
 <li><code>--chown</code> solo sirve en Linux (en Windows no va).</li>
 <li>Se pueden usar ciertas reglas en <code>&lt;src&gt;</code> y <code>&lt;dest&gt;</code> como <code>*.py</code> (todos los ficheros que acaben en <em>.py</em>).</li>
-<li><code>ENV</code> -&gt; Variable de entorno.</li>
 </ul>
-<p><code>bash
-  ENV key value
-  ENV &lt;key1&gt;=&lt;value1&gt; &lt;key2&gt;=&lt;value2&gt; ...</code></p>
+<h3 id="env"><code>ENV</code></h3>
+<p>Variable de entorno.</p>
+<pre><code class="bash">ENV key value
+ENV &lt;key1&gt;=&lt;value1&gt; &lt;key2&gt;=&lt;value2&gt; ...
+</code></pre>
+
 <ul>
 <li>Puede haber varias <code>ENV</code> por <code>Dockerfile</code>.</li>
 <li>Si alguna <code>ENV</code> es igual que alguna <code>ARG</code>, la sobreescribe (<code>ENV</code> &gt; <code>ARG</code>).</li>
-<li><code>WORKDIR</code> -&gt; Directorio de trabajo de la imagen.</li>
 </ul>
-<p><code>bash
-  WORKDIR &lt;path&gt;</code></p>
+<h3 id="workdir"><code>WORKDIR</code></h3>
+<p>Directorio de trabajo de la imagen.</p>
+<pre><code class="bash">WORKDIR &lt;path&gt;
+</code></pre>
+
 <ul>
 <li>Puede haber varios <code>WORKDIR</code> dentro del <code>Dockerfile</code> (aunque no tiene sentido).</li>
 <li>Sirve para definir el directorio con las directivas <code>RUN</code>, <code>CMD</code>, <code>ENTRYPOINT</code>, <code>COPY</code>, <code>ADD</code>.</li>
-<li>
-<p>Este ejemplo hace que el directorio de trabajo sea <code>/a/b/c</code></p>
-<p><code>bash
-WORKDIR /a
+<li>Este ejemplo hace que el directorio de trabajo sea <code>/a/b/c</code></li>
+</ul>
+<pre><code class="bash">WORKDIR /a
 WORKDIR b
-WORKDIR c</code></p>
+WORKDIR c
+</code></pre>
+
 <p>Que se podría poner de manera más simple con</p>
-<p><code>bash
-WORKDIR /a/b/c</code></p>
-</li>
-<li>
-<p><code>EXPOSE</code> -&gt; Exponer por defecto un puerto del contenedor.</p>
-</li>
+<pre><code class="bash">WORKDIR /a/b/c
+</code></pre>
+
+<ul>
+<li><code>EXPOSE</code> -&gt; Exponer por defecto un puerto del contenedor.</li>
 </ul>
 <p><code>bash
   EXPOSE &lt;port&gt; [&lt;port&gt;/&lt;protocol&gt; ...]</code></p>
@@ -220,15 +229,20 @@ EXPOSE 80/udp</code></p>
 <ul>
 <li><strong>Solo</strong> puede haber <strong>una CMD por Dockerfile</strong>.</li>
 </ul>
-<h2 id="dockerignore-descartar-ficheros-para-crear-una-imagen">.dockerignore - Descartar ficheros para crear una imagen</h2>
-<p>El <code>.dockerignore</code> equivale al <code>.gitignore</code> de git. Es un fichero donde indicarle al <code>Dockerfile</code> que archivos y/o directorios no cargar en la imagen.</p>
-<h2 id="docker-build-construir-imagen-desde-el-dockerfile">docker build - Construir imagen desde el Dockerfile</h2>
-<p>Por defecto el fichero se tiene que llamar <code>Dockerfile</code>, y para crear la imagen se hace</p>
+<h2 id="dockerignore-descartar-ficheros-para-crear-una-imagen"><code>.dockerignore</code> - Descartar ficheros para crear una imagen</h2>
+<p>El <code>.dockerignore</code> equivale al <code>.gitignore</code> de git.</p>
+<p>Es un fichero donde indicarle al <code>Dockerfile</code> que archivos y/o directorios no cargar en la imagen.</p>
+<h2 id="docker-build-construir-imagen-desde-el-dockerfile"><code>docker build</code> - Construir imagen desde el Dockerfile</h2>
+<pre><code class="bash">docker build [&lt;opciones&gt;] [&lt;path&gt; | &lt;url&gt; | -]
+</code></pre>
+
+<p>Info oficial -&gt; <a href="https://docs.docker.com/engine/reference/commandline/build/">aquí</a></p>
+<p>Para crear la imagen con un Dockerfile que se llama <code>Dockerfile</code> se jecuta</p>
 <pre><code class="bash">docker build
 </code></pre>
 
 <p>Si queremos usar otro fichero con otro nombre como <code>Dockerfile</code> hay que usar la opción <code>-f</code></p>
-<pre><code class="bash">docker build -f &lt;nombre-fichero-dockerfile&gt;
+<pre><code class="bash">docker build -f &lt;fichero-dockerfile&gt;
 </code></pre>
 
 <p>Se recomienda usar siempre la opción <code>-t</code> para asignarle un nombre y opcionalmente un tag a la imagen. Si no se especifica el tag, docker pone por defecto <code>latest</code></p>
@@ -239,12 +253,7 @@ EXPOSE 80/udp</code></p>
 <pre><code class="bash">docker build -t &lt;nombre&gt;:&lt;tag&gt; &lt;path-absoluto-hasta-el-dockerfile&gt;
 </code></pre>
 
-<p>Más info:</p>
-<ul>
-<li><a href="https://docs.docker.com/engine/reference/commandline/build/">Oficial</a></li>
-<li><code>docker build --help</code></li>
-</ul>
-<h2 id="imagenes-huerfanas-colgadas-dangling-images">Imágenes huérfanas / colgadas - Dangling images</h2>
+<h2 id="dangling-images-imagenes-huerfanas-colgadas">Dangling images - Imágenes huérfanas / colgadas</h2>
 <p>Si al construir varias imágenes del mismo <code>Dockerfile</code>, estas se llaman igual (porque no hemos especificado nombres y tags distintos), solo la más nueva tiene el nombre y todas las demás quedan huérfanas. Al usar <code>docker images</code> vemos come en su <code>REPOSITORY</code> pone <code>&lt;none&gt;</code> y en <code>TAG</code> pasa igual. Por eso <strong>HAY QUE USAR TAGS</strong>.</p>
 <p>La forma de ver todas estas imágenenes colgadas es con</p>
 <pre><code class="bash">docker images -f dangling=true
@@ -277,9 +286,11 @@ COPY --from=&lt;alias-de-ayuda&gt; &lt;fichero-src-en-la-imagen-de-arriba&gt; &l
 <li>Contenedor efímero -&gt; Fácilmente destruible</li>
 <li>Un servicio por contenedor</li>
 <li>Crear un .dockerignore para evitar archivos pesados</li>
-<li>Cuantas menos capas mejor:</li>
+<li>Cuantas menos capas mejor:<ul>
 <li>Argumentos largos separados con <code>\</code>.</li>
 <li>Varios argumentos en una sola capa (en vez de muchas capas).</li>
+</ul>
+</li>
 <li>No instalar paquetes innecesarios (solo el servicio).</li>
 <li>Usar Multi-Stage-Build.</li>
 <li>Usar <code>LABEL</code> para documentar (versiones, descripciones, etc).</li>
@@ -306,10 +317,10 @@ COPY --from=&lt;alias-de-ayuda&gt; &lt;fichero-src-en-la-imagen-de-arriba&gt; &l
     </div>
     
     <div class="wm-article-nav">
-      <a href="../docker-comandos/" class="btn btn-xs btn-default pull-left">
+      <a href="../docker-contenedores/" class="btn btn-xs btn-default pull-left">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../docker-comandos/" class="btn btn-xs btn-link">
-        Comandos docker
+        Previous</a><a href="../docker-contenedores/" class="btn btn-xs btn-link">
+        Lanzar contenedores
       </a>
     </div>
     

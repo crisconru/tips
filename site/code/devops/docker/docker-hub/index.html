@@ -33,6 +33,7 @@
         
         var pageToc = [
           {title: "Docker Hub", url: "#_top", children: [
+              {title: "docker login", url: "#docker-login" },
           ]},
         ];
 
@@ -81,7 +82,14 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     
 
     <h1 id="docker-hub">Docker Hub</h1>
-<p>Lo primero que se recomienda es hacerse una cuenta en <a href="https://hub.docker.com/">Docker Hub</a>. Esta es una plataforma donde se suben y donde poder ir subiendo, imágenes docker.</p>
+<p><a href="https://hub.docker.com/">Docker Hub</a> es una plataforma online donde se suben y descargan imágenes docker. Siempre que necesitemos descargar una imagen, lo más seguro es que lo hagamos de aquí.</p>
+<p>Lo primero que se recomienda después de instalar Docker en nuestro pc, es hacerse una cuenta en Docker Hub.</p>
+<h2 id="docker-login"><em>docker login</em></h2>
+<p>Cuando tengamos una cuenta de Docker Hub, podemos loguearnos desde la terminal con</p>
+<pre><code class="bash">docker login
+</code></pre>
+
+<p>Nos pedirá el usuario y contraseña.</p>
 
   <br>
     

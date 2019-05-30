@@ -11,7 +11,7 @@
     
     <link rel="shortcut icon" href="../../../../img/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>Índice - Tips de Cristo</title>
+    <title>Visual Studio code - Tips de Cristo</title>
     <link href="../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
     <link href="../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
     <link href="../../../../css/base.css" rel="stylesheet">
@@ -93,240 +93,210 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>Repo de un curso a Introducción a VSCode -&gt; <a href="https://github.com/Klerith/curso-VSCode">repo</a></p>
 <p>Empezamos con los atajos de teclado / shortcuts:</p>
 <ul>
-<li>Mover Líneas
-  Seleccionar poner el cursor en la o las líneas y</li>
+<li>Mover Líneas -&gt; Seleccionar poner el cursor en la o las líneas y</li>
 </ul>
-<p><code>bash
-  ⌥ ↓ / ⌥ ↑
-  Alt + ↑ / ↓</code></p>
+<pre><code class="bash">⌥ ↓ / ⌥ ↑
+Alt + ↑ / ↓
+</code></pre>
+
 <ul>
 <li>Comentar / descomentar línea</li>
 </ul>
-<p><code>bash
-  ⌘ /
-  Ctrl + \</code></p>
+<pre><code class="bash">⌘ /
+Ctrl + \
+</code></pre>
+
 <ul>
-<li>Comentar texto
-  Seleccionar solo el trozo de texto a comentar y</li>
+<li>Comentar texto -&gt; Seleccionar solo el trozo de texto a comentar y</li>
 </ul>
-<p><code>bash
-  ⇧ ⌥ A
-  Shift + Ctrl + A</code></p>
+<pre><code class="bash">⇧ ⌥ A
+Shift + Ctrl + A
+</code></pre>
+
 <ul>
-<li>Creación rápida de archivos
-  Si indicamos como fuente un archivo dentro de un directorio, ponemos el cursor sobre este y el atajo creará tanto el directorio como el archivo</li>
+<li>Creación rápida de archivos -&gt; Si indicamos como fuente un archivo dentro de un directorio, ponemos el cursor sobre este y el atajo creará tanto el directorio como el archivo</li>
 </ul>
-<p><code>bash
-  ⌥ click derecho
-  Ctrl + click derecho</code></p>
+<pre><code class="bash">⌥ click derecho
+Ctrl + click derecho
+</code></pre>
+
 <ul>
-<li>Ir a la definición de una función o variable
-  Cursor sobre la función o variable y</li>
+<li>Ir a la definición de una función o variable -&gt; Cursor sobre la función o variable y</li>
 </ul>
-<p><code>bash
-  ⌥ F12
-  F12</code></p>
+<pre><code class="bash">⌥ F12
+F12
+</code></pre>
+
 <ul>
 <li>Borrar línea</li>
 </ul>
-<p><code>bash
-  ⇧ ⌘ K
-  Ctrl + Shift + K</code></p>
+<pre><code class="bash">⇧ ⌘ K
+Ctrl + Shift + K
+</code></pre>
+
 <ul>
-<li>Borrar todas las ocurrencias de una selección (variable/ funcion/...)
-  Seleccionar palabra (variable/funcion/...) y</li>
+<li>Borrar todas las ocurrencias de una selección (variable/ funcion/...) -&gt; Seleccionar palabra (variable/funcion/...) y</li>
 </ul>
-<p><code>bash
-  # Primero seleccionar
-  ⇧ ⌘ L
-  Ctrl + Shift + L
-  # Borrar línea (atajo del punto anterior)
-  ⇧ ⌘ K
-  Ctrl + Shift + K</code></p>
+<pre><code class="bash"># Primero seleccionar
+⇧ ⌘ L
+Ctrl + Shift + L
+# Borrar línea (atajo del punto anterior)
+⇧ ⌘ K
+Ctrl + Shift + K
+</code></pre>
+
 <ul>
 <li>Deshacer y Rehacer</li>
 </ul>
-<p><code>bash
-  # Deshacer
-  ⌘ Z
-  Ctrl + Z
-  # Rehacer
-  ⌘ ⇧ Z
-  Ctrl + Shift + Z</code></p>
+<pre><code class="bash"># Deshacer
+⌘ Z
+Ctrl + Z
+# Rehacer
+⌘ ⇧ Z
+Ctrl + Shift + Z
+</code></pre>
+
 <ul>
 <li>Ocultar / Mostrar Sidebar</li>
 </ul>
-<p><code>bash
-  ⌘ B
-  Ctrl + B</code></p>
+<pre><code class="bash">⌘ B
+Ctrl + B
+</code></pre>
+
 <ul>
 <li>Modo Zen (entrar y salir)</li>
 </ul>
-<p><code>bash
-  ⌘ K Z
-  Ctrl + K Z</code></p>
+<pre><code class="bash">⌘ K Z
+Ctrl + K Z
+</code></pre>
+
 <ul>
 <li>Abrir fichero (útil para el Zen Mode)</li>
 </ul>
-<p><code>bash
-  # Primero teclear
-  ⌘ P
-  Ctrl + P
-  # Luego el nombre del fichero y pulsar enter</code></p>
+<pre><code class="bash"># Primero teclear
+⌘ P
+Ctrl + P
+# Luego el nombre del fichero y pulsar enter
+</code></pre>
+
 <ul>
 <li>Mostrar / Ocultar Terminal</li>
 </ul>
-<p><code>bash
-  ⌃ `
-  Ctrl + `</code></p>
+<pre><code class="bash">⌃ `
+Ctrl + `
+</code></pre>
+
 <ul>
 <li>Encapsular / Wrap código -&gt; Emmet Wrap</li>
 </ul>
-<p><code>bash
-  # Primero hay que abrir la Paleta de Comandos
-  ⇧ ⌘ P
-  Ctrl + SHIFT + P
-  # Luego poner
-  wrap with Abbrevation
-  # Poner que queremos que encapsule y código y darle a enter</code></p>
+<pre><code class="bash"># Primero hay que abrir la Paleta de Comandos
+⇧ ⌘ P
+Ctrl + SHIFT + P
+# Luego poner
+wrap with Abbrevation
+# Poner que queremos que encapsule y código y darle a enter
+</code></pre>
+
 <ul>
 <li>Cerrar / Reabrir / Cambiar de pestañas</li>
 </ul>
-<p>```bash
-  # Cerrar pestaña
-  ⌘ W
-  Ctrl + W
-  # Cerrar todas las pestañas
-  ⌘ K ⌘ W
-  Ctrl + K  Ctrl + W
-  # Reabrir pestaña anterior
-  ⇧ ⌘ T
-  Ctrl + Shift + T
-  # Cambiar de pestaña
-  ⌃ TAB
-  Ctrl + TAB</p>
-<p>```</p>
+<pre><code class="bash"># Cerrar pestaña
+⌘ W
+Ctrl + W
+# Cerrar todas las pestañas
+⌘ K ⌘ W
+Ctrl + K  Ctrl + W
+# Reabrir pestaña anterior
+⇧ ⌘ T
+Ctrl + Shift + T
+# Cambiar de pestaña
+⌃ TAB
+Ctrl + TAB
+</code></pre>
+
 <ul>
 <li>Copiar linea Arriba / Abajo</li>
 </ul>
-<p><code>bash
-  # Copiar abajo
-  ⇧ ⌥ Down
-  Ctrl + Shift + Alt + ↓
-  # Copiar Arriba
-  ⇧ ⌥ Up
-  Ctrl + Shift + Alt + ↑</code></p>
+<pre><code class="bash"># Copiar abajo
+⇧ ⌥ Down
+Ctrl + Shift + Alt + ↓
+# Copiar Arriba
+⇧ ⌥ Up
+Ctrl + Shift + Alt + ↑
+</code></pre>
+
 <ul>
 <li>Crear multicursor en cualquier lado / Abajo / Arriba / Siguiente ocurrencia</li>
 </ul>
-<p><code>bash
-  # Para crear más de un cursor en sitio específico
-  ⌥ click
-  Alt + click
-  # Si quiero crear más de un cursor pero seleccionando palabras
-  ⌥ doble click
-  Alt + doble click
-  # Crear cursor abajo
-  ⇧ ⌥ ↓
-  Ctrl + Alt + ↓
-  # Crear cursor arriba
-  ⇧ ⌥ ↑
-  Ctrl + Alt + ↑
-  # Multiples ocurrencias -&gt; Primero selecciono la palabra y luego
-  ⌘ + D
-  Ctrl + D</code></p>
+<pre><code class="bash"># Para crear más de un cursor en sitio específico
+⌥ click
+Alt + click
+# Si quiero crear más de un cursor pero seleccionando palabras
+⌥ doble click
+Alt + doble click
+# Crear cursor abajo
+⇧ ⌥ ↓
+Ctrl + Alt + ↓
+# Crear cursor arriba
+⇧ ⌥ ↑
+Ctrl + Alt + ↑
+# Multiples ocurrencias -&gt; Primero selecciono la palabra y luego
+⌘ + D
+Ctrl + D
+</code></pre>
+
 <ul>
 <li>Lowercase / Uppercase</li>
 </ul>
-<p><code>bash
-  # Seleccionar palabra / palabras
-  # Lowercase
-  ⌃ ⇧ L
-  Ctrl + Shift + L
-  # Uppercase
-  ⌃ ⇧ U
-  Ctrl + Shift + U</code></p>
+<pre><code class="bash"># Seleccionar palabra / palabras
+# Lowercase
+⌃ ⇧ L
+Ctrl + Shift + L
+# Uppercase
+⌃ ⇧ U
+Ctrl + Shift + U
+</code></pre>
+
 <ul>
 <li>Ver definiciones de clases / funciones / etc, en un fichero</li>
 </ul>
-<p><code>bash
-  # Primero es abrir el menu con
-  ⌘ P
-  Ctrl + P
-  # Luego escribir
-  @
-  # Si queremos que ordene por tipo (clases, funciones, etc), ponemos
-  @:</code></p>
+<pre><code class="bash"># Primero es abrir el menu con
+⌘ P
+Ctrl + P
+# Luego escribir
+@
+# Si queremos que ordene por tipo (clases, funciones, etc), ponemos
+@:
+</code></pre>
+
 <ul>
 <li>Ir a una línea</li>
 </ul>
-<p><code>bash
-  ⌃ G
-  Ctrl + G</code></p>
+<pre><code class="bash">⌃ G
+Ctrl + G
+</code></pre>
+
 <ul>
 <li>Markdown Preview</li>
 </ul>
-<p><code>bash
-  # Abrir vista previa
-  ⌘ ⌃ V
-  Ctrl + Shift + V
-  # Abrir vista previa en el lateral
-  ⌘ K, V
-  Ctrl + K, V
-  # Abrir vista previa fija en el lateral
-  Hay que ejecutarlo desde la paleta de comandos o asignarle un atajo</code></p>
+<pre><code class="bash"># Abrir vista previa
+⌘ ⌃ V
+Ctrl + Shift + V
+# Abrir vista previa en el lateral
+⌘ K, V
+Ctrl + K, V
+# Abrir vista previa fija en el lateral
+Hay que ejecutarlo desde la paleta de comandos o asignarle un atajo
+</code></pre>
+
 <ul>
 <li>Reemplazar símbolo</li>
 </ul>
-<p><code>bash
-  # Poner el cursor sobre el nombre de la clase / funcion / etc y apretar
-  F2
-  # Escribir el sustituto y presionar ENTER</code></p>
-<ul>
-<li>atajo</li>
-</ul>
-<p>```bash</p>
-<p>```</p>
-<ul>
-<li>atajo</li>
-</ul>
-<p>```bash</p>
-<p>```</p>
-<ul>
-<li>atajo</li>
-</ul>
-<p>```bash</p>
-<p>```</p>
-<ul>
-<li>atajo</li>
-</ul>
-<p>```bash</p>
-<p>```</p>
-<ul>
-<li>atajo</li>
-</ul>
-<p>```bash</p>
-<p>```</p>
-<ul>
-<li>atajo</li>
-</ul>
-<p>```bash</p>
-<p>```</p>
-<ul>
-<li>atajo</li>
-</ul>
-<p>```bash</p>
-<p>```</p>
-<ul>
-<li>atajo</li>
-</ul>
-<p>```bash</p>
-<p>```</p>
-<ul>
-<li>atajo</li>
-</ul>
-<p>```bash</p>
-<p>```</p>
+<pre><code class="bash"># Poner el cursor sobre el nombre de la clase / funcion / etc y apretar
+F2
+# Escribir el sustituto y presionar ENTER
+</code></pre>
+
 <ul>
 <li>atajo</li>
 </ul>

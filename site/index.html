@@ -34,6 +34,8 @@
       var is_top_frame = (window === window.parent);
         
         var pageToc = [
+          {title: "Contenido", url: "#_top", children: [
+          ]},
         ];
 
     </script>
@@ -114,6 +116,10 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </li>
       <li class="wm-toc-li wm-toc-lev4 "><a href="code/devops/docker/docker-comandos/" class="wm-article-link wm-toc-text">Comandos docker</a>
 </li>
+      <li class="wm-toc-li wm-toc-lev4 "><a href="code/devops/docker/docker-contenedores/" class="wm-article-link wm-toc-text">Lanzar contenedores</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev4 "><a href="code/debops/docker/docker-imagenes.md" class="wm-article-link wm-toc-text">Crear imágenes</a>
+</li>
       <li class="wm-toc-li wm-toc-lev4 "><a href="code/devops/docker/docker-dockerfile/" class="wm-article-link wm-toc-text">Dockerfile</a>
 </li>
       <li class="wm-toc-li wm-toc-lev4 "><a href="code/devops/docker/docker-volumes/" class="wm-article-link wm-toc-text">Volumes</a>
@@ -128,103 +134,82 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
   </ul>
 </li>
 
-  </ul>
-</li>
-
-        <li class="wm-toc-li wm-toc-lev1 wm-toc-opener"><span class="wm-toc-text">IDEs</span>
+      <li class="wm-toc-li wm-toc-lev2 wm-toc-opener"><span class="wm-toc-text">IDEs</span>
 </li>
 <li class="wm-toc-li-nested collapse">
   <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev2 wm-toc-opener"><span class="wm-toc-text">Visual Studio code</span>
-</li>
-<li class="wm-toc-li-nested collapse">
-  <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev3 "><a href="code/ides/vscode/vscode/" class="wm-article-link wm-toc-text">Índice</a>
+      <li class="wm-toc-li wm-toc-lev3 "><a href="code/ides/vscode/vscode/" class="wm-article-link wm-toc-text">Visual Studio code</a>
 </li>
   </ul>
 </li>
 
-  </ul>
-</li>
-
-        <li class="wm-toc-li wm-toc-lev1 wm-toc-opener"><span class="wm-toc-text">Python</span>
+      <li class="wm-toc-li wm-toc-lev2 wm-toc-opener"><span class="wm-toc-text">Python</span>
 </li>
 <li class="wm-toc-li-nested collapse">
   <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev2 wm-toc-opener"><span class="wm-toc-text">Entornos virtuales</span>
+      <li class="wm-toc-li wm-toc-lev3 wm-toc-opener"><span class="wm-toc-text">Entornos virtuales</span>
 </li>
 <li class="wm-toc-li-nested collapse">
   <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev3 "><a href="code/python/venv/venv-introduccion/" class="wm-article-link wm-toc-text">Introducción</a>
+      <li class="wm-toc-li wm-toc-lev4 "><a href="code/python/venv/venv-introduccion/" class="wm-article-link wm-toc-text">Introducción</a>
 </li>
-      <li class="wm-toc-li wm-toc-lev3 "><a href="code/python/venv/venv-virtualenv/" class="wm-article-link wm-toc-text">virtualenv</a>
+      <li class="wm-toc-li wm-toc-lev4 "><a href="code/python/venv/venv-virtualenv/" class="wm-article-link wm-toc-text">virtualenv</a>
 </li>
-      <li class="wm-toc-li wm-toc-lev3 "><a href="code/python/venv/venv-virtualenvwrapper/" class="wm-article-link wm-toc-text">virtualenvwrapper</a>
+      <li class="wm-toc-li wm-toc-lev4 "><a href="code/python/venv/venv-virtualenvwrapper/" class="wm-article-link wm-toc-text">virtualenvwrapper</a>
 </li>
-      <li class="wm-toc-li wm-toc-lev3 "><a href="code/python/venv/venv-pipenv/" class="wm-article-link wm-toc-text">pipenv</a>
+      <li class="wm-toc-li wm-toc-lev4 "><a href="code/python/venv/venv-pipenv/" class="wm-article-link wm-toc-text">pipenv</a>
 </li>
-      <li class="wm-toc-li wm-toc-lev3 "><a href="code/python/venv/venv-pyenv/" class="wm-article-link wm-toc-text">pyenv</a>
-</li>
-  </ul>
-</li>
-
-      <li class="wm-toc-li wm-toc-lev2 "><a href="code/python/python-pythonpath/" class="wm-article-link wm-toc-text">PYTHONPATH</a>
+      <li class="wm-toc-li wm-toc-lev4 "><a href="code/python/venv/venv-pyenv/" class="wm-article-link wm-toc-text">pyenv</a>
 </li>
   </ul>
 </li>
 
-        <li class="wm-toc-li wm-toc-lev1 wm-toc-opener"><span class="wm-toc-text">Web</span>
-</li>
-<li class="wm-toc-li-nested collapse">
-  <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev2 wm-toc-opener"><span class="wm-toc-text">Frontend</span>
-</li>
-<li class="wm-toc-li-nested collapse">
-  <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev3 wm-toc-opener"><span class="wm-toc-text">HTML</span>
-</li>
-<li class="wm-toc-li-nested collapse">
-  <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev4 "><a href="code/web/frontend/html/html-indice/" class="wm-article-link wm-toc-text">Indice</a>
+      <li class="wm-toc-li wm-toc-lev3 "><a href="code/python/python-pythonpath/" class="wm-article-link wm-toc-text">PYTHONPATH</a>
 </li>
   </ul>
 </li>
 
-      <li class="wm-toc-li wm-toc-lev3 wm-toc-opener"><span class="wm-toc-text">CSS</span>
+      <li class="wm-toc-li wm-toc-lev2 wm-toc-opener"><span class="wm-toc-text">Web</span>
 </li>
 <li class="wm-toc-li-nested collapse">
   <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev4 "><a href="code/web/frontend/css/css-plugins/" class="wm-article-link wm-toc-text">Plugins</a>
+      <li class="wm-toc-li wm-toc-lev3 wm-toc-opener"><span class="wm-toc-text">Frontend</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+  <ul class="wm-toctree">
+      <li class="wm-toc-li wm-toc-lev4 "><a href="code/web/frontend/html/html-indice/" class="wm-article-link wm-toc-text">HTML</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev4 wm-toc-opener"><span class="wm-toc-text">CSS</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+  <ul class="wm-toctree">
+      <li class="wm-toc-li wm-toc-lev5 "><a href="code/web/frontend/css/css-plugins/" class="wm-article-link wm-toc-text">Plugins</a>
 </li>
   </ul>
 </li>
 
-      <li class="wm-toc-li wm-toc-lev3 wm-toc-opener"><span class="wm-toc-text">JS</span>
-</li>
-<li class="wm-toc-li-nested collapse">
-  <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev4 "><a href="code/web/frontend/js/js-indice/" class="wm-article-link wm-toc-text">Indice</a>
+      <li class="wm-toc-li wm-toc-lev4 "><a href="code/web/frontend/js/js-indice/" class="wm-article-link wm-toc-text">JS</a>
 </li>
   </ul>
 </li>
 
+      <li class="wm-toc-li wm-toc-lev3 wm-toc-opener"><span class="wm-toc-text">Backend</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+  <ul class="wm-toctree">
+      <li class="wm-toc-li wm-toc-lev4 wm-toc-opener"><span class="wm-toc-text">Django</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+  <ul class="wm-toctree">
+      <li class="wm-toc-li wm-toc-lev5 "><a href="code/web/backend/django/django/" class="wm-article-link wm-toc-text">Django</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev5 "><a href="code/web/backend/django/django-principiante/" class="wm-article-link wm-toc-text">Principiante</a>
+</li>
+      <li class="wm-toc-li wm-toc-lev5 "><a href="code/web/backend/django/django-intermedio/" class="wm-article-link wm-toc-text">Intermedio</a>
+</li>
   </ul>
 </li>
 
-      <li class="wm-toc-li wm-toc-lev2 wm-toc-opener"><span class="wm-toc-text">Backend</span>
-</li>
-<li class="wm-toc-li-nested collapse">
-  <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev3 wm-toc-opener"><span class="wm-toc-text">Django</span>
-</li>
-<li class="wm-toc-li-nested collapse">
-  <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev4 "><a href="code/web/backend/django/django/" class="wm-article-link wm-toc-text">Django</a>
-</li>
-      <li class="wm-toc-li wm-toc-lev4 "><a href="code/web/backend/django/django-principiante/" class="wm-article-link wm-toc-text">Principiante</a>
-</li>
-      <li class="wm-toc-li wm-toc-lev4 "><a href="code/web/backend/django/django-intermedio/" class="wm-article-link wm-toc-text">Intermedio</a>
-</li>
   </ul>
 </li>
 
@@ -242,9 +227,9 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </li>
 <li class="wm-toc-li-nested collapse">
   <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev3 "><a href="code/sw/linux/linux-fecha-hora.md" class="wm-article-link wm-toc-text">Fecha y Hora</a>
+      <li class="wm-toc-li wm-toc-lev3 "><a href="sw/linux/linux-fecha-hora/" class="wm-article-link wm-toc-text">Fecha y Hora</a>
 </li>
-      <li class="wm-toc-li wm-toc-lev3 "><a href="code/sw/linux/linux-ficheros.md" class="wm-article-link wm-toc-text">Ficheros</a>
+      <li class="wm-toc-li wm-toc-lev3 "><a href="sw/linux/linux-ficheros/" class="wm-article-link wm-toc-text">Ficheros</a>
 </li>
   </ul>
 </li>
@@ -253,13 +238,13 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </li>
 <li class="wm-toc-li-nested collapse">
   <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev3 "><a href="code/sw/redes/redes-linux.md" class="wm-article-link wm-toc-text">Linux</a>
+      <li class="wm-toc-li wm-toc-lev3 "><a href="sw/redes/redes-linux/" class="wm-article-link wm-toc-text">Linux</a>
 </li>
-      <li class="wm-toc-li wm-toc-lev3 "><a href="code/sw/redes/redes-ssh.md" class="wm-article-link wm-toc-text">SSH</a>
+      <li class="wm-toc-li wm-toc-lev3 "><a href="sw/redes/redes-ssh/" class="wm-article-link wm-toc-text">SSH</a>
 </li>
-      <li class="wm-toc-li wm-toc-lev3 "><a href="code/sw/redes/redes-iptables.md" class="wm-article-link wm-toc-text">iptables</a>
+      <li class="wm-toc-li wm-toc-lev3 "><a href="sw/redes/redes-iptables/" class="wm-article-link wm-toc-text">iptables</a>
 </li>
-      <li class="wm-toc-li wm-toc-lev3 "><a href="code/sw/redes/redes-ipv6.md" class="wm-article-link wm-toc-text">IPv6</a>
+      <li class="wm-toc-li wm-toc-lev3 "><a href="sw/redes/redes-ipv6/" class="wm-article-link wm-toc-text">IPv6</a>
 </li>
   </ul>
 </li>
@@ -268,7 +253,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </li>
 <li class="wm-toc-li-nested collapse">
   <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev3 "><a href="code/sw/terminal/terminal-zsh.md" class="wm-article-link wm-toc-text">ZSH</a>
+      <li class="wm-toc-li wm-toc-lev3 "><a href="sw/terminal/terminal-zsh/" class="wm-article-link wm-toc-text">ZSH</a>
 </li>
   </ul>
 </li>
@@ -280,24 +265,10 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </li>
 <li class="wm-toc-li-nested collapse">
   <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev2 wm-toc-opener"><span class="wm-toc-text">Micropython</span>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="hw/upython/upython-informacion/" class="wm-article-link wm-toc-text">Micropython</a>
 </li>
-<li class="wm-toc-li-nested collapse">
-  <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev3 "><a href="code/hw/upython/upython-informacion.md" class="wm-article-link wm-toc-text">Informacion</a>
+      <li class="wm-toc-li wm-toc-lev2 "><a href="hw/pio/pio-informacion/" class="wm-article-link wm-toc-text">Platformio</a>
 </li>
-  </ul>
-</li>
-
-      <li class="wm-toc-li wm-toc-lev2 wm-toc-opener"><span class="wm-toc-text">Platformio</span>
-</li>
-<li class="wm-toc-li-nested collapse">
-  <ul class="wm-toctree">
-      <li class="wm-toc-li wm-toc-lev3 "><a href="code/hw/pio/pio-informacion.md" class="wm-article-link wm-toc-text">Informacion</a>
-</li>
-  </ul>
-</li>
-
   </ul>
 </li>
 
@@ -334,9 +305,10 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
     
 
-    <p>Estos son algunos minitutoriales-recordatorios rápidos, para hacer algunas tareas (tematizadas) con distintas tecnologías.</p>
+    <h1 id="contenido">Contenido</h1>
+<p>Estos son algunos minitutoriales-recordatorios rápidos, para hacer algunas tareas con distintas tecnologías.</p>
 <ul>
-<li>Code:</li>
+<li>Code:<ul>
 <li>Devops:<ul>
 <li><a href="code/devops/ansible/ansible/">Ansible</a></li>
 <li><a href="code/devops/docker/docker-aclaraciones/">Docker</a></li>
@@ -364,12 +336,12 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </li>
 </ul>
 </li>
+</ul>
+</li>
 <li>Software:<ul>
 <li>Linux:<ul>
 <li><a href="code/sw/linux/linux-fecha-hora.md">Fecha y Hora</a></li>
 <li><a href="code/sw/linux/linux-ficheros.md">Ficheros</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li>Redes:<ul>
@@ -381,6 +353,8 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </li>
 <li>Terminal:<ul>
 <li><a href="code/sw/terminal/terminal-zsh.md">ZSH</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li>Hardware:<ul>
@@ -423,5 +397,5 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </html>
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2019-05-29 19:00:42
+Build Date UTC : 2019-05-30 19:10:45
 -->

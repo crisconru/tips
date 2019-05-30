@@ -33,6 +33,7 @@
         
         var pageToc = [
           {title: "Docker Network", url: "#_top", children: [
+              {title: "docker network", url: "#docker-network_1" },
               {title: "Crear / Eliminar red", url: "#crear-eliminar-red" },
               {title: "Inspeccionar red", url: "#inspeccionar-red" },
               {title: "Crear un contenedor conectado a una red definida", url: "#crear-un-contenedor-conectado-a-una-red-definida" },
@@ -86,14 +87,17 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
     <h1 id="docker-network">Docker Network</h1>
 <p>Información oficial -&gt; <a href="https://docs.docker.com/network/">aquí</a></p>
-<pre><code class="bash">docker network &lt;command&gt;
+<h2 id="docker-network_1"><code>docker network</code></h2>
+<pre><code class="bash">docker network &lt;comando&gt;
 </code></pre>
 
 <p>Tipos de driver de redes:</p>
 <ul>
-<li><code>bridge</code> -&gt; Red por defecto en los contenedores.</li>
+<li><code>bridge</code> -&gt; Red por defecto en los contenedores.<ul>
 <li>Todos los contenedores de un mismo host están (en principio) conectados a esta red.</li>
 <li>Pueden comunicarse entre ellos, hacerse ping, etc.</li>
+</ul>
+</li>
 <li><code>host</code> -&gt; Es la red del propio Docker Host.</li>
 <li><code>none</code> -&gt; Es para crear contenedor sin red.</li>
 <li><code>overlay</code> -&gt; Para conectar distintos docker daemons y permitir a docker Swarm hablar con ellos.</li>

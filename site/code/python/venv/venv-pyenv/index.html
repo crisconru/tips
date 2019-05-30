@@ -33,8 +33,9 @@
         
         var pageToc = [
           {title: "Pyenv -&gt; Distintas versiones de Python en tu sistema", url: "#_top", children: [
-              {title: "Versiones instalables", url: "#versiones-instalables" },
-              {title: "Versiones instaladas con Pyenv", url: "#versiones-instaladas-con-pyenv" },
+              {title: "Instalaci\u00f3n", url: "#instalacion" },
+              {title: "Listar Versiones instalables", url: "#listar-versiones-instalables" },
+              {title: "Mostrar versiones Python instaladas con Pyenv", url: "#mostrar-versiones-python-instaladas-con-pyenv" },
               {title: "Instalar una version de Python", url: "#instalar-una-version-de-python" },
               {title: "Definir versi\u00f3n global del sistema", url: "#definir-version-global-del-sistema" },
           ]},
@@ -85,33 +86,24 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     
 
     <h1 id="pyenv-distintas-versiones-de-python-en-tu-sistema">Pyenv -&gt; Distintas versiones de Python en tu sistema</h1>
+<p>TODO</p>
 <p>Esta información está sacada de <a href="https://ubunlog.com/pyenv-instala-multiples-versiones-de-python-en-tu-sistema/">este gran artículo de david Naranjo</a>. Los pasos son:  </p>
-<ol>
-<li>Instalar dependencias</li>
-</ol>
-<p><code>bash
-  sudo apt-get install -y make build-essential git libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev</code></p>
-<ol>
-<li>Instalar pyenv en tu sistema y añadirlo a tu shell (<strong>ZSH</strong> en mi caso)</li>
-</ol>
-<p><code>bash
-  curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | zsh</code></p>
-<ol>
-<li>Modificar el fichero de configuración de la shell (<strong>.zshrc</strong> en mi caso)</li>
-</ol>
-<p><code>bash
-  export PATH="$HOME/.pyenv/bin:$PATH"
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"</code></p>
-<ol>
-<li>Recargar la shell y usarlo</li>
-</ol>
-<p><code>bash
-  source ~/.zshrc</code></p>
-<p>Para usarlo es muy sencillo.  </p>
-<h2 id="versiones-instalables">Versiones instalables</h2>
+<h2 id="instalacion">Instalación</h2>
+<pre><code class="bash"># 1. Instalar dependencias
+sudo apt-get install -y make build-essential git libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
+# 2. Instalar pyenv en tu sistema y añadirlo a tu shell (ZSH en mi caso)
+curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | zsh
+# 3. Modificar el fichero de configuración de la shell (.zshrc en mi caso)
+export PATH=&quot;$HOME/.pyenv/bin:$PATH&quot;
+eval &quot;$(pyenv init -)&quot;
+eval &quot;$(pyenv virtualenv-init -)&quot;
+# 4. Recargar la shell y usarlo
+source ~/.zshrc
+</code></pre>
+
+<h2 id="listar-versiones-instalables">Listar Versiones instalables</h2>
 <p><code>pyenv install -l</code></p>
-<h2 id="versiones-instaladas-con-pyenv">Versiones instaladas con Pyenv</h2>
+<h2 id="mostrar-versiones-python-instaladas-con-pyenv">Mostrar versiones Python instaladas con Pyenv</h2>
 <p><code>pyenv versions</code></p>
 <h2 id="instalar-una-version-de-python">Instalar una version de Python</h2>
 <p>Para instalar la versión x.xx.x de Python, por ejemplo la 3.5.3, haríamos  </p>
@@ -120,9 +112,12 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
 <p>Esto instalará un interprete de Python 3.5.3 en la carpeta <strong>~/.pyenv/versions/</strong></p>
 <h2 id="definir-version-global-del-sistema">Definir versión global del sistema</h2>
-<p>Supongamos que quisieramos cambiar la versión de Python Global del sistema <strong>COSA PARA NADA RECOMENDADA</strong>. Existe un comando en pyenv que permite esto. Veamos como cambiar la versión de global de Python del sistema, y como deshacer el entuerto.<br />
-1. Supongamos que mi sistema operativo tiene por ejemplo Python <strong>3.6.6</strong> como versión del sistema, y se encuentra su ejecutable en <strong>/usr/bin/python3</strong>
-2. Si quisiera usar por ejemplo Python <strong>3.5.3</strong> como versión global, haría lo siguiente</p>
+<p>Supongamos que quisieramos cambiar la versión de Python Global del sistema. Esto se puede hacer como algo temporal, pero <strong>NO SE RECOMIENDA DEJAR CAMBIADA LA VERSION DEL SISTEMA</strong>.</p>
+<p>Veamos como cambiar la versión de global de Python del sistema, y como deshacer el entuerto.</p>
+<ol>
+<li>Supongamos que mi sistema operativo tiene por ejemplo Python <strong>3.6.6</strong> como versión del sistema, y se encuentra su ejecutable en <strong>/usr/bin/python3</strong></li>
+<li>Si quisiera usar por ejemplo Python <strong>3.5.3</strong> como versión global, haría lo siguiente</li>
+</ol>
 <p><code>bash
   pyenv global 3.5.3</code></p>
 <ol>
@@ -132,17 +127,24 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
   python3 --version</code></p>
 <p>Obtendré <strong>3.5.3</strong> como respuesta. Pero este Python no se encuentra en <strong>/usr/bin/</strong>, sino que se encuentra en <strong>~/.pyenv/versions/3.5.3/bin</strong></p>
 <ol>
-<li>Si quiero deshacer este entuerno, lo que debo es abrir el fichero <strong>~/.pyenv/version</strong>. Dentro se encuentra escrito <strong>3.5.3</strong>. Simplemente con borrar el contenido y guardar, al ir ahora al terminal y ejecutar</li>
+<li>Si quiero deshacer este entuerno, en la terminal escribo</li>
 </ol>
-<p><code>bash
-  python3 --version</code></p>
+<pre><code class="bash">pyenv global system
+</code></pre>
+
+<p>Ahora si hacemos</p>
+<pre><code class="bash">python3 --version
+</code></pre>
+
 <p>veremos como sale por pantalla <strong>3.6.6</strong>. Esto lo podemos ver si ejecutamos el comando</p>
-<p><code>bash
-  pyenv versions</code></p>
+<pre><code class="bash">pyenv versions
+</code></pre>
+
 <p>Y tendremos algo asi como</p>
-<p><code>bash
-  * system (set by /home/klin/.pyenv/version)
-    3.5.3</code></p>
+<pre><code class="bash">* system (set by /home/klin/.pyenv/version)
+  3.5.3
+</code></pre>
+
 <p>Donde indica como la versión del sistema es la definida en <strong>~/.pyenv/version</strong>, que al ser ninguna, es la del sistema.</p>
 
   <br>

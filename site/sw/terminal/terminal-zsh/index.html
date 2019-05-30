@@ -11,7 +11,7 @@
     
     <link rel="shortcut icon" href="../../../img/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>La shell de tus sueños - Tips de Cristo</title>
+    <title>ZSH - Tips de Cristo</title>
     <link href="../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
     <link href="../../../css/font-awesome-4.7.0.css" rel="stylesheet">
     <link href="../../../css/base.css" rel="stylesheet">
@@ -32,9 +32,9 @@
       var is_top_frame = false;
         
         var pageToc = [
-          {title: "La shell de tus sue\u00f1os", url: "#_top", children: [
-              {title: "ZSH", url: "#zsh" },
-              {title: "Oh My ZSH", url: "#oh-my-zsh" },
+          {title: "ZSH - La shell de tus sue\u00f1os", url: "#_top", children: [
+              {title: "Instalaci\u00f3n", url: "#instalacion" },
+              {title: "Oh My ZSH - Customizaci\u00f3n para ZSH", url: "#oh-my-zsh-customizacion-para-zsh" },
               {title: "Configurar Oh My ZSH", url: "#configurar-oh-my-zsh" },
           ]},
         ];
@@ -55,123 +55,205 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     
 
     
+    
+      
+    
 
-    <h1 id="la-shell-de-tus-suenos">La shell de tus sueños</h1>
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../../hw/upython/upython-informacion/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../../hw/upython/upython-informacion/" class="btn btn-xs btn-link">
+        Micropython
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../redes/redes-ipv6/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../redes/redes-ipv6/" class="btn btn-xs btn-link">
+        IPv6
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="zsh-la-shell-de-tus-suenos">ZSH - La shell de tus sueños</h1>
 <p>Vamos a instalar y configurar ese fantástico shell que es ZSH</p>
-<h2 id="zsh">ZSH</h2>
-<p>Abrimos la terminal y lo instalamos<br />
-<code>sudo apt install zsh</code>  </p>
-<h2 id="oh-my-zsh">Oh My ZSH</h2>
-<ol>
-<li>Descargarmos el script de la utilidad que le va a aportar todo su valor. El script se llama <strong>install.sh</strong><br />
-<code>wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh</code>  </li>
-<li>Le damos permisos de ejecución<br />
-<code>chmod a+x install.sh</code>  </li>
-<li>Instalamos el script<br />
-<code>sh install.sh</code>  </li>
-<li>Cambiamos la shell a zsh. Si en el paso anterior, después de instalar todo, al final en el prompt nos pide un password y lo hemos introducido correctamente, lo más probable es que ya se haya cambiado la shell y te puede ahorrar este paso.<br />
-<code>chsh -s 'which zsh'</code>  </li>
-<li>Reiniciar la consola<br />
-<code>source ~/.zshrc</code>  </li>
-</ol>
+<h2 id="instalacion">Instalación</h2>
+<p>Abrimos la terminal y lo instalamos</p>
+<pre><code class="bash">sudo apt install zsh
+</code></pre>
+
+<h2 id="oh-my-zsh-customizacion-para-zsh">Oh My ZSH - Customización para ZSH</h2>
+<pre><code class="bash"># 1. Descargarmos el script de la utilidad que le va a aportar todo su valor. El script se llama **install.sh**
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh
+# 2. Le damos permisos de ejecución  
+chmod a+x install.sh
+# 3. Instalamos el script  
+sh install.sh
+# 4. Después de instalar todo, al final en el prompt nos pide un password
+#    Si lo hemos introducido correctamente, lo más probable es que ya se haya cambiado la shell
+#    Si la shell no se ha cambiado, entonces hay que hacer esto  
+chsh -s 'which zsh'
+# 5. Reiniciar la consola  
+source ~/.zshrc
+</code></pre>
+
 <h2 id="configurar-oh-my-zsh">Configurar Oh My ZSH</h2>
-<p>Abrir el fichero <strong>.zshrc</strong> con el editor que más te guste<br />
-<code>scratch-text-editor ~/.zshrc</code>  </p>
+<p>Abrir el fichero <code>.zshrc</code> con el editor que más te guste</p>
+<pre><code class="bash">scratch-text-editor ~/.zshrc
+</code></pre>
+
 <h3 id="plugins">Plugins</h3>
-<p>Sobre la línea 54 tenemos algo asi como<br />
-<code>plugins=(git)</code><br />
-Lo único que hay que hacer es ir añadiéndole todos los plugins que quieras ponerle y que esten contenidos en la carpeta <strong>~/.oh-my-zsh/plugins/</strong>. Los plugins se añaden simplemente con un espacio y el nombre al lado (no uses comillas). En mi caso como programo en python uso los siguientes plugins<br />
-<code>plugins=(git python pip virtualenvwrapper autopep8 pep8)</code><br />
-Todos los plugins oficiales están comentados <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins">aquí</a>. El que más me ha llamado la atención es el <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins#chucknorris">plugin de Chuck Norris</a><br />
-Una vez terminado, guardamos, cerramos el editor y recargamos la shell<br />
-<code>source ~/.zshrc</code>  </p>
+<p>Sobre la línea 54 tenemos algo asi como</p>
+<pre><code class="bash">plugins=(git)
+</code></pre>
+
+<p>Lo único que hay que hacer es ir añadiéndole todos los plugins que quieras ponerle y que esten contenidos en la carpeta <code>~/.oh-my-zsh/plugins</code>. Los plugins se añaden simplemente con un espacio y el nombre al lado (no uses comillas). En mi caso como programo en python uso los siguientes plugins  </p>
+<pre><code class="bash">plugins=(git python pip virtualenvwrapper autopep8 pep8)
+</code></pre>
+
+<p>Todos los plugins oficiales están comentados <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins">aquí</a>. El que más me ha llamado la atención es el <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins#chucknorris">plugin de Chuck Norris</a>.</p>
+<p>Una vez terminado, guardamos, cerramos el editor y recargamos la shell.</p>
+<pre><code class="bash">source ~/.zshrc
+</code></pre>
+
 <h3 id="themes">Themes</h3>
 <p>Lo que le da el aspecto chachi son los temas, y están en la carpeta <strong>~/.oh-my-zsh/themes/</strong>. Aquí están recogidos todos <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Themes">los temas oficiales con capturas</a>. Yo suelo usar el tema <strong>bira</strong>, aunque a veces uso el <strong>agnoster</strong> con modificaciones.<br />
-Bien pues para poner un tema, abrimos el fichero <strong>~/.zshrc</strong> y en la linea 10 aproximadamente tendremos algo asi como<br />
-<code>ZSH_THEME="robbyrussell"</code><br />
-Simplemente ponemos el que más nos guste<br />
-<code>ZSH_THEME="bira"</code><br />
-Cerramos el editor y reiniciamos la shell<br />
-<code>source ~/.zshrc</code>  </p>
+Bien pues para poner un tema, abrimos el fichero <strong>~/.zshrc</strong> y en la linea 10 aproximadamente tendremos algo asi como  </p>
+<pre><code class="bash">ZSH_THEME=&quot;robbyrussell&quot;
+</code></pre>
+
+<p>Simplemente ponemos el que más nos guste  </p>
+<pre><code class="bash">ZSH_THEME=&quot;agnoster&quot;
+</code></pre>
+
+<p>Cerramos el editor y reiniciamos la shell  </p>
+<pre><code class="bash">source ~/.zshrc
+</code></pre>
+
 <h3 id="tema-agnoster-tuneado">TEMA AGNOSTER TUNEADO</h3>
 <p>El tema <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Themes">agnoster</a> es muy muy bonito, pero para usarlo hay que tunear ciertas cosas.  </p>
-<ol>
-<li>Para comprobar que rula tienes que metes estos comandos en la shell
-  <code>echo "\ue0b0 \u00b1 \ue0a0 \u27a6 \u2718 \u26a1 \u2699"</code><br />
-  Debería de salir algo así<br />
-<img alt="unicode icons" src="https://gist.githubusercontent.com/agnoster/3712874/raw/characters.png" /><br />
-  Si no sale, debes instalar las <a href="https://github.com/powerline/fonts">fuentes Powerline</a>  </li>
-</ol>
-<p><code>bash
-  git clone https://github.com/powerline/fonts.git --depth=1
-  cd fonts
-  chmod a+x install.sh
-  sh install.sh
-  cd ..
-  sudo rm -R fonts</code></p>
-<ol>
-<li>Una vez sabemos que el tema va a funcionar, lo elegimos en el archivo <strong>~/.zshrc</strong><br />
-<code>ZSH_THEME="agnoster"</code>  </li>
-<li>Faltan dos pasos que son opcionales. A mi me ocurre que el <strong>agnoster</strong> no viene preparado para introducir comandos en una linea nueva (cosa que si hace el <strong>bira</strong> por ejemplo). Si tu <strong>agnoster</strong> ya trae esta funcionalidad o no la quieres poner, salta al paso <strong>4</strong>. Si no, tienes que editar el fichero <strong>~/.oh-my-zsh/themes/agnoster</strong>.<br />
-<code>gedit ~/.oh-my-zsh/themes/agnoster.zsh-theme</code><br />
-  El fichero debe de quedar como <a href="https://gist.github.com/nweddle/e456229c0a773c32d37b">aquí</a>. Si no quieres copiar sin saber que has hecho, sigue leyendo.<br />
-  En la última función, <strong>build_prompt</strong> tendremos algo así  </li>
-</ol>
-<p><code>bash
-  ## Main prompt
-  build_prompt() {
-    RETVAL=$?
-    prompt_status
-    prompt_virtualenv
-    prompt_context
-    prompt_dir
-    prompt_git
-    prompt_hg
-    prompt_end
-  }</code></p>
-<p>Antes del <code>prompt_end</code> tienes que añadirle un <code>prompt_newline</code>, osea que quedaría así  </p>
-<p><code>bash
-  ## Main prompt
-  build_prompt() {
-    RETVAL=$?
-    prompt_status
-    prompt_virtualenv
-    prompt_context
-    prompt_dir
-    prompt_git
-    prompt_hg
-    prompt_newline
-    prompt_end
-  }</code></p>
-<p>Pero falta por definir la funcion nueva que has añadido, así que encima  del <code>## Main prompt</code> añade lo siguiente  </p>
-<p>``` bash
-  # Newline
-  # Add new line to the prompt
-  prompt_newline() {
-    if [[ -n $CURRENT_BG ]]; then
-      echo -n " %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR
-  %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
-    else
-      echo -n " %{%k%}"
-    fi</p>
-<pre><code>echo -n " %{%f%}"
-CURRENT_BG=''
+<p>Para comprobar que rula tienes que metes estos comandos en la shell</p>
+<pre><code class="bash">echo &quot;\ue0b0 \u00b1 \ue0a0 \u27a6 \u2718 \u26a1 \u2699&quot;
 </code></pre>
-<p>}
-  ```</p>
-<ol>
-<li>En este punto vamos a añadirle la fecha y hora (un <strong>timestamp</strong>). Para ello, en el fichero del punto anterior <strong>~/.oh-my-zsh/themes/agnoster.zsh-theme</strong> y en el último comando, que es algo asi como<br />
-<code>PROMPT='%{%f%b%k%}$(build_prompt) '</code><br />
-  Hay que añadirle delante esto<br />
-<code>%D{%f/%m/%y}|%D{%L:%M:%S}</code><br />
-  La referencia sobre esta utilidad la saqué de <a href="https://superuser.com/a/1207412">aquí</a>. Al final el último comando acaba quedando así<br />
-<code>PROMPT='%D{%f/%m/%y}|%D{%L:%M:%S}%{%f%b%k%}$(build_prompt) '</code> </li>
-<li>Por último, recarga la shell<br />
-<code>source ~/.zshrc</code>  </li>
-</ol>
+
+<p>Debería de salir algo así  </p>
+<p><img alt="unicode icons" src="https://gist.githubusercontent.com/agnoster/3712874/raw/characters.png" />  </p>
+<p>Si no sale, debes instalar las <a href="https://github.com/powerline/fonts">fuentes Powerline</a>  </p>
+<pre><code class="bash">git clone https://github.com/powerline/fonts.git --depth=1
+cd fonts
+chmod a+x install.sh
+sh install.sh
+cd ..
+sudo rm -R fonts
+</code></pre>
+
+<p>Una vez sabemos que el tema va a funcionar, lo elegimos en el archivo <code>~/.zshrc</code>  </p>
+<pre><code class="bash">ZSH_THEME=&quot;agnoster&quot;
+</code></pre>
+
+<p>Faltan dos pasos que son opcionales. A mi me ocurre que el <strong>agnoster</strong> no viene preparado para introducir comandos en una linea nueva (cosa que si hace el <strong>bira</strong> por ejemplo). Si tu <strong>agnoster</strong> ya trae esta funcionalidad o no la quieres poner, salta al siguiente paso. Si no, tienes que editar el fichero <code>~/.oh-my-zsh/themes/agnoster</code>.</p>
+<pre><code class="bash">nano ~/.oh-my-zsh/themes/agnoster.zsh-theme
+</code></pre>
+
+<p>El fichero debe de quedar como <a href="https://gist.github.com/nweddle/e456229c0a773c32d37b">aquí</a>. Si no quieres copiar sin saber que has hecho, sigue leyendo.<br />
+En la última función, <code>build_prompt</code> tendremos algo así  </p>
+<pre><code class="bash">## Main prompt
+build_prompt() {
+  RETVAL=$?
+  prompt_status
+  prompt_virtualenv
+  prompt_context
+  prompt_dir
+  prompt_git
+  prompt_hg
+  prompt_end
+}
+</code></pre>
+
+<p>Antes del <code>prompt_end</code> tienes que añadirle un <code>prompt_newline</code>, osea que quedaría así  </p>
+<pre><code class="bash">## Main prompt
+build_prompt() {
+  RETVAL=$?
+  prompt_status
+  prompt_virtualenv
+  prompt_context
+  prompt_dir
+  prompt_git
+  prompt_hg
+  prompt_newline
+  prompt_end
+}
+</code></pre>
+
+<p>Pero falta por definir la funcion nueva que has añadido, así que encima  del <code>## Main prompt</code> añade lo siguiente  </p>
+<pre><code class="bash"># Newline
+# Add new line to the prompt
+prompt_newline() {
+  if [[ -n $CURRENT_BG ]]; then
+    echo -n &quot; %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR
+%{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR&quot;
+  else
+    echo -n &quot; %{%k%}&quot;
+  fi
+
+  echo -n &quot; %{%f%}&quot;
+  CURRENT_BG=''
+}
+</code></pre>
+
+<p>Por último vamos a añadirle la fecha y hora (un <strong>timestamp</strong>). Para ello, en el fichero del punto anterior <code>~/.oh-my-zsh/themes/agnoster.zsh-theme</code> y en el último comando, que es algo asi como</p>
+<pre><code class="bash">PROMPT='%{%f%b%k%}$(build_prompt) '
+</code></pre>
+
+<p>Hay que añadirle delante esto  </p>
+<pre><code class="bash">%D{%f/%m/%y}|%D{%L:%M:%S}
+</code></pre>
+
+<p>La referencia sobre esta utilidad la saqué de <a href="https://superuser.com/a/1207412">aquí</a>. Al final el último comando acaba quedando así</p>
+<pre><code class="bash">PROMPT='%D{%f/%m/%y}|%D{%L:%M:%S}%{%f%b%k%}$(build_prompt) '
+</code></pre>
+
+<p>Y recarga la shell</p>
+<pre><code class="bash">source ~/.zshrc
+</code></pre>
 
   <br>
     
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../../hw/upython/upython-informacion/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../../hw/upython/upython-informacion/" class="btn btn-xs btn-link">
+        Micropython
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../redes/redes-ipv6/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../redes/redes-ipv6/" class="btn btn-xs btn-link">
+        IPv6
+      </a>
+    </div>
+    
+  </div>
 
     <br>
 </div>

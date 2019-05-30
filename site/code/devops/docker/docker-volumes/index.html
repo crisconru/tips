@@ -34,8 +34,8 @@
         var pageToc = [
           {title: "Docker Volumes", url: "#_top", children: [
               {title: "Manipular (crear, listar, destruir...) volumenes con docker volume", url: "#manipular-crear-listar-destruir-volumenes-con-docker-volume" },
-              {title: "Ejecutar desde el docker run", url: "#ejecutar-desde-el-docker-run" },
-              {title: "Desde el Dockerfile podemos hacer lo mismo, pero solo crea volumenes an\u00f3nimos", url: "#desde-el-dockerfile-podemos-hacer-lo-mismo-pero-solo-crea-volumenes-anonimos" },
+              {title: "Montar volumen con docker run", url: "#montar-volumen-con-docker-run" },
+              {title: "Montar volumen con Dockerfile", url: "#montar-volumen-con-dockerfile" },
               {title: "Dangling Volumes", url: "#dangling-volumes" },
           ]},
         ];
@@ -89,8 +89,10 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>Existen 3 tipos de volumenes:</p>
 <ul>
 <li>Host Volumes -&gt; Una carpeta del Host.</li>
-<li>Named Volumes -&gt; Un volumen con nombre creado con Docker</li>
+<li>Named Volumes -&gt; Un volumen con nombre creado con Docker<ul>
 <li>No deja de ser un Host Volume pero en la carpeta <code>/../docker/volumes/&lt;nombre-volumen&gt;</code></li>
+</ul>
+</li>
 <li>Anonymous Volumes -&gt; Es igual que Named Volumes solo que el nombre es un hash que asigna docker.</li>
 </ul>
 <h2 id="manipular-crear-listar-destruir-volumenes-con-docker-volume">Manipular (crear, listar, destruir...) volumenes con <code>docker volume</code></h2>
@@ -103,15 +105,20 @@ docker volume rm &lt;nombre-volumen&gt;
 </code></pre>
 
 <p>Se recomienda asignar nombre a los volúmenes, ya que sino serán volúmenes anónimos y es más complicado nombrarlos (hay que usar su id).</p>
-<h2 id="ejecutar-desde-el-docker-run">Ejecutar desde el <code>docker run</code></h2>
+<h2 id="montar-volumen-con-docker-run">Montar volumen con <code>docker run</code></h2>
 <pre><code class="bash"># Ejecutar contenedor con un volumen host montado en el contenedor
 docker run -v [&lt;directorio-host-o-volumen-definido&gt;:]&lt;directorio-contenedor&gt; -t &lt;nombre-contenedor&gt;
 # Borrar tanto el contendor como su volumen
 docker rm -v &lt;nombre-contenedor&gt;
 </code></pre>
 
+<p><strong>OJO</strong> -&gt; Si queremos montar una carpeta local específica en un contenedor, solo podemos hacerlo con este comando. No se puede montar una carpeta local específica desde el Dockerfile ya que el path podría cambiar. Por ejemplo si queremos montar la propia carpeta en la que estamos haríamos</p>
+<pre><code class="bash">docker run -v $(pwd):&lt;directorio-contenedor&gt; &lt;contenedor&gt;
+</code></pre>
+
 <p>Si no indica el <code>&lt;directorio-host-o-volumen-definido&gt;</code>, se creará un volumen anónimo.  </p>
-<h2 id="desde-el-dockerfile-podemos-hacer-lo-mismo-pero-solo-crea-volumenes-anonimos">Desde el <code>Dockerfile</code> podemos hacer lo mismo, pero solo crea volumenes anónimos</h2>
+<h2 id="montar-volumen-con-dockerfile">Montar volumen con <code>Dockerfile</code></h2>
+<p>Desde el Dockerfile podemos hacer lo mismo, pero solo crea volumenes anónimos. Es decir, que no podemos montar una carpeta local específica.</p>
 <pre><code class="bash">VOLUME &lt;directorio-contenedor&gt;
 </code></pre>
 

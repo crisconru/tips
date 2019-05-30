@@ -37,9 +37,6 @@
               {title: "docker-compose up - Levantar contenedores con docker-compose", url: "#docker-compose-up-levantar-contenedores-con-docker-compose" },
               {title: "docker-compose down - Parar y eliminar todo lo que ha hecho docker-compose", url: "#docker-compose-down-parar-y-eliminar-todo-lo-que-ha-hecho-docker-compose" },
               {title: "Estructura", url: "#estructura" },
-              {title: "services", url: "#services" },
-              {title: "volumes", url: "#volumes" },
-              {title: "networks", url: "#networks" },
           ]},
         ];
 
@@ -71,7 +68,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
         <i class="fa fa-chevron-right" aria-hidden="true"></i>
       </a>
       <a href="../../../ides/vscode/vscode/" class="btn btn-xs btn-link">
-        Índice
+        Visual Studio code
       </a>
     </div>
     
@@ -89,16 +86,19 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
     <h1 id="docker-compose">Docker Compose</h1>
 <p>Información oficial -&gt; <a href="https://docs.docker.com/compose/">aquí</a></p>
-<p>Es para aplicaciones multicontenedor.<br />
-La nomenclatura que se sigue a la hora de nombrar el fichero es <code>docker-compose-&lt;nombre&gt;.yml</code>, y su formato es <code>YAML</code>.</p>
+<p>Es para aplicaciones multicontenedor.</p>
+<p>La nomenclatura que se sigue a la hora de nombrar el fichero es <code>docker-compose-&lt;nombre&gt;.yml</code>, y su formato es <code>YAML</code>. Si no se especifica nada, el fichero tiene que llamarse <code>docker-compose.yml</code>.</p>
 <h2 id="instalacion-de-docker-compose">Instalación de Docker Compose</h2>
 <p>Información oficial -&gt; <a href="https://docs.docker.com/compose/install/">aquí</a></p>
 <pre><code class="bash">sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 </code></pre>
 
-<h2 id="docker-compose-up-levantar-contenedores-con-docker-compose">docker-compose up - Levantar contenedores con docker-compose</h2>
-<p>Con este comando lanza docker-compose y ejecuta el fichero por defecto <code>docker-compose.yml</code></p>
+<h2 id="docker-compose-up-levantar-contenedores-con-docker-compose"><code>docker-compose up</code> - Levantar contenedores con docker-compose</h2>
+<pre><code class="bash">docker-compose up [&lt;opciones&gt;] [--scale &lt;servicio&gt;=&lt;numero-instancias&gt;] [&lt;servicio1&gt; &lt;servicio2&gt; ...]
+</code></pre>
+
+<p>Con este comando lanza docker-compose y ejecuta el fichero por defecto <code>docker-compose.yml</code>.</p>
 <pre><code class="bash">docker-compose [-p &lt;nombre-proyecto&gt;] up [-d]
 </code></pre>
 
@@ -106,19 +106,23 @@ sudo chmod +x /usr/local/bin/docker-compose
 <pre><code class="bash">docker-compose [-p &lt;nombre-proyecto&gt;] -f &lt;fichero-docker-compose&gt; up [-d]
 </code></pre>
 
-<h2 id="docker-compose-down-parar-y-eliminar-todo-lo-que-ha-hecho-docker-compose">docker-compose down - Parar y eliminar todo lo que ha hecho docker-compose</h2>
+<h2 id="docker-compose-down-parar-y-eliminar-todo-lo-que-ha-hecho-docker-compose"><code>docker-compose down</code> - Parar y eliminar todo lo que ha hecho docker-compose</h2>
 <pre><code class="bash">docker-compose [-f &lt;fichero-docker-compose&gt;] down [-d]
 </code></pre>
 
 <h2 id="estructura">Estructura</h2>
 <p>Tiene cuatro secciones:</p>
 <ul>
-<li>version -&gt; Indica la version de Docker-Compose que se va a usar (poner <code>'3'</code> a menos que).</li>
+<li><code>version</code> -&gt; Indica la version de Docker-Compose que se va a usar (poner <code>'3'</code> a menos que).<ul>
 <li>Es OBLIGATORIA</li>
-<li>services -&gt; Son los distintos servicios / contenedores que se van a crear</li>
+</ul>
+</li>
+<li><code>services</code> -&gt; Son los distintos servicios / contenedores que se van a crear<ul>
 <li>Es OBLIGATORIA</li>
-<li>volumes -&gt; opcional</li>
-<li>networks -&gt; opcional</li>
+</ul>
+</li>
+<li><code>volumes</code> -&gt; opcional</li>
+<li><code>networks</code> -&gt; opcional</li>
 </ul>
 <pre><code class="yml">version:
 services:
@@ -148,42 +152,42 @@ services:
 <pre><code class="bash">docker-compose down
 </code></pre>
 
-<h2 id="services">services</h2>
+<h3 id="services">services</h3>
 <ul>
 <li><code>container_name</code> -&gt; Nombre del contenedor</li>
 <li><code>image</code> -&gt; Imagen con la que se va a crear</li>
 <li><code>build</code> -&gt; Ruta hasta el <code>Dockerfile</code> usar una imagen propia</li>
-<li>
+</ul>
 <p>Versión corta</p>
-<p><code>yml
-version: '3'
+<pre><code class="yml">version: '3'
 services:
   web:
-    build: .</code></p>
-</li>
-<li>
+build: .
+</code></pre>
+
 <p>Versión extendida</p>
-<p><code>yml
-version: '3'
+<pre><code class="yml">version: '3'
 services:
 webapp:
-    build:
-    context: ./dir
-    dockerfile: mi-dockerfile
-    args:
-        buildno: 1</code></p>
-</li>
-<li>
-<p><code>command</code> -&gt; Mandarle un comando, sobreescribiendo el del <code>Dockerfile</code> (si lo hubiera).</p>
-</li>
+  build:
+  context: ./dir
+  dockerfile: mi-dockerfile
+  args:
+    buildno: 1
+</code></pre>
+
+<ul>
+<li><code>command</code> -&gt; Mandarle un comando, sobreescribiendo el del <code>Dockerfile</code> (si lo hubiera).</li>
 <li><code>ports</code> -&gt; Exponer los puertos</li>
-<li><code>restart</code> -&gt; Política de reinicio (información <a href="https://docs.docker.com/config/containers/start-containers-automatically/">aquí</a>)</li>
+<li><code>restart</code> -&gt; Política de reinicio (información <a href="https://docs.docker.com/config/containers/start-containers-automatically/">aquí</a>)<ul>
 <li><code>no</code> -&gt; Por defecto.</li>
 <li><code>on-failure</code> -&gt; Reiniciar el contenedor si hay un error.</li>
 <li><code>always</code> -&gt; Reiniciar si el contenedor se para (si se ha parado a mano, se reiniciará cuando se reinicie el demonio de docker).</li>
 <li><code>unless-stopped</code> -&gt; Parecido a <code>always</code> pero no se reinicia cuando se reinicia el demonio de docker.</li>
 </ul>
-<h2 id="volumes">volumes</h2>
+</li>
+</ul>
+<h3 id="volumes">volumes</h3>
 <pre><code class="yml">version: &quot;3.2&quot;
 services:
   web:
@@ -209,7 +213,7 @@ volumes:
   dbdata:
 </code></pre>
 
-<h2 id="networks">networks</h2>
+<h3 id="networks">networks</h3>
 <pre><code class="yml">version: '3'
 services:
   web:
@@ -237,7 +241,7 @@ networks:
         <i class="fa fa-chevron-right" aria-hidden="true"></i>
       </a>
       <a href="../../../ides/vscode/vscode/" class="btn btn-xs btn-link">
-        Índice
+        Visual Studio code
       </a>
     </div>
     
