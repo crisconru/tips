@@ -20,15 +20,18 @@ Estos son algunos minitutoriales-recordatorios rápidos, para hacer algunas tare
             * [Django](code/web/backend/django/django.md)
 * Software:
     * Linux:
-        * [Fecha y Hora](code/sw/linux/linux-fecha-hora.md)
-        * [Ficheros](code/sw/linux/linux-ficheros.md)
+        * [Fecha y Hora](sw/linux/linux-fecha-hora.md)
+        * [Ficheros](sw/linux/linux-ficheros.md)
     * Redes:
-        * [Linux](code/sw/redes/redes-linux.md)
-        * [SSH](code/sw/redes/redes-ssh.md)
-        * [iptables](code/sw/redes/redes-iptables.md)
-        * [IPv6](code/sw/redes/redes-ipv6.md)
+        * [Linux](sw/redes/redes-linux.md)
+        * [SSH](sw/redes/redes-ssh.md)
+        * [iptables](sw/redes/redes-iptables.md)
+        * [IPv6](sw/redes/redes-ipv6.md)
     * Terminal:
-        * [ZSH](code/sw/terminal/terminal-zsh.md)
+        * [tmux](sw/terminal/terminal-tmux.md)
+        * [ZSH](sw/terminal/terminal-zsh.md)
 * Hardware:
-    * [Micropython](code/hw/upython/upython-informacion.md)
-    * [Platformio](code/hw/pio/pio-informacion.md)
+    * [Micropython](hw/upython/upython-informacion.md)
+    * [Platformio](hw/pio/pio-informacion.md)
+* IoT:
+    * [MQTT](iot/mqtt/mqtt.md)
