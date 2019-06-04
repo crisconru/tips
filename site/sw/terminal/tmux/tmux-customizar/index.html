@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Customización - Tips de Cristo</title>
+    <link href="../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Customizar tmux", url: "#_top", children: [
+              {title: "Temas", url: "#temas" },
+              {title: "Cheatsheet", url: "#cheatsheet" },
+              {title: "Oh My Tmux", url: "#oh-my-tmux" },
+              {title: "El Tao de TMUX", url: "#el-tao-de-tmux" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../terminal-zsh/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../terminal-zsh/" class="btn btn-xs btn-link">
+        ZSH
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../tmux-comandos/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../tmux-comandos/" class="btn btn-xs btn-link">
+        Comandos
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="customizar-tmux">Customizar tmux</h1>
+<p>Toda la configuración de tmux se encuentra en el fichero <code>.tmux.conf</code>. Es probable que por defecto no haya ningún fichero de configuración. si así fuera, se recomienda ponerlo en <code>~/.tmux.conf</code>.</p>
+<p>Cuando se quiera cargar la configuración hay que hacer</p>
+<pre><code class="bash">tmux source-file &lt;fichero&gt;
+</code></pre>
+
+<p>En nuestro caso sería </p>
+<pre><code class="bash">tmux source-file ~/.tmux.conf
+</code></pre>
+
+<h2 id="temas">Temas</h2>
+<p>Jim Myhrbergs tiene un repo lleno de temas -&gt; <a href="https://github.com/jimeh/tmux-themepack">tmux-themepack</a></p>
+<p>Hay dos maneras de instalarlos, manualmente o a través del <strong>TMP</strong> (tmux plugin manager)</p>
+<h2 id="cheatsheet">Cheatsheet</h2>
+<p>Se adjunta una cheatsheet con todos los comandos -&gt; <a href="https://gist.github.com/MohamedAlaa/2961058">Cheatsheet</a></p>
+<h2 id="oh-my-tmux">Oh My Tmux</h2>
+<p>Repo para customizar a lo ZSH -&gt; <a href="https://github.com/gpakosz/.tmux">Oh My Tmux!</a></p>
+<h2 id="el-tao-de-tmux">El Tao de TMUX</h2>
+<p>Un libro para saber como trabajar eficientemente con TMUX -&gt; <a href="https://leanpub.com/the-tao-of-tmux/read">The Tao of tmux</a></p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../terminal-zsh/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../terminal-zsh/" class="btn btn-xs btn-link">
+        ZSH
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../tmux-comandos/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../tmux-comandos/" class="btn btn-xs btn-link">
+        Comandos
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

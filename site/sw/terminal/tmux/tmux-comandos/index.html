@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Comandos - Tips de Cristo</title>
+    <link href="../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "TMUX", url: "#_top", children: [
+              {title: "Instalaci\u00f3n", url: "#instalacion" },
+              {title: "Funcionamiento", url: "#funcionamiento" },
+              {title: "Abrir una sesi\u00f3n an\u00f3nima", url: "#abrir-una-sesion-anonima" },
+              {title: "Abrir nueva sesi\u00f3n con nombre", url: "#abrir-nueva-sesion-con-nombre" },
+              {title: "Salir de sesi\u00f3n (pero dejandola activa)", url: "#salir-de-sesion-pero-dejandola-activa" },
+              {title: "Listar sesiones", url: "#listar-sesiones" },
+              {title: "Entrar a una sesi\u00f3n", url: "#entrar-a-una-sesion" },
+              {title: "Matar una sesi\u00f3n", url: "#matar-una-sesion" },
+              {title: "Dividir panel verticalmente / horizontalmente", url: "#dividir-panel-verticalmente-horizontalmente" },
+              {title: "Redimensionar paneles", url: "#redimensionar-paneles" },
+              {title: "Matar panel actual", url: "#matar-panel-actual" },
+              {title: "Cambiar de panel", url: "#cambiar-de-panel" },
+              {title: "Cambiar de panel c\u00edclicamente", url: "#cambiar-de-panel-ciclicamente" },
+              {title: "Cambiar de panel solo entre el actual y el anterior", url: "#cambiar-de-panel-solo-entre-el-actual-y-el-anterior" },
+              {title: "Matar servidor tmux con todas sus sesiones", url: "#matar-servidor-tmux-con-todas-sus-sesiones" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../tmux-customizar/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../tmux-customizar/" class="btn btn-xs btn-link">
+        Customización
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../../redes/redes-ipv6/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../../redes/redes-ipv6/" class="btn btn-xs btn-link">
+        IPv6
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="tmux">TMUX</h1>
+<p>La mayoría de la información está sacada de esta web -&gt; <a href="https://hackernoon.com/a-gentle-introduction-to-tmux-8d784c404340">referencia</a></p>
+<p>tmux es una herramienta para poder "partir" la terminal en varias.</p>
+<h2 id="instalacion">Instalación</h2>
+<pre><code class="bash"># Ubuntu
+sudo apt install tmux
+# Mac
+brew install tmux
+</code></pre>
+
+<h2 id="funcionamiento">Funcionamiento</h2>
+<p>tmux funciona dentro de una terminal. Lo que se hace es invocar el programa y es como si nos creara una nueva terminal. Al hecho de abrir una terminal con tmux lo vamos a llamar "sesion". Las sesiones tienen un nombre, pero si no se especifica, se pone un número por defecto como nombre (1, 2, ...). Una vez abierta una sesión, aparecerá una barra abajo del todo, indicando donde estamos.</p>
+<p>Para usar los comandos de tmux debemos pulsar el atajo de teclado <code>Ctrl+b</code> y después el comando. Ojo, no a la vez, primero <code>Ctrl+b</code> y luego el comando.</p>
+<p>Por último podemos cerrar la sesión (eliminarla) o salir de ella (la sesion sigue activa).</p>
+<p>Ahora vemos todo con más detalle.</p>
+<h2 id="abrir-una-sesion-anonima">Abrir una sesión anónima</h2>
+<pre><code class="bash">tmux
+</code></pre>
+
+<h2 id="abrir-nueva-sesion-con-nombre">Abrir nueva sesión con nombre</h2>
+<pre><code class="bash">tmux new -s &lt;nombre-sesion&gt;
+</code></pre>
+
+<h2 id="salir-de-sesion-pero-dejandola-activa">Salir de sesión (pero dejandola activa)</h2>
+<p>Salir de una sesión, pero dejándola activa, se llama <code>detach</code></p>
+<pre><code class="bash"># Salir de sesion o detach
+Ctrl+b d
+</code></pre>
+
+<h2 id="listar-sesiones">Listar sesiones</h2>
+<pre><code class="bash">tmux ls
+</code></pre>
+
+<h2 id="entrar-a-una-sesion">Entrar a una sesión</h2>
+<p>Entrar a una sesión activa se llama <code>attatch</code></p>
+<pre><code class="bash">tmux a -t &lt;nombre-sesion&gt;
+</code></pre>
+
+<h2 id="matar-una-sesion">Matar una sesión</h2>
+<pre><code class="bash">tmux kill-session -t &lt;nombre-sesion&gt;
+</code></pre>
+
+<h2 id="dividir-panel-verticalmente-horizontalmente">Dividir panel verticalmente / horizontalmente</h2>
+<pre><code class="bash"># Vertical
+Ctrl+b %
+# Horizontal
+Ctrl+b &quot;
+</code></pre>
+
+<h2 id="redimensionar-paneles">Redimensionar paneles</h2>
+<pre><code class="bash">Ctrl+b :
+resize-pane -&lt;dirección&gt; &lt;número-de-lineas&gt;
+</code></pre>
+
+<ol>
+<li>Invocar el comando <code>Ctrl+b :</code> para que abra el prompt de tmux.</li>
+<li>Luego ponemos el comando <code>resize-pane -&lt;dirección&gt; &lt;número-de-lineas&gt;</code><ul>
+<li>Con <code>&lt;dirección&gt;</code> indicamos hacia donde crece<ul>
+<li><dirección> = U (up) | D (down) | L (left) | R (derecha)</li>
+</ul>
+</li>
+<li>Con <code>&lt;numero-de-lineas&gt;</code> le decimos la cantidad de lineas que tiene que desplazarse.</li>
+</ul>
+</li>
+</ol>
+<p>Ejemplo -&gt; Que el panel crezca dos lineas hacia abajo</p>
+<pre><code class="bash">Ctrl+b :
+resize-panel -D 2
+</code></pre>
+
+<h2 id="matar-panel-actual">Matar panel actual</h2>
+<pre><code class="bash">Ctrl+b x
+</code></pre>
+
+<h2 id="cambiar-de-panel">Cambiar de panel</h2>
+<pre><code class="bash">Ctrl+b &lt;tecla-direccion&gt;
+</code></pre>
+
+<h2 id="cambiar-de-panel-ciclicamente">Cambiar de panel cíclicamente</h2>
+<pre><code class="bash">Ctrl+b o
+</code></pre>
+
+<h2 id="cambiar-de-panel-solo-entre-el-actual-y-el-anterior">Cambiar de panel solo entre el actual y el anterior</h2>
+<pre><code class="bash">Ctrl+b ;
+</code></pre>
+
+<h2 id="matar-servidor-tmux-con-todas-sus-sesiones">Matar servidor tmux con todas sus sesiones</h2>
+<pre><code class="bash">tmux kill-server
+</code></pre>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../tmux-customizar/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../tmux-customizar/" class="btn btn-xs btn-link">
+        Customización
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../../redes/redes-ipv6/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../../redes/redes-ipv6/" class="btn btn-xs btn-link">
+        IPv6
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
