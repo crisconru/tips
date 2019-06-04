@@ -11,7 +11,7 @@ nav:
         - Docker Hub: 'code/devops/docker/docker-hub.md'
         - Comandos docker: 'code/devops/docker/docker-comandos.md'
         - Lanzar contenedores: 'code/devops/docker/docker-contenedores.md'
-        - Crear imágenes: 'code/debops/docker/docker-imagenes.md'
+        - Crear imágenes: 'code/devops/docker/docker-imagenes.md'
         - Dockerfile: 'code/devops/docker/docker-dockerfile.md'
         - Volumes: 'code/devops/docker/docker-volumes.md'
         - Network: 'code/devops/docker/docker-network.md'
@@ -55,7 +55,9 @@ nav:
     - Micropython: 'hw/upython/upython-informacion.md'
     - Platformio: 'hw/pio/pio-informacion.md'
   - IoT:
-    - MQTT: 'iot/mqtt/mqtt.md'
+    - MQTT:
+      - MQTT: 'iot/mqtt/mqtt.md'
+      - Hola mundo: 'iot/mqtt/mqtt-hello-world.md'
 theme:
   #name: mkdocs
   #name: readthedocs

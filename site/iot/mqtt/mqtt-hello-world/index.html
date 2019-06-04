@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Hola mundo - Tips de Cristo</title>
+    <link href="../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Primeros pasos", url: "#_top", children: [
+              {title: "Broker", url: "#broker" },
+              {title: "Cliente", url: "#cliente" },
+              {title: "Hola mundo", url: "#hola-mundo" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="../mqtt/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../mqtt/" class="btn btn-xs btn-link">
+        MQTT
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="primeros-pasos">Primeros pasos</h1>
+<p>Vamos montar la infraestructura para poder trabajar con MQTT. Se va a usar 2 RPis, pero con un pc sirve. En uno va el broker, y en la otra el cliente.</p>
+<h2 id="broker">Broker</h2>
+<p>Se va a usar un broker <a href="https://mosquitto.org/">Mosquitto</a>, ya que es Open Source y muy liviano para empezar. Si se deseara un broker más potenta para el cloud, se recomienda <a href="https://www.hivemq.com/">HiveMQ</a> o <a href="https://vernemq.com/">VerneMQ</a>.</p>
+<p>El broker Mosquitto lo vamos a levantar con un contenedor docker, para no tener que instalar nada. Toda la información de este contenedor está aquí -&gt; <a href="https://hub.docker.com/_/eclipse-mosquitto">Contenedor eclipse-mosquitto</a></p>
+<pre><code class="bash">docker run -it -p 1883:1883 -p 9001:9001 --name mqttbroker eclipse-mosquitto
+</code></pre>
+
+<p>Con este comando levantamos un contenedor eclipse-mosquitto, llamandolo mqttbroker, y abriendo sus puertos 1883 y 9001. Además dejaremos el contenedor abierto para ir viendo los logs que sucedan en cada comunicación.</p>
+<h2 id="cliente">Cliente</h2>
+<p>Para el cliente si vamos a instalarlo, ya que ocupa poco</p>
+<pre><code class="bash">sudo apt install mosquitto-clients
+</code></pre>
+
+<p>Ahora abrimos 2 terminales en el cliente, uno para ser usado como publisher y otro suscriber</p>
+<h3 id="mosquitto_sub"><code>mosquitto_sub</code></h3>
+<pre><code class="bash">mosquitto_sub -h &lt;broker&gt; -t &lt;topic&gt;
+</code></pre>
+
+<p>Comando para suscribirse a un topic:</p>
+<ul>
+<li><code>-h &lt;broker&gt;</code> indica el host del broker, hay que poner la ip del broker.</li>
+<li><code>-t &lt;topic&gt;</code> indica el topic al que se va a suscribir.</li>
+</ul>
+<h3 id="mosquitto_pub"><code>mosquitto_pub</code></h3>
+<pre><code class="bash">mosquitto_pub -h &lt;broker&gt; -t &lt;topic&gt; -m &lt;mensaje&gt;
+</code></pre>
+
+<p>Comando para publicar en un topic:</p>
+<ul>
+<li><code>-h &lt;broker&gt;</code> idem que antes.</li>
+<li><code>-t &lt;topic&gt;</code> idem que antes.</li>
+<li><code>-m &lt;mensaje&gt;</code> mensaje que se envía al topic (debe ir entre comillas dobles).</li>
+</ul>
+<h2 id="hola-mundo">Hola mundo</h2>
+<ol>
+<li>Tenemos el broker (con ip 192.168.1.110) en una terminal abierto, para ver sus logs.</li>
+<li>En otra terminal abrimos un suscriptor con <code>mosquitto_sub -h 192.168.1.110 -t /casa/salon/temperatura</code>.<ul>
+<li>Veremos como en el broker aparece el nuevo cliente conectado.</li>
+<li>La terminal de nuestro cliente se queda a la espera de nuevos mensajes entrantes.</li>
+</ul>
+</li>
+<li>En otra terminal publicamos con <code>mosquitto_pub -h 192.168.1.110 -t /casa/salon/temperatura -m "Hola mundo, hace 25ºC"</code>.<ul>
+<li>Veremos como en el broker aparecen los logs de envío</li>
+<li>En el cliente suscrito sale el mensaje.</li>
+</ul>
+</li>
+</ol>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="../mqtt/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../mqtt/" class="btn btn-xs btn-link">
+        MQTT
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

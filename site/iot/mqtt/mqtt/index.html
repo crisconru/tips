@@ -33,6 +33,9 @@
         
         var pageToc = [
           {title: "MQTT", url: "#_top", children: [
+              {title: "Arquitectura", url: "#arquitectura" },
+              {title: "Topic", url: "#topic" },
+              {title: "Mensajes", url: "#mensajes" },
           ]},
         ];
 
@@ -58,6 +61,16 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
   <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
     
+    <div class="wm-article-nav pull-right">
+      <a href="../mqtt-hello-world/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../mqtt-hello-world/" class="btn btn-xs btn-link">
+        Hola mundo
+      </a>
+    </div>
+    
     <div class="wm-article-nav">
       <a href="../../../hw/pio/pio-informacion/" class="btn btn-xs btn-default pull-left">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
@@ -71,7 +84,55 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     
 
     <h1 id="mqtt">MQTT</h1>
-<p>TODO</p>
+<p>Referencia -&gt; <a href="https://programarfacil.com/esp8266/mqtt-esp8266-raspberry-pi/">aquí</a></p>
+<p>MQTT es un protocolo de mensajería para IoT, que va montando sobre la capa TCP, pensado para comunicaciones M2M.</p>
+<h2 id="arquitectura">Arquitectura</h2>
+<p>Hay dos elementos:</p>
+<ul>
+<li>Cliente</li>
+<li>Servidor (broker)</li>
+</ul>
+<p>La arquitectura consiste en publicación-suscripción:</p>
+<ul>
+<li>Un cliente publica un topic dentro del broker.</li>
+<li>Un cliente le dice al broker a que topic se suscribe.</li>
+</ul>
+<h2 id="topic">Topic</h2>
+<p>Un topic es el asunto / tema del mensaje.</p>
+<p>Van jerarquizados, separados por <code>/</code> y dentro de categorías. Por ejemplo:</p>
+<ul>
+<li>Hay definido un topic <code>tv</code></li>
+<li>Está dentro de la categoría <code>salón</code></li>
+<li>Esta a su vez en la categoría <code>casa</code></li>
+<li>El topic se referencia <code>/casa/salon/tv</code></li>
+</ul>
+<p>Un cliente (o varios) se pueden suscribir a uno o varios topic, y también a las categorías (todos los topics que tienen por debajo).</p>
+<p>Existen dos operadores para ayudar a la suscripción, <code>+</code> y <code>#</code>:</p>
+<ul>
+<li>Con <code>+</code> sustituye cualquier categoría / nivel -&gt; <code>/casa/+/tv</code> = Suscribirse a todos los topic <code>tv</code> de la <code>/casa</code>.</li>
+<li>Con <code>#</code> sustituye cualquier categoría / nivel inferior -&gt; <code>/casa/#</code> = Suscribirse a todos los topic de la <code>/casa</code>.</li>
+</ul>
+<h2 id="mensajes">Mensajes</h2>
+<p>Tienen 3 partes:</p>
+<ol>
+<li>Encabezado fijo -&gt; 2B (2 Bytes), es obligatorio</li>
+<li>Encabezado variable -&gt; 4b (4 bits), no es obligatorio.</li>
+<li>Mensaje (payload) -&gt; Hasta 2-4 kB (teoricamente hasta 256MB).</li>
+</ol>
+<p>Se envían asíncronamente.</p>
+<p>El broker:</p>
+<ul>
+<li>Es el único que sabe que cliente está suscrito a cada topic, luego los clientes son independientes.</li>
+<li>Puede almacenar mensajes hasta que los lea el o los suscriptores.</li>
+<li>Cada cliente abre una conexión MQTT con el broker (algo asi como un socket).</li>
+</ul>
+<p>Existe QoS, permitiendo información fiable (o no). Hay 3 grados de QoS:</p>
+<ul>
+<li>QoS 0 -&gt; Enviar solo 1 vez -&gt; Puede que se pierda mensaje.</li>
+<li>QoS 1 -&gt; Permite al menos 1 reenvío -&gt; Se garantiza entrega del mensaje, pero puede haber duplicidad.</li>
+<li>QoS 2 -&gt; Llega 1 vez -&gt; Se garantiza que el mensaje llega 1 sola vez.</li>
+</ul>
+<p>A mayor calidad, menos rendimiento.</p>
 
   <br>
     
@@ -82,6 +143,16 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     
 
   <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../mqtt-hello-world/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../mqtt-hello-world/" class="btn btn-xs btn-link">
+        Hola mundo
+      </a>
+    </div>
     
     <div class="wm-article-nav">
       <a href="../../../hw/pio/pio-informacion/" class="btn btn-xs btn-default pull-left">
