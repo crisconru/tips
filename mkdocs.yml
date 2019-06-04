@@ -47,7 +47,9 @@ nav:
       - iptables: 'sw/redes/redes-iptables.md'
       - IPv6: 'sw/redes/redes-ipv6.md'
     - Terminal:
-      - tmux: 'sw/terminal/terminal-tmux.md'
+      - tmux: 
+        - Comandos: 'sw/terminal/tmux/tmux-comandos.md'
+        - Customización: 'sw/terminal/tmux/tmux-customizar.md'
       - ZSH: 'sw/terminal/terminal-zsh.md'
   - Hardware:
     - Micropython: 'hw/upython/upython-informacion.md'

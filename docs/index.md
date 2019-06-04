@@ -28,7 +28,7 @@ Estos son algunos minitutoriales-recordatorios rápidos, para hacer algunas tare
         * [iptables](sw/redes/redes-iptables.md)
         * [IPv6](sw/redes/redes-ipv6.md)
     * Terminal:
-        * [tmux](sw/terminal/terminal-tmux.md)
+        * [tmux](sw/terminal/tmux/tmux-comandos.md)
         * [ZSH](sw/terminal/terminal-zsh.md)
 * Hardware:
     * [Micropython](hw/upython/upython-informacion.md)
