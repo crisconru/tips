@@ -6,7 +6,7 @@ Vamos a ver como empezar con Django a través de un mini ejemplo.
 
 ## Crear proyecto Django
 
-Instalamor Django
+Instalamos Django
 
 ```bash
 pip install django
@@ -31,12 +31,12 @@ django-admin startproject <proyecto>
 Veremos que se ha generado una con la siguiente estructura (supongamos que he llamado al proyecto `miproyecto`):
 
 * miproyecto -> Proyecto Django
-  * miproyecto -> App principal del proyecto, contiene configuracion inicial y despliegue.
-    * __init__.py -> Para inicializar el proyecto e indicar que es un paquete.
-    * settings.py -> Toda la configuración del proyecto Django.
-    * urls.py -> Punto de entrada de todas nuestras peticiones http (ver una web, consumir un webservice, etc).
-    * wsgi.py -> Encargado del despliegue (implementar el protocolo WSGI que usan todas las apps webs hechas en Python).
-  * manage.py -> Script para gestionar el proyecto desde la terminal.
+    * miproyecto -> App principal del proyecto, contiene configuracion inicial y despliegue.
+        * __init__.py -> Para inicializar el proyecto e indicar que es un paquete.
+        * settings.py -> Toda la configuración del proyecto Django.
+        * urls.py -> Punto de entrada de todas nuestras peticiones http (ver una web, consumir un webservice, etc).
+        * wsgi.py -> Encargado del despliegue (implementar el protocolo WSGI que usan todas las apps webs hechas en Python).
+    * manage.py -> Script para gestionar el proyecto desde la terminal.
 
 El otro CLI con el que cuenta Django es ese último fichero llamado `manage.py`. Si lo ejecutamos en la terminal tal cual, veremos todas las opciones que tiene (ordenadas ademas por temáticas). 
 
@@ -71,13 +71,13 @@ python manage.py startapp <app>
 En este caso creamos `core`, y al hacerlo se crea una carpeta `core` con los siguientes ficheros:
 
 * core
-  * migrations -> Carpeta donde se guardan los cambios del modelo de la bbdd
-  * __init__.py -> Definir paquete
-  * admin.py -> Fichero encargado de la configuracion de la app en el Django Admin
-  * apps.py -> Configuracion de la app.
-  * models.py -> Es donde se definen el modelo de la bbdd para la app.
-  * tests.py -> Fichero de pruebas.
-  * views.py -> Es donde se definen las Vistas (las funciones / clases que se ejecutan cuando se accede a una url).
+    * migrations -> Carpeta donde se guardan los cambios del modelo de la bbdd
+    * __init__.py -> Definir paquete
+    * admin.py -> Fichero encargado de la configuracion de la app en el Django Admin
+    * apps.py -> Configuracion de la app.
+    * models.py -> Es donde se definen el modelo de la bbdd para la app.
+    * tests.py -> Fichero de pruebas.
+    * views.py -> Es donde se definen las Vistas (las funciones / clases que se ejecutan cuando se accede a una url).
 
 ## Vistas
 
@@ -85,18 +85,18 @@ Cada vez que marca una url en el navegador, el proceso que sigue Django para ofr
 
 1. Se entra al fichero `urls.py` de la app principal del proyecto (la que se llama como el propio proyecto).
 2. En ese fichero se busca en que vista despacha esa url.
-   1. Puede haber una vista definida.
-   2. Puede haber una redicción a otro fichero `urls.py` de la app encargada de despachar esa vista.
+    1. Puede haber una vista definida.
+    2. Puede haber una redicción a otro fichero `urls.py` de la app encargada de despachar esa vista.
 3. Dentro del `urls.py` final se indica que vista del `views.py` de la app ejecuta.
 4. En el `views.py` de la app se ejecuta la vista correspondiente y se devuelve la respuesta para el navegador.
 
 Existen 2 tipos de vistas:
 
 * Function views -> El encargado de generar la vista es una función.
-  * Son para vistas que apenas tienen operaciones, más simples.
+    * Son para vistas que apenas tienen operaciones, más simples.
 * Class-based views -> El encargado de generar la vista es una clase.
-  * Son para vistas mas complejas.
-  * Son las más usadas.
+    * Son para vistas mas complejas.
+    * Son las más usadas.
 
 ### Ejemplo de como se carga una vista en el navegador
 
@@ -146,9 +146,9 @@ Para usar templates en una app hay que crear dentro de la app:
 Es decir que en **core** tendríamos
 
 * miproyecto
-  * core
-    * templates
-      * core
+    * core
+        * templates
+            * core
 
 Esto se hace así porque Django cuando se despliega el proyecto, busca todas las carpetas **templates** dentro de cada app y mete lo que haya dentro en una carpeta **templates** genérica para él.
 
@@ -156,34 +156,34 @@ Supongamos que hemos creado el fichero **home.html** en el directorio **miproyec
 
 1. Poner la app **core** en el `settings.py` del proyecto Django
 
-   ```python
-   # Application definition
+    ```python
+    # Application definition
 
-   INSTALLED_APPS = [
-       'core.apps.CoreConfig',
-       'portfolio.apps.PortfolioConfig',
-       'django.contrib.admin',
-       'django.contrib.auth',
-       'django.contrib.contenttypes',
-       'django.contrib.sessions',
-       'django.contrib.messages',
-       'django.contrib.staticfiles',
-   ]
-   ```
+    INSTALLED_APPS = [
+        'core.apps.CoreConfig',
+        'portfolio.apps.PortfolioConfig',
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+    ]
+    ```
 
 2. Modificar el **views.py** con
 
-   ```python
-   from django.shortcuts import render
+    ```python
+    from django.shortcuts import render
 
 
-   def home(request):
-       # Template -> fichero html para devolver
-       template = 'core/home.html'
-       # Context -> diccionario con variables para el html
-       context = {mivariable: 'Hola home'}
-       return render(request, template, context)
-   ```
+    def home(request):
+        # Template -> fichero html para devolver
+        template = 'core/home.html'
+        # Context -> diccionario con variables para el html
+        context = {mivariable: 'Hola home'}
+        return render(request, template, context)
+    ```
 
 ### Herencia
 
@@ -251,20 +251,20 @@ Por ejemplo `{% url 'home' %}`. El nombre de la vista, es decir, `<vista>` lo he
 
 Para poder cargar los estilos, imágenes, scripts JS, etc, primero hay que crear una carpeta donde los contenga. Esta carpeta va a seguir el mismo princpio que la carpeta **templates**, pero se va a llamar **static**. Es decir, que dentro de cada app que tenga ficheros estáticos tendremos:
 
-* <proyecto-django>
-  * <app>
-    * static
-      * <app>
+* < proyecto-django >
+    * < app >
+        * static
+            * < app >
 
 Ya que luego Django recolectará todas las carpetas static en una **static** común. En nuestro ejemplo tendríamos **miproyecto/core/static/core/**.
 
 Una vez hecho esto, lo siguiente será en el **base.html** y cada plantilla poner lo siguiente:
 
 1. `{% load static %}`
-   * Tanto en el `<head></head>` del `base.html`.
-   * Como en cada plantilla, **solo se debe poner una vez**:
-     * Puede ser al principio, despues del `{% entends '<app>/base.html' %}`.
-     * Como dentro de un `{% block <bloque> %}{% endblock %}`.
+    * Tanto en el `<head></head>` del `base.html`.
+    * Como en cada plantilla, **solo se debe poner una vez**:
+        * Puede ser al principio, despues del `{% entends '<app>/base.html' %}`.
+        * Como dentro de un `{% block <bloque> %}{% endblock %}`.
 2. Luego en cada enlace hacia el fichero estático, ponemos `"{% static '<app>/<path-al-estatico>' %}"`.
 
 Un ejemplo podría ser
@@ -420,9 +420,9 @@ class Project(models.Model):
 Los campos `created` y `updated` Django los oculta por defecto, ya que son de solo lectura. Para hacer que aparecan debemos de
 
 * Modificar el `admin.py` de la app
-  * Creando un modelo extendido para el Admin
-    * Pasándole una tupla con los campos de solo lectura.
-  * Añadiendo el modelo extendido al admin.
+    * Creando un modelo extendido para el Admin
+        * Pasándole una tupla con los campos de solo lectura.
+    * Añadiendo el modelo extendido al admin.
 
 /miproyecto/<app>/admin.py
 
@@ -461,34 +461,34 @@ Django por defecto no puede servir ficheros multimedia (imágenes, vídeos, etc)
 1. Crear una carpeta común llamada `media` por ejemplo, y estaría al mismo nivel que las apps, es decir <proyecto>/media.
 2. En el `settings.py` (<proyecto>/<proyecto>/settings.py) del proyecto debemos de indicarle donde está la carpeta de estos archivos con
 
-   ```python
-   # Media files
-   MEDIA_URL = '/media/'  # Ruta del navegador para encontrarlos
-   MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Ruta para encontrarlos dentro del Django
-   ```
+    ```python
+    # Media files
+    MEDIA_URL = '/media/'  # Ruta del navegador para encontrarlos
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Ruta para encontrarlos dentro del Django
+    ```
 
 3. Si en el modelo tenemos algún formulario donde los usuarios pueden subir este tipo de ficheros, debemos añadirle el parámetro `upload_to` con el nombre del directorio que tendrá dentro de la carpeta `media`
    Por ejemplo en el /miproyecto/core/models.py hacemos que las imágenes de los proyectos las guarde en la carpeta /miproyecto/media/projects que Django generará automáticamente con
 
-   ```python
-   class Project(models.Model):
-       ...
-       image = models.ImageField(verbose_name='Imagen', upload_to='projects')
-   ```
+    ```python
+    class Project(models.Model):
+        ...
+        image = models.ImageField(verbose_name='Imagen', upload_to='projects')
+```
 
 4. Ahora tenemos que habilitar una url para el directorio `media`, pero que solo sea accesible cuando estamos en modo `debug`.
-   1. Modificar el `urls.py` del proyecto (<proyecto>/<proyecto>/urls.py) con
+    1. Modificar el `urls.py` del proyecto (<proyecto>/<proyecto>/urls.py) con
 
-   ```python
-   from django.conf import settings
+    ```python
+    from django.conf import settings
 
-   urlpatterns = [...]
+    urlpatterns = [...]
 
-   if settings.DEBUG:
-       from django.conf.urls.static import static
-       urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    if settings.DEBUG:
+        from django.conf.urls.static import static
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-   ```
+    ```
 
 ## MVT Modelo-Vista-Template
 
@@ -504,21 +504,21 @@ En el MVT hay:
 
 * Modelo -> Igual que el anterior (BBDD).
 * Vista -> Equivale en realidad al Controlador (Backend).
-  * Por eso decía que es lioso, porque al Controlador en Django se le llama Vista.
-  * Y a la Vista se le llama Template.
+    * Por eso decía que es lioso, porque al Controlador en Django se le llama Vista.
+    * Y a la Vista se le llama Template.
 * Template -> Equivale a la Vista (Frontend).
 
 Hay que tener en cuenta que **MVT define el flujo de desarrollo**. En el MVT nosotros desarrollamos siguiendo estos pasos:
 
 1. MODELO
-   * `models.py` -> Creamos / modificamos el Modelo (BBDD).
-   * `admin.py` -> Habilitamos las opciones que sean necesarias en el Admin.
+    * `models.py` -> Creamos / modificamos el Modelo (BBDD).
+    * `admin.py` -> Habilitamos las opciones que sean necesarias en el Admin.
 2. VISTA
-   * `views.py` -> Creamos / modificamos la Vista (Backend).
-   * `urls.py` -> Habilitamos el acceso a través de la web a esa vista.
+    * `views.py` -> Creamos / modificamos la Vista (Backend).
+    * `urls.py` -> Habilitamos el acceso a través de la web a esa vista.
 3. TEMPLATE
-   * `templates/<app>/` -> Creamos / modificamos la Template (Frontend).
-   * `static/<app>/` -> Creamos / modificamos los estáticos (CSS's, JS's).
+    * `templates/<app>/` -> Creamos / modificamos la Template (Frontend).
+    * `static/<app>/` -> Creamos / modificamos los estáticos (CSS's, JS's).
 
 **NOTA**: Un **mnemónico** para recordar esto es **MAVUTS** -> Models.py Admin.py Views.py Urls.py Templates Static.
 
@@ -536,9 +536,9 @@ Pero el flujo que sigue Django para servir una web en un enlace concreto es:
 Para que tu editor no te de problemas, se recomienda instalar el linter `pylint-django`. Para activarlo hay que hacer:
 
 * Editar los `pylintArgs` con
-  * `--errors-only`
-  * `--load-plugins`
-  * `pytlint_django`
+    * `--errors-only`
+    * `--load-plugins`
+    * `pytlint_django`
 
 Supongamos que vamos a querer tener una sección portfolio en esta web, llena de los proyectos. Lo primero será crear la app portfolio
 
@@ -548,53 +548,53 @@ python manage.py startapp portfolio
 
 1. Tendremos nuestra nueva app portfolio junto con `core` y `miproyecto`. Una vez creada, damos de alta la app en el `settings.py` del proyecto
 
-   ```python
-   INSTALLED_APPS = [
-       'portfolio.apps.PortfolioConfig',
-   ]
-   ```
+    ```python
+    INSTALLED_APPS = [
+        'portfolio.apps.PortfolioConfig',
+    ]
+    ```
 
 2. Modelo -> `models.py`:
-   * Quitamos `Projects` del modelo de `core` (en su `models.py`) y nos lo llevamos al `models.py` de `portfolio`.
-   * Hacemos las migraciones en la base de datos con
+    * Quitamos `Projects` del modelo de `core` (en su `models.py`) y nos lo llevamos al `models.py` de `portfolio`.
+    * Hacemos las migraciones en la base de datos con
 
-   ```bash
-   python manage.py makemigrations
-   python manage.py migrate
-   ```
+    ```bash
+    python manage.py makemigrations
+    python manage.py migrate
+    ```
 
 3. Admin -> `admin.py`:
-   * Quitamos el `Projects` de `core` del Admin en su `admin.py`.
-   * Damos de alta `Projects` de `portfolio` en el Admin con su `admin.py`.
+    * Quitamos el `Projects` de `core` del Admin en su `admin.py`.
+    * Damos de alta `Projects` de `portfolio` en el Admin con su `admin.py`.
 4. Vista -> `views.py`:
-   * Creamos la vista `portfolio` en el `views.py`.
-   * Podemmos usar el modelo en la vista de la siguiente manera
+    * Creamos la vista `portfolio` en el `views.py`.
+    * Podemmos usar el modelo en la vista de la siguiente manera
 
-   ```python
-   from django.shortcuts import render
-   from .models import Project
+    ```python
+    from django.shortcuts import render
+    from .models import Project
 
 
-   def portfolio(request):
-       template = 'portfolio/portfolio.html'
-       projects = Project.objects.all()
-       context = {'projects': projects}
-       return render(request, template, context)
+    def portfolio(request):
+        template = 'portfolio/portfolio.html'
+        projects = Project.objects.all()
+        context = {'projects': projects}
+        return render(request, template, context)
 
-   ```
+    ```
 
 5. Urls -> `urls.py`:
-   * En el `urls.py` del proyecto redireccionamos al `urls.py` de `portfolio`
+    * En el `urls.py` del proyecto redireccionamos al `urls.py` de `portfolio`
 
-   ```python
-   from django.urls import path, include
+    ```python
+    from django.urls import path, include
 
-   urlpatterns = [
-       path('portfolio/', include('portfolio.urls')),
-   ]
-   ```
+    urlpatterns = [
+        path('portfolio/', include('portfolio.urls')),
+    ]
+    ```
 
-   * En el `urls.py` de `portfolio` enlazamos la vista creada.
+    * En el `urls.py` de `portfolio` enlazamos la vista creada.
 
     ```python
     from django.urls import path
@@ -606,31 +606,31 @@ python manage.py startapp portfolio
     ```
 
 6. Template -> `miproyecto/portfolio/templates/portfolio/<plantilla>.html`
-   * Creamos el template `miproyecto/portfolio/templates/portfolio/portfolio.html`.
-   * Dentro de esta template, heredamos del `base.html` del `templates` de `core`.
-   * Un ejemplo de como podríamos usar el modelo dentro de la plantilla podria ser un template-tag `{% for %}`, ya que le hemos pasado todos los proyectos.
+    * Creamos el template `miproyecto/portfolio/templates/portfolio/portfolio.html`.
+    * Dentro de esta template, heredamos del `base.html` del `templates` de `core`.
+    * Un ejemplo de como podríamos usar el modelo dentro de la plantilla podria ser un template-tag `{% for %}`, ya que le hemos pasado todos los proyectos.
 
-   ```html
-   {% extends 'core/base.html' %}
-   {% load static %}
-   {% block title%}Portfolio{% endblock%}
-   ...
-   {% block content%}
-   <ul>
-       {% for project in projects %}
+    ```html
+    {% extends 'core/base.html' %}
+    {% load static %}
+    {% block title%}Portfolio{% endblock%}
+    ...
+    {% block content%}
+    <ul>
+        {% for project in projects %}
         <li>
             Título: {{project.title}}
             Descripción: {{project.description}}
             Imagen: {{project.image.url}}
         </li>
-       {% endfor %}
+        {% endfor %}
     </ul>
-   {% endblock }
-   ```
+    {% endblock }
+    ```
 
 7. Static -> `miproyecto/portfolio/static/portfolio/<archivos>`
-   * si necesito cualquier estático lo uso en `portfolio.html` con
+    * si necesito cualquier estático lo uso en `portfolio.html` con
 
-   ```html
-   {% static 'portfolio/<fichero-estatico>' %}
-   ```
+    ```html
+    {% static 'portfolio/<fichero-estatico>' %}
+    ```
