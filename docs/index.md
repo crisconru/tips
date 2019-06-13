@@ -6,6 +6,7 @@ Estos son algunos minitutoriales-recordatorios rápidos, para hacer algunas tare
     * Devops:
         * [Ansible](code/devops/ansible/ansible.md)
         * [Docker](code/devops/docker/docker-aclaraciones.md)
+    * [GIT](code/git/git-git.md)
     * IDEs:
         * [Visual Studio code](code/ides/vscode/vscode.md)
     * Python:
