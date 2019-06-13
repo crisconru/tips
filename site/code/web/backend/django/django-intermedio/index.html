@@ -39,11 +39,20 @@
               {title: "Pasar par\u00e1metros a las vistas", url: "#pasar-parametros-a-las-vistas" },
               {title: "Buscar inversamente en relaciones", url: "#buscar-inversamente-en-relaciones" },
               {title: "Procesador de contexto", url: "#procesador-de-contexto" },
+          ]},
+          {title: "Create your models here.", url: "#create-your-models-here", children: [
+          ]},
+          {title: "Register your models here.", url: "#register-your-models-here", children: [
               {title: "Template Tags propios", url: "#template-tags-propios" },
+          ]},
+          {title: "Create your models here.", url: "#create-your-models-here_1", children: [
+          ]},
+          {title: "Create your views here.", url: "#create-your-views-here", children: [
               {title: "Ordenaci\u00f3n directa de p\u00e1ginas", url: "#ordenacion-directa-de-paginas" },
               {title: "Edici\u00f3n directa de p\u00e1ginas", url: "#edicion-directa-de-paginas" },
               {title: "Editor WYSIWYG en el Admin", url: "#editor-wysiwyg-en-el-admin" },
               {title: "Formularios", url: "#formularios" },
+              {title: "Enviar emails", url: "#enviar-emails" },
               {title: "Grupos, Usuarios y permisos", url: "#grupos-usuarios-y-permisos" },
           ]},
         ];
@@ -97,20 +106,28 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <h2 id="relacion-entre-modelos">Relación entre modelos</h2>
 <p>Los modelos se pueden conectar, a través de las claves foráneas, con dos tipos de relaciones:</p>
 <ul>
-<li>One-To-Many -&gt; Uno a muchos</li>
+<li>One-To-Many -&gt; Uno a muchos<ul>
 <li>Relacionas un campo de una tabla con varias tablas.</li>
-<li>Many-To-Many -&gt; Machos a muchos</li>
+</ul>
+</li>
+<li>Many-To-Many -&gt; Machos a muchos<ul>
 <li>Relacionas varios campos de una tabla con varias tablas.</li>
+</ul>
+</li>
 </ul>
 <p>Ejemplo de una one-to-many con el proyecto anterior. Creamos una app <code>blog</code> que va a contener dos modelos, uno categoría y otro post:</p>
 <ul>
-<li>Cada post solo tiene un autor, pero cada autor (usuario) puede tener varias entradas (one-to-many).</li>
+<li>Cada post solo tiene un autor, pero cada autor (usuario) puede tener varias entradas (one-to-many).<ul>
 <li>Si se elimina a un autor, se deben de eliminar todos sus post (en cascada).</li>
 <li>Cuando la relación es one-to-many se usa un campo <code>ForeignKey</code> (clave foránea).</li>
 <li>La relación one-to-many es <code>User</code>-<code>Post</code>.</li>
-<li>Cada post podrá tener varias categorías, y cada categoría puede estar en varios post (many-to-many).</li>
+</ul>
+</li>
+<li>Cada post podrá tener varias categorías, y cada categoría puede estar en varios post (many-to-many).<ul>
 <li>Cuando la relación es many-to-many se usa un campo <code>ManyToManyField</code></li>
 <li>La relación many-to-many es <code>Category</code>-<code>Post</code>.</li>
+</ul>
+</li>
 </ul>
 <p>Así que el <code>models.py</code> quedaría</p>
 <pre><code class="python">from django.db import models
@@ -247,54 +264,67 @@ admin.site.register(Post, PostAdmin)
 <ul>
 <li>En el <code>urls.py</code></li>
 </ul>
-<p>```python
-  from django.urls import path
-  from . import views</p>
-<p>urlpatterns = [
-      path('', views.blog, name='blog'),
-      path('category/<int:category_id>', views.category, name='category'),
-  ]</p>
-<p>```</p>
+<pre><code class="python">from django.urls import path
+from . import views
+
+
+urlpatterns = [
+    path('', views.blog, name='blog'),
+    path('category/&lt;int:category_id&gt;', views.category, name='category'),
+]
+
+</code></pre>
+
 <ul>
 <li>En el <code>views.py</code></li>
 </ul>
-<p>```python
-  from django.shortcuts import render, get_object_or_404
-  from .models import Post, Category</p>
-<p># Create your views here.
-  def blog(request):
-      template = 'blog/blog.html'
-      context = {'posts': Post.objects.all()}
-      return render(request, template, context)</p>
-<p>def category(request, category_id):
-      template = 'blog/category.html'
-      category = get_object_or_404(Category, id=category_id)
-      context = {'category': category}
-      return render(request, template, context)</p>
-<p>```</p>
+<pre><code class="python">from django.shortcuts import render, get_object_or_404
+from .models import Post, Category
+
+
+# Create your views here.
+def blog(request):
+    template = 'blog/blog.html'
+    context = {'posts': Post.objects.all()}
+    return render(request, template, context)
+
+
+def category(request, category_id):
+    template = 'blog/category.html'
+    category = get_object_or_404(Category, id=category_id)
+    context = {'category': category}
+    return render(request, template, context)
+
+</code></pre>
+
 <h2 id="buscar-inversamente-en-relaciones">Buscar inversamente en relaciones</h2>
 <p>Cuando se tiene una relación entre campos, se puede buscar tanto en un sentido como en otro. Veámoslo con un ejemplo:</p>
 <ul>
 <li>Tenemos <code>Post</code> relacionado many-to-many con <code>Category</code>.</li>
-<li>Si quiera buscar todos los post que hay en una categoria podría</li>
+<li>Si quiera buscar todos los post que hay en una categoria podría<ol>
 <li>Buscar por cada post y filtrar por categoría.</li>
 <li>Buscar por categoría y sacar todos los posts</li>
+</ol>
+</li>
 <li>La segunda opción de búsqueda es más eficiente y para hacerla tendría que hacer</li>
 </ul>
-<p><code>html
-  {{category.post_set.all}}</code></p>
+<pre><code class="html">{{category.post_set.all}}
+</code></pre>
+
 <ul>
 <li>Pero esta forma queda bastante poco intuitiva.</li>
 <li>Para customizar esto usamos el campo <code>related_name</code> en el modelo del <code>models.py</code></li>
 </ul>
-<p><code>python
-  class Post(models.Model):
-      categories = models.ManyToManyField(Category, related_name="get_posts")</code></p>
+<pre><code class="python">class Post(models.Model):
+    categories = models.ManyToManyField(Category, related_name=&quot;get_posts&quot;)
+</code></pre>
+
 <ul>
 <li>Y ahora en el template</li>
 </ul>
-<p><code>html
-  {{category.get_posts.all}}</code></p>
+<pre><code class="html">{{category.get_posts.all}}
+</code></pre>
+
 <h2 id="procesador-de-contexto">Procesador de contexto</h2>
 <p>El contexto en programación se refiere al estado de variables, objetos, etc, y su estado, que hay en un momento concreto. Cuando procesamos una vista, hasta ahora lo que devolvemos es la función <code>render</code> a la que se le pasa:</p>
 <ol>
@@ -304,125 +334,139 @@ admin.site.register(Post, PostAdmin)
 </ol>
 <p>Hay veces en las que se necesita información de una app en distintas apps. Una buena manera es extender el contexto, añadiendo esa info de una app para poder ser consumida en las demás. Para hacer eso, usamos lo que se llama el <strong>Procesador de contexto</strong>. Para crear uno hacemos:</p>
 <ol>
-<li>En la app de la que queremos compartir su información, creamos un archivo llamado <code>processors.py</code>.</li>
+<li>En la app de la que queremos compartir su información, creamos un archivo llamado <code>processors.py</code>.<ol>
 <li>Creamos dentro una función, a la que se le pasa la <code>request</code> como parámetro.</li>
 <li>Dentro creamos un diccionario con información.</li>
 <li>Devolvemos ese diccionario.</li>
-<li>En el <code>settings.py</code> debemos de darlo de alta.</li>
+</ol>
+</li>
+<li>En el <code>settings.py</code> debemos de darlo de alta.<ol>
 <li>Vamos a la sección <code>TEMPLATES</code>.</li>
 <li>Dentro de está <code>OPTIONS</code>, y dentro de esta se encuentra <code>context_processors</code>.</li>
 <li>Añadimos lo siguiente <code>'&lt;app&gt;.processors.&lt;funcion&gt;'</code>.</li>
 </ol>
+</li>
+</ol>
 <p>Esto se ve más fácil con un ejemplo, donde vamos a añadir las RRSS a una web. Todas las RRSS están en una app <code>social</code></p>
 <ol>
 <li>Crear app <code>social</code> y darla de alta en el <code>settings.py</code></li>
-<li>Modificar su <code>models.py</code>.</li>
-</ol>
+<li>
+<p>Modificar su <code>models.py</code>.</p>
 <p>```python
-  from django.db import models</p>
-<p># Create your models here.
-  class Link(models.Model):
-      key = models.SlugField(verbose_name='Nombre clave', max_length=100,
-                             unique=True)
-      name = models.CharField(verbose_name='Red social', max_length=200)
-      url = models.URLField(verbose_name='Enlace', max_length=200, null=True,
-                            blank=True)
-      created = models.DateTimeField(auto_now_add=True, verbose_name='Creado')
-      updated = models.DateTimeField(auto_now=True, verbose_name='Actualizado')</p>
-<pre><code>  class Meta:
-      verbose_name = 'enlace'
-      verbose_name_plural = 'enlaces'
-      ordering = ['name']
+from django.db import models</p>
+<h1 id="create-your-models-here">Create your models here.</h1>
+<p>class Link(models.Model):
+    key = models.SlugField(verbose_name='Nombre clave', max_length=100,
+                           unique=True)
+    name = models.CharField(verbose_name='Red social', max_length=200)
+    url = models.URLField(verbose_name='Enlace', max_length=200, null=True,
+                          blank=True)
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Creado')
+    updated = models.DateTimeField(auto_now=True, verbose_name='Actualizado')</p>
+<pre><code>class Meta:
+    verbose_name = 'enlace'
+    verbose_name_plural = 'enlaces'
+    ordering = ['name']
 
-  def __str__(self):
-      return self.name
+def __str__(self):
+    return self.name
 </code></pre>
 <p>```</p>
-<ol>
-<li>Modificar el <code>admin.py</code>, hacer las migraciones y migrarlas</li>
-</ol>
+</li>
+<li>
+<p>Modificar el <code>admin.py</code>, hacer las migraciones y migrarlas</p>
 <p>```python
-  from django.contrib import admin
-  from .models import Link</p>
-<p># Register your models here.
-  class LinkAdmin(admin.ModelAdmin):
-      readonly_fields = ('created', 'updated')</p>
+from django.contrib import admin
+from .models import Link</p>
+<h1 id="register-your-models-here">Register your models here.</h1>
+<p>class LinkAdmin(admin.ModelAdmin):
+    readonly_fields = ('created', 'updated')</p>
 <p>admin.site.register(Link, LinkAdmin)</p>
 <p>```</p>
-<ol>
-<li>Como no hay vista, ni template pasamos directamente a la fase de procesador de contexto.</li>
-<li>Crear el <code>processor.py</code></li>
-</ol>
+</li>
+<li>
+<p>Como no hay vista, ni template pasamos directamente a la fase de procesador de contexto.</p>
+</li>
+<li>
+<p>Crear el <code>processor.py</code></p>
 <p>```python
-  from .models import Link</p>
+from .models import Link</p>
 <p>def ctx_dict(request):
-      ctx = {}
-      for link in Link.objects.all():
-          ctx[link.key] = link.url
-      return ctx</p>
+    ctx = {}
+    for link in Link.objects.all():
+        ctx[link.key] = link.url
+    return ctx</p>
 <p>```</p>
-<ol>
-<li>Darlo de alta en el <code>settings.py</code></li>
+</li>
+<li>
+<p>Darlo de alta en el <code>settings.py</code></p>
+</li>
 <li>Arrancar el server, entrar al Admin y crear un par de objetos con por ejemplo las claves LINK_FACEBOOK, LINK_TWITTER y LINK_INSTAGRAM.</li>
-<li>Modificar el <code>base.html</code></li>
-</ol>
+<li>
+<p>Modificar el <code>base.html</code></p>
 <p><code>html
-  &lt;!-- Pié de página --&gt;
-    &lt;footer class="footer text-faded text-center py-5"&gt;
-      &lt;div class="container"&gt;
-        &lt;p class="m-0"&gt;
-          {% if LINK_TWITTER %}
-            &lt;a href="{{LINK_TWITTER}}" class="link"&gt;
-              &lt;span class="fa-stack fa-lg"&gt;
-                &lt;i class="fa fa-circle fa-stack-2x"&gt;&lt;/i&gt;
-                &lt;i class="fa fa-twitter fa-stack-1x fa-inverse"&gt;&lt;/i&gt;
-              &lt;/span&gt;
-            &lt;/a&gt;
-          {% endif %}
-          {% if LINK_FACEBOOK %}
-            &lt;a href="{{LINK_FACEBOOK}}" class="link"&gt;
-              &lt;span class="fa-stack fa-lg"&gt;
-                &lt;i class="fa fa-circle fa-stack-2x"&gt;&lt;/i&gt;
-                &lt;i class="fa fa-facebook fa-stack-1x fa-inverse"&gt;&lt;/i&gt;
-              &lt;/span&gt;
-            &lt;/a&gt;
-          {% endif %}
-          {% if LINK_INSTAGRAM %}
-            &lt;a href="{{LINK_INSTAGRAM}}" class="link"&gt;
-              &lt;span class="fa-stack fa-lg"&gt;
-                &lt;i class="fa fa-circle fa-stack-2x"&gt;&lt;/i&gt;
-                &lt;i class="fa fa-instagram fa-stack-1x fa-inverse"&gt;&lt;/i&gt;
-              &lt;/span&gt;
-            &lt;/a&gt;
-          {% endif %}
-      &lt;/p&gt;
-        &lt;p class="m-0 mbt"&gt;
-          &lt;a href="{% url 'sample' %}" class="link"&gt;Política de privacidad&lt;/a&gt; ·
-          &lt;a href="{% url 'sample' %}" class="link"&gt;Aviso legal&lt;/a&gt; ·
-          &lt;a href="{% url 'sample' %}" class="link"&gt;Cookies&lt;/a&gt;
+&lt;!-- Pié de página --&gt;
+  &lt;footer class="footer text-faded text-center py-5"&gt;
+    &lt;div class="container"&gt;
+      &lt;p class="m-0"&gt;
+        {% if LINK_TWITTER %}
+          &lt;a href="{{LINK_TWITTER}}" class="link"&gt;
+            &lt;span class="fa-stack fa-lg"&gt;
+              &lt;i class="fa fa-circle fa-stack-2x"&gt;&lt;/i&gt;
+              &lt;i class="fa fa-twitter fa-stack-1x fa-inverse"&gt;&lt;/i&gt;
+            &lt;/span&gt;
+          &lt;/a&gt;
+        {% endif %}
+        {% if LINK_FACEBOOK %}
+          &lt;a href="{{LINK_FACEBOOK}}" class="link"&gt;
+            &lt;span class="fa-stack fa-lg"&gt;
+              &lt;i class="fa fa-circle fa-stack-2x"&gt;&lt;/i&gt;
+              &lt;i class="fa fa-facebook fa-stack-1x fa-inverse"&gt;&lt;/i&gt;
+            &lt;/span&gt;
+          &lt;/a&gt;
+        {% endif %}
+        {% if LINK_INSTAGRAM %}
+          &lt;a href="{{LINK_INSTAGRAM}}" class="link"&gt;
+            &lt;span class="fa-stack fa-lg"&gt;
+              &lt;i class="fa fa-circle fa-stack-2x"&gt;&lt;/i&gt;
+              &lt;i class="fa fa-instagram fa-stack-1x fa-inverse"&gt;&lt;/i&gt;
+            &lt;/span&gt;
+          &lt;/a&gt;
+        {% endif %}
     &lt;/p&gt;
-        &lt;p class="m-0 mbt1"&gt;&amp;copy; La Caffettiera 2018&lt;/p&gt;
-      &lt;/div&gt;
-  &lt;/footer&gt;</code></p>
+      &lt;p class="m-0 mbt"&gt;
+        &lt;a href="{% url 'sample' %}" class="link"&gt;Política de privacidad&lt;/a&gt; ·
+        &lt;a href="{% url 'sample' %}" class="link"&gt;Aviso legal&lt;/a&gt; ·
+        &lt;a href="{% url 'sample' %}" class="link"&gt;Cookies&lt;/a&gt;
+  &lt;/p&gt;
+      &lt;p class="m-0 mbt1"&gt;&amp;copy; La Caffettiera 2018&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/footer&gt;</code></p>
+</li>
+</ol>
 <h2 id="template-tags-propios">Template Tags propios</h2>
 <p>Es una alternativa al Procesador de Contexto más flexible, pero también consume más recursos:</p>
 <ol>
-<li>En la app que su información sea compartida hay que crear:</li>
+<li>En la app que su información sea compartida hay que crear:<ol>
 <li>Carpeta <code>templatetags</code></li>
 <li>Dentro un <code>__init__.py</code></li>
 <li>Un fichero python, <code>ficherotags.py</code>, para los template tags .</li>
-<li>El <code>ficherotags.py</code> debe contener los template de django y el modelo de páginas</li>
 </ol>
+</li>
+<li>
+<p>El <code>ficherotags.py</code> debe contener los template de django y el modelo de páginas</p>
 <p><code>python
-  from django import template
-  from page.models import Page</code></p>
-<ol>
-<li>Luego hay que crear un registro de la librería de templates</li>
-</ol>
+from django import template
+from page.models import Page</code></p>
+</li>
+<li>
+<p>Luego hay que crear un registro de la librería de templates</p>
 <p><code>python
-  register = template.Library()</code></p>
-<ol>
-<li>Ahora creamos una función, <code>&lt;nuevotag&gt;</code>, con el decorador <code>@register.simple_tag</code>.</li>
+register = template.Library()</code></p>
+</li>
+<li>
+<p>Ahora creamos una función, <code>&lt;nuevotag&gt;</code>, con el decorador <code>@register.simple_tag</code>.</p>
+</li>
 <li>En esa función vamos a poder jugar con las páginas, con por ejemplo <code>Page.objects.all()</code></li>
 <li>Para poder usar <code>&lt;nuevotag&gt;</code> en un template hay que cargar el fichero <code>ficherotags.py</code>.</li>
 </ol>
@@ -430,104 +474,107 @@ admin.site.register(Post, PostAdmin)
 <ol>
 <li>Tenemos los típicos links en el footer sobre las cookies y demás.</li>
 <li>Creamos una app <code>pages</code></li>
-<li><code>models.py</code></li>
-</ol>
+<li>
+<p><code>models.py</code></p>
 <p>```python
-  from django.db import models</p>
-<p># Create your models here.
-  class Page(models.Model):
-      title = models.CharField(verbose_name='Título', max_length=200)
-      content = models.TextField(verbose_name='Contenido')
-      created = models.DateTimeField(auto_now_add=True, verbose_name='Creado')
-      updated = models.DateTimeField(auto_now=True, verbose_name='Actualizado')</p>
-<pre><code>  class Meta:
-      verbose_name = 'página'
-      verbose_name_plural = 'páginas'
-      ordering = ['title']
+from django.db import models</p>
+<h1 id="create-your-models-here_1">Create your models here.</h1>
+<p>class Page(models.Model):
+    title = models.CharField(verbose_name='Título', max_length=200)
+    content = models.TextField(verbose_name='Contenido')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Creado')
+    updated = models.DateTimeField(auto_now=True, verbose_name='Actualizado')</p>
+<pre><code>class Meta:
+    verbose_name = 'página'
+    verbose_name_plural = 'páginas'
+    ordering = ['title']
 
-  def __str__(self):
-      return self.title
+def __str__(self):
+    return self.title
 </code></pre>
 <p>```</p>
-<ol>
-<li><code>views.py</code></li>
-</ol>
+</li>
+<li>
+<p><code>views.py</code></p>
 <p>```python
-  from django.shortcuts import render, get_object_or_404
-  from .models import Page</p>
-<p># Create your views here.
-  def page(request, page_id):
-      page = get_object_or_404(Page, id=page_id)
-      template = 'pages/sample.html'
-      context = {'page': page}
-      return render(request, template, context)</p>
+from django.shortcuts import render, get_object_or_404
+from .models import Page</p>
+<h1 id="create-your-views-here">Create your views here.</h1>
+<p>def page(request, page_id):
+    page = get_object_or_404(Page, id=page_id)
+    template = 'pages/sample.html'
+    context = {'page': page}
+    return render(request, template, context)</p>
 <p>```</p>
-<ol>
-<li><code>urls.py</code></li>
-</ol>
+</li>
+<li>
+<p><code>urls.py</code></p>
 <p>Proyecto</p>
 <p>```python
-  from django.urls import path, include</p>
+from django.urls import path, include</p>
 <p>urlpatterns = [
-      ...
-      # Path del pages
-      path('page/', include('pages.urls')),
-      ...
-  ]
-  ```</p>
+    ...
+    # Path del pages
+    path('page/', include('pages.urls')),
+    ...
+]
+```</p>
 <p>App pages</p>
 <p>```python
-  from django.urls import path
-  from . import views</p>
+from django.urls import path
+from . import views</p>
 <p>urlpatterns = [
-      ...
-      path('<int:page_id>/', views.page, name='page'),
-      ...
-  ]</p>
+    ...
+    path('<int:page_id>/', views.page, name='page'),
+    ...
+]</p>
 <p>```</p>
-<ol>
-<li><code>pages/templatetags/pages_extra.py</code></li>
-</ol>
+</li>
+<li>
+<p><code>pages/templatetags/pages_extra.py</code></p>
 <p>```python
-  from django import template
-  from pages.models import Page</p>
+from django import template
+from pages.models import Page</p>
 <p>register = template.Library()</p>
 <p>@register.simple_tag
-  def get_page_list():
-      pages = Page.objects.all()
-      return pages</p>
+def get_page_list():
+    pages = Page.objects.all()
+    return pages</p>
 <p>```</p>
-<ol>
-<li><code>core/templates/core/base.html</code></li>
-</ol>
+</li>
+<li>
+<p><code>core/templates/core/base.html</code></p>
 <p><code>html
-  {% load pages_extras %}
-  {% get_page_list as page_list %}
-  {% for page in page_list %}
-    &lt;a href="{% url 'page' page.id %}" class="link"&gt;{{page.title}}&lt;/a&gt; {% if not forloop.last %}.{% endif %}
-  {% endfor %}</code></p>
+{% load pages_extras %}
+{% get_page_list as page_list %}
+{% for page in page_list %}
+  &lt;a href="{% url 'page' page.id %}" class="link"&gt;{{page.title}}&lt;/a&gt; {% if not forloop.last %}.{% endif %}
+{% endfor %}</code></p>
+</li>
+</ol>
 <h2 id="ordenacion-directa-de-paginas">Ordenación directa de páginas</h2>
 <p>Si quisiera dar cierto orden a un tipo de elementos de una app, debemos de:</p>
 <ol>
-<li>En el <code>models.py</code> añadir un campo por ejemplo</li>
-</ol>
+<li>
+<p>En el <code>models.py</code> añadir un campo por ejemplo</p>
 <p>```python
-  class Page(models.Model):
-    ...
-    order = models.SmallIntegerField(verbose_name='Orden', default=0)</p>
-<pre><code>class Meta:
-  ordering = ['order']
-</code></pre>
+class Page(models.Model):
+  ...
+  order = models.SmallIntegerField(verbose_name='Orden', default=0)</p>
+<p>class Meta:
+    ordering = ['order']</p>
 <p>```</p>
-<ol>
-<li>En el <code>admin.py</code></li>
-</ol>
+</li>
+<li>
+<p>En el <code>admin.py</code></p>
 <p><code>python
-  class PageAdmin(models.ModelAdmin):
-    ...
-    list_display('order')</code></p>
-<ol>
-<li>Ahora en el Admin puedo administrar pesos para obtener esa ordenación.</li>
+class PageAdmin(models.ModelAdmin):
+  ...
+  list_display('order')</code></p>
+</li>
+<li>
+<p>Ahora en el Admin puedo administrar pesos para obtener esa ordenación.</p>
+</li>
 </ol>
 <h2 id="edicion-directa-de-paginas">Edición directa de páginas</h2>
 <p>En el propio procesador de contexto contamos con el usuario de la sesión en <code>django.contrib.auth.context_processors.auth</code>. Así que si queremos que ciertas partes aparezcan si un usuario está autenticado, podemos hacer en el template base</p>
@@ -545,38 +592,37 @@ admin.site.register(Post, PostAdmin)
 <h2 id="editor-wysiwyg-en-el-admin">Editor WYSIWYG en el Admin</h2>
 <p>Para añadir un editor wysiswyg en el Admin podemos usar el <code>ckeditor</code></p>
 <ol>
-<li>Instalar <code>ckeditor</code></li>
-</ol>
+<li>
+<p>Instalar <code>ckeditor</code></p>
 <p><code>bash
-  pip install django-ckeditor</code></p>
+pip install django-ckeditor</code></p>
+</li>
+<li>
+<p>Añadirlo en las apps instaladas -&gt; <code>settings.py</code></p>
+<p><code>python
+INSTALLED_APPS = [
+    ...
+    'ckeditor',
+]</code></p>
+</li>
+<li>
+<p>En el <code>models.py</code> de la app donde queremos tener el campo con el editor:</p>
 <ol>
-<li>Añadirlo en las apps instaladas -&gt; <code>settings.py</code></li>
+<li>Importamos <code>ckeditor.fields.RichTextField</code></li>
+<li>Modificamos el campo deseado</li>
+<li>Hacemos las migraciones</li>
 </ol>
 <p>```python
-  INSTALLED_APPS = [
-      ...
-      'ckeditor',
-  ]</p>
-<pre><code>
-3. En el `models.py` de la app donde queremos tener el campo con el editor:
-  1. Importamos `ckeditor.fields.RichTextField`
-  2. Modificamos el campo deseado
-  3. Hacemos las migraciones
-
-  ```python
+...
+from ckeditor.fields import RichTextField</p>
+<p>class Page(models.Model):
   ...
-  from ckeditor.fields import RichTextField
-
-
-  class Page(models.Model):
-    ...
-    content = RichTextField(verbose_name='Contenido')
-  ```
-
-Si queremos redefinir la barra del editor, en el `settings.py` al final añadimos
-
-```python
-# Ckeditor
+  content = RichTextField(verbose_name='Contenido')
+```</p>
+</li>
+</ol>
+<p>Si queremos redefinir la barra del editor, en el <code>settings.py</code> al final añadimos</p>
+<pre><code class="python"># Ckeditor
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Basic',
@@ -609,11 +655,13 @@ Docu Oficial -&gt; <a href="https://django-ckeditor.readthedocs.io/en/latest/">a
 <p>Para usar formularios en una app:</p>
 <ol>
 <li>Crear en la app <code>forms.py</code></li>
-<li>Al igual que con los modelos:</li>
+<li>
+<p>Al igual que con los modelos:</p>
+<ol>
 <li>Importamos el "modelo" -&gt; <code>from django import forms</code></li>
 <li>Creamos una clase que herede del "modelo" -&gt; <code>class MiClaseForm(forms.Form):</code></li>
-<li>
-<p>Generamos los campos del formulario, por ejemplo</p>
+<li>Generamos los campos del formulario, por ejemplo</li>
+</ol>
 <p><code>python
 name = forms.CharField(label='Nombre', required=True)
 email = forms.EmailField(label='Email', required=True)
@@ -621,210 +669,224 @@ content = forms.CharField(label='Contenido', required=True, widget=forms.Textare
 </li>
 <li>
 <p>En el <code>views.py</code> importamos el o los formularios, y los añadimos al contexto de la vista.</p>
+<p>```python
+from django.shortcuts import render
+from .forms import MiClaseForm</p>
+<p>def mivista(request):
+  template = 'miapp/miapp.html'
+  context = {
+      'form': MiClaseForm(),
+  }
+  return render(request, template, context)</p>
+<p>```</p>
+</li>
+<li>
+<p>En el template lo dibujamos:</p>
+<ul>
+<li>Simplemente con <code>{{form}}</code> ya lo saca, pero totalmente desformateado.</li>
+<li>Podemos darle un formato más como párrafos <code>{{form.as_p}}</code>.</li>
+<li>Como si fuera una lista</li>
+</ul>
+<p><code>html
+  &lt;ul&gt;
+    {{form.as_ul}}
+  &lt;/ul&gt;</code></p>
+<ul>
+<li>Como una tabla</li>
+</ul>
+<p><code>html
+  &lt;table&gt;
+    {{form.as_table}}
+  &lt;/table&gt;</code></p>
+</li>
+<li>
+<p>Para añadirle el botón de enviar:</p>
+<ol>
+<li>Metemos el formulario dentro de un <code>&lt;form&gt;</code></li>
+<li>En el parámetro <code>action</code> será la web donde ir / acción a hacer cuando se envíe  el formulario</li>
+<li>En el <code>method</code> el método para enviar el formulario:<ul>
+<li><code>POST</code> es el más recomendado.</li>
+<li><code>GET</code> no se recomienda.</li>
+</ul>
+</li>
+<li>Dentro introducimos:<ol>
+<li>Al principio <code>{% csrf_token %}</code> por motivos de seguridad.</li>
+<li>Al final un <code>&lt;input&gt;</code>:<ul>
+<li>Con <code>type="submit"</code></li>
+<li>Y un texto a mostrar <code>value="Enviar"</code>.</li>
+</ul>
 </li>
 </ol>
-<p>```python
-  from django.shortcuts import render
-  from .forms import MiClaseForm</p>
-<p>def mivista(request):
-    template = 'miapp/miapp.html'
+</li>
+</ol>
+</li>
+<li>
+<p>Validar si el formulario es correcto:</p>
+<ol>
+<li>En la misma vista del <code>views.py</code> miramos si accedemos con POST con <code>request.method == 'POST'</code></li>
+<li>Recupero el formulario con <code>mi_formulario = MiClaseForm(data=request.POST)</code></li>
+<li>Compruebo si es valido con <code>mi_forumulario.is_valid()</code></li>
+<li>Formateo los valores por defecto si alguno está vacío</li>
+<li>Hago una redirección con la función <code>django.shortcuts.redirect</code><ul>
+<li>Se recomiendo usar la función <code>django.urls.reverse</code> para la redirección</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<p>Ejemplo de la app <code>contact</code>:</p>
+<ul>
+<li><code>forms.py</code></li>
+</ul>
+<pre><code class="python">from django import forms
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(label='Nombre', required=True)
+    email = forms.EmailField(label='Email', required=True)
+    content = forms.CharField(label='Contenido', required=True,
+                              widget=forms.Textarea)
+
+</code></pre>
+
+<ul>
+<li><code>views.py</code></li>
+</ul>
+<pre><code class="python">from django.shortcuts import render, redirect
+from django.urls import reverse
+from .forms import ContactForm
+
+
+# Create your views here.
+def contact(request):
+    if request.method == 'POST':
+        contact_form = ContactForm(data=request.POST)
+        if contact_form.is_valid():
+            name = request.POST.get('name', '')
+            email = request.POST.get('email', '')
+            content = request.POST.get('content', '')
+            return redirect(reverse('contact') + '?OK')
+    template = 'contact/contact.html'
     context = {
-        'form': MiClaseForm(),
+        'form': ContactForm(),
     }
-    return render(request, template, context)</p>
-<pre><code>
-4. En el template lo dibujamos:
-  * Simplemente con `{{form}}` ya lo saca, pero totalmente desformateado.
-  * Podemos darle un formato más como párrafos `{{form.as_p}}`.
-  * Como si fuera una lista
+    return render(request, template, context)
 
-    ```html
-      &lt;ul&gt;
-        {{form.as_ul}}
-      &lt;/ul&gt;
-    ```
+</code></pre>
 
-  * Como una tabla
+<ul>
+<li><code>contact.html</code></li>
+</ul>
+<pre><code class="html">&lt;!-- Formulario de contacto --&gt;
+{% if 'OK' in request.GET %}
+    &lt;p&gt;&lt;strong&gt;Su mensaje se ha reenviado correctamente&lt;/strong&gt;&lt;/p&gt;
+{% endif %}
+&lt;form action=&quot;&quot; method=&quot;POST&quot;&gt;
+    {% csrf_token %}
+    &lt;table&gt;
+        {{form.as_table}}
+    &lt;/table&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;Enviar&quot;&gt;
+&lt;/form&gt;
+</code></pre>
 
-    ```html
-      &lt;table&gt;
-          {{form.as_table}}
-      &lt;/table&gt;
-    ```
+<h3 id="maquetar-formulario">Maquetar formulario</h3>
+<p>Para poder dar un aspecto visual propio a un formulario es muy sencillo:</p>
+<ol>
+<li>Tenemos que volver a tener en nuestro <code>form</code>:<ol>
+<li>Sus parámetros <code>action</code> + <code>method</code></li>
+<li>El <code>{% csrf_token %}</code> al principio</li>
+<li>El <code>&lt;input type='submit' value='Enviar'&gt;</code> al final  </li>
+</ol>
+</li>
+<li>En cada campo:<ol>
+<li>Poner el campo del formulario</li>
+<li>Añadirle despues al final el <code>{{form.&lt;campo&gt;.errors}}</code></li>
+</ol>
+</li>
+<li>Modificar los estilos de cada campo en el <code>forms.py</code>:<ul>
+<li>Dentro de cada campo modificamos el parámetro <code>widget</code>.<ul>
+<li>A este se le pasa un tipo de campo</li>
+<li>Dentro de este tipo, generamos los elementos CSS dentro del diccionario <code>attrs</code>.</li>
+</ul>
+</li>
+<li>Podemos ajustar también el tamaño con <code>min_length</code> o <code>max_length</code>.</li>
+</ul>
+</li>
+</ol>
+<p>Ejemplo</p>
+<ul>
+<li><code>contact.html</code> app contact</li>
+</ul>
+<pre><code class="html">&lt;!-- Formulario de contacto --&gt;
+{% if 'OK' in request.GET %}
+    &lt;p&gt;&lt;strong&gt;Su mensaje se ha reenviado correctamente&lt;/strong&gt;&lt;/p&gt;
+{% endif %}
+&lt;form action=&quot;&quot; method=&quot;POST&quot;&gt;
+    {% csrf_token %}
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label&gt;Nombre *&lt;/label&gt;
+        &lt;div class=&quot;input-group&quot;&gt;
+            {{form.name}}
+        &lt;/div&gt;
+        {{form.name.errors}}
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label&gt;Email *&lt;/label&gt;
+        &lt;div class=&quot;input-group&quot;&gt;
+            {{form.email}}
+        &lt;/div&gt;
+        {{form.email.errors}}
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label&gt;Mensaje *&lt;/label&gt;
+        &lt;div class=&quot;input-group&quot;&gt;
+            {{form.content}}
+        &lt;/div&gt;
+        {{form.content.errors}}
+    &lt;/div&gt;
+    &lt;div class=&quot;text-center&quot;&gt;
+        &lt;input type=&quot;submit&quot; class=&quot;btn btn-primary btn-block py-2&quot; value=&quot;Enviar&quot;&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+</code></pre>
 
-5. Para añadirle el botón de enviar:
-
-  1. Metemos el formulario dentro de un `&lt;form&gt;`
-  2. En el parámetro `action` será la web donde ir / acción a hacer cuando se envíe  el formulario
-  3. En el `method` el método para enviar el formulario:
-    * `POST` es el más recomendado.
-    * `GET` no se recomienda.
-  4. Dentro introducimos:
-    1. Al principio `{% csrf_token %}` por motivos de seguridad.
-    2. Al final un `&lt;input&gt;`:
-      * Con `type=&quot;submit&quot;`
-      * Y un texto a mostrar `value=&quot;Enviar&quot;`.
-
-6. Validar si el formulario es correcto:
-  1. En la misma vista del `views.py` miramos si accedemos con POST con `request.method == 'POST'`
-  2. Recupero el formulario con `mi_formulario = MiClaseForm(data=request.POST)`
-  3. Compruebo si es valido con `mi_forumulario.is_valid()`
-  4. Formateo los valores por defecto si alguno está vacío
-  5. Hago una redirección con la función `django.shortcuts.redirect`
-    * Se recomiendo usar la función `django.urls.reverse` para la redirección
-
-Ejemplo de la app `contact`:
-
-* `forms.py`
-
-  ```python
-  from django import forms
-
-
-  class ContactForm(forms.Form):
-      name = forms.CharField(label='Nombre', required=True)
-      email = forms.EmailField(label='Email', required=True)
-      content = forms.CharField(label='Contenido', required=True,
-                                widget=forms.Textarea)
-
-  ```
-
-* `views.py`
-
-  ```python
-  from django.shortcuts import render, redirect
-  from django.urls import reverse
-  from .forms import ContactForm
-
-
-  # Create your views here.
-  def contact(request):
-      if request.method == 'POST':
-          contact_form = ContactForm(data=request.POST)
-          if contact_form.is_valid():
-              name = request.POST.get('name', '')
-              email = request.POST.get('email', '')
-              content = request.POST.get('content', '')
-              return redirect(reverse('contact') + '?OK')
-      template = 'contact/contact.html'
-      context = {
-          'form': ContactForm(),
-      }
-      return render(request, template, context)
-
-  ```
-
-* `contact.html`
-
-  ```html
-  &lt;!-- Formulario de contacto --&gt;
-  {% if 'OK' in request.GET %}
-      &lt;p&gt;&lt;strong&gt;Su mensaje se ha reenviado correctamente&lt;/strong&gt;&lt;/p&gt;
-  {% endif %}
-  &lt;form action=&quot;&quot; method=&quot;POST&quot;&gt;
-      {% csrf_token %}
-      &lt;table&gt;
-          {{form.as_table}}
-      &lt;/table&gt;
-      &lt;input type=&quot;submit&quot; value=&quot;Enviar&quot;&gt;
-  &lt;/form&gt;
-  ```
-
-### Maquetar formulario
-
-Para poder dar un aspecto visual propio a un formulario es muy sencillo:
-
-1. Tenemos que volver a tener en nuestro `form`:
-  1. Sus parámetros `action` + `method`
-  2. El `{% csrf_token %}` al principio
-  3. El `&lt;input type='submit' value='Enviar'&gt;` al final  
-2. En cada campo:
-  1. Poner el campo del formulario
-  2. Añadirle despues al final el `{{form.&lt;campo&gt;.errors}}`
-3. Modificar los estilos de cada campo en el `forms.py`:
-  * Dentro de cada campo modificamos el parámetro `widget`.
-    * A este se le pasa un tipo de campo
-      * Dentro de este tipo, generamos los elementos CSS dentro del diccionario `attrs`.
-  * Podemos ajustar también el tamaño con `min_length` o `max_length`.
-
-Ejemplo
-
-* `contact.html` app contact
-
-  ```html
-  &lt;!-- Formulario de contacto --&gt;
-  {% if 'OK' in request.GET %}
-      &lt;p&gt;&lt;strong&gt;Su mensaje se ha reenviado correctamente&lt;/strong&gt;&lt;/p&gt;
-  {% endif %}
-  &lt;form action=&quot;&quot; method=&quot;POST&quot;&gt;
-      {% csrf_token %}
-      &lt;div class=&quot;form-group&quot;&gt;
-          &lt;label&gt;Nombre *&lt;/label&gt;
-          &lt;div class=&quot;input-group&quot;&gt;
-              {{form.name}}
-          &lt;/div&gt;
-          {{form.name.errors}}
-      &lt;/div&gt;
-      &lt;div class=&quot;form-group&quot;&gt;
-          &lt;label&gt;Email *&lt;/label&gt;
-          &lt;div class=&quot;input-group&quot;&gt;
-              {{form.email}}
-          &lt;/div&gt;
-          {{form.email.errors}}
-      &lt;/div&gt;
-      &lt;div class=&quot;form-group&quot;&gt;
-          &lt;label&gt;Mensaje *&lt;/label&gt;
-          &lt;div class=&quot;input-group&quot;&gt;
-              {{form.content}}
-          &lt;/div&gt;
-          {{form.content.errors}}
-      &lt;/div&gt;
-      &lt;div class=&quot;text-center&quot;&gt;
-          &lt;input type=&quot;submit&quot; class=&quot;btn btn-primary btn-block py-2&quot; value=&quot;Enviar&quot;&gt;
-      &lt;/div&gt;
-  &lt;/form&gt;
-  ```
-
-* `forms.py` app contact
-
-  ```python
-  from django import forms
+<ul>
+<li><code>forms.py</code> app contact</li>
+</ul>
+<pre><code class="python">from django import forms
 
 
-  class ContactForm(forms.Form):
-      name = forms.CharField(label='Nombre', required=True,
-                             widget=forms.TextInput(
+class ContactForm(forms.Form):
+    name = forms.CharField(label='Nombre', required=True,
+                           widget=forms.TextInput(
+                               attrs={
+                                   'class': 'form-control',
+                                   'placeholder': 'Escribe tu nombre'
+                               }
+                           ), min_length=3, max_length=100)
+    email = forms.EmailField(label='Email', required=True,
+                             widget=forms.EmailInput(
                                  attrs={
                                      'class': 'form-control',
-                                     'placeholder': 'Escribe tu nombre'
+                                     'placeholder': 'Escribe tu email'
                                  }
-                             ), min_length=3, max_length=100)
-      email = forms.EmailField(label='Email', required=True,
-                               widget=forms.EmailInput(
-                                   attrs={
-                                       'class': 'form-control',
-                                       'placeholder': 'Escribe tu email'
-                                   }
-                             ), min_length=3, max_length=100)
-      content = forms.CharField(label='Contenido', required=True,
-                                widget=forms.Textarea(
-                                    attrs={
-                                        'class': 'form-control',
-                                        'rows': 3,
-                                        'placeholder': 'Escribe tu mensaje'
-                                    }
-                                ), min_length=10, max_length=1000)
+                           ), min_length=3, max_length=100)
+    content = forms.CharField(label='Contenido', required=True,
+                              widget=forms.Textarea(
+                                  attrs={
+                                      'class': 'form-control',
+                                      'rows': 3,
+                                      'placeholder': 'Escribe tu mensaje'
+                                  }
+                              ), min_length=10, max_length=1000)
 
-  ```
+</code></pre>
 
-## Enviar emails
-
-Para poder enviar emails hay configurar el correo, y existen muchas opciones. 
-
-En este ejemplo para pruebas uso [mailtrap.io](mailtrap.io). Dentro de la `demo_inbox` podemos buscar la configuración para Django. La copiamos y la pegamos al final del `settings.py`
-
-```python
-# Email config
+<h2 id="enviar-emails">Enviar emails</h2>
+<p>Para poder enviar emails hay configurar el correo, y existen muchas opciones. </p>
+<p>En este ejemplo para pruebas uso <a href="mailtrap.io">mailtrap.io</a>. Dentro de la <code>demo_inbox</code> podemos buscar la configuración para Django. La copiamos y la pegamos al final del <code>settings.py</code></p>
+<pre><code class="python"># Email config
 EMAIL_HOST = 'smtp.mailtrap.io'
 EMAIL_HOST_USER = '9e9652ad27c050'
 EMAIL_HOST_PASSWORD = 'a4e2f4e19b02dc'
@@ -834,12 +896,14 @@ EMAIL_PORT = '2525'
 <p>Para enviar el correo, el <code>views.py</code> de la app correspondiente:</p>
 <ol>
 <li>Importamos la <code>django.core.mail.EmailMessage</code></li>
-<li>Dentro de esta tenemos que poner:</li>
+<li>Dentro de esta tenemos que poner:<ol>
 <li>Asunto</li>
 <li>Cuerpo</li>
 <li>Email de origen</li>
 <li>Email de destino</li>
 <li><code>reply_to=[&lt;objeto-EmailMessage&gt;]</code></li>
+</ol>
+</li>
 </ol>
 <p>Ejemplo con <code>views.py</code> de la app Contact anterior</p>
 <pre><code class="python">from django.shortcuts import render, redirect
@@ -887,9 +951,11 @@ def contact(request):
 <p>Si hay campos que queremos que aparezcan como solo lectura para cierto grupo, podemos editar el <code>admin.py</code> de la app con:</p>
 <ol>
 <li>Creamos el método <code>def get_readonly_fields(self, request, obj=None)</code></li>
-<li>Dentro filtramos si el usuario pertenece a un grupo o no</li>
+<li>Dentro filtramos si el usuario pertenece a un grupo o no<ul>
 <li>Si pertenece a un grupo devolvemos unos readonly</li>
 <li>Si no pertenece devolvemos otros</li>
+</ul>
+</li>
 </ol>
 <p>Ejemplo:</p>
 <ul>
@@ -897,20 +963,25 @@ def contact(request):
 <li>No queremos que pueda editar los campos <code>key</code> y <code>name</code> que usaremos para las RRSS.</li>
 <li>Su <code>admin.py</code> queda como</li>
 </ul>
-<p>```python
-  from django.contrib import admin
-  from .models import Link</p>
-<p># Register your models here.
-  class LinkAdmin(admin.ModelAdmin):
-      readonly_fields = ('created', 'updated')</p>
-<pre><code>  def get_readonly_fields(self, request, obj=None):
-      if request.user.groups.filter(name='Personal').exists():
-          return ('created', 'updated', 'key', 'name')
-      else:
-          return ('created', 'updated')
+<pre><code class="python">from django.contrib import admin
+from .models import Link
+
+
+# Register your models here.
+class LinkAdmin(admin.ModelAdmin):
+    readonly_fields = ('created', 'updated')
+
+    def get_readonly_fields(self, request, obj=None):
+        if request.user.groups.filter(name='Personal').exists():
+            return ('created', 'updated', 'key', 'name')
+        else:
+            return ('created', 'updated')
+
+
+admin.site.register(Link, LinkAdmin)
+
 </code></pre>
-<p>admin.site.register(Link, LinkAdmin)</p>
-<p>```</p>
+
 <ul>
 <li>Hacemos las migraciones.</li>
 </ul>
