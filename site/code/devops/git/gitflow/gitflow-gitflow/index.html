@@ -9,36 +9,35 @@
     
     
     
-    <link rel="shortcut icon" href="../../../img/favicon.ico">
+    <link rel="shortcut icon" href="../../../../../img/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>Git Flow - Tips de Cristo</title>
-    <link href="../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
-    <link href="../../../css/font-awesome-4.7.0.css" rel="stylesheet">
-    <link href="../../../css/base.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../../css/highlight.css">
+    <link href="../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../css/highlight.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 
-    <script src="../../../js/jquery-3.2.1.min.js"></script>
-    <script src="../../../js/bootstrap-3.3.7.min.js"></script>
-    <script src="../../../js/highlight.pack.js"></script>
+    <script src="../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../js/highlight.pack.js"></script>
     
     <base target="_top">
     <script>
-      var base_url = '../../..';
+      var base_url = '../../../../..';
       var is_top_frame = false;
         
         var pageToc = [
           {title: "Git Flow", url: "#_top", children: [
-              {title: "Instalaci\u00f3n", url: "#instalacion" },
           ]},
         ];
 
     </script>
-    <script src="../../../js/base.js"></script> 
+    <script src="../../../../../js/base.js"></script> 
 </head>
 
 <body>
@@ -60,19 +59,19 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
   <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
     
     <div class="wm-article-nav pull-right">
-      <a href="../../ides/vscode/vscode/" class="btn btn-xs btn-default pull-right">
+      <a href="../gitflow-instalacion/" class="btn btn-xs btn-default pull-right">
         Next
         <i class="fa fa-chevron-right" aria-hidden="true"></i>
       </a>
-      <a href="../../ides/vscode/vscode/" class="btn btn-xs btn-link">
-        Visual Studio code
+      <a href="../gitflow-instalacion/" class="btn btn-xs btn-link">
+        Puesta a punto
       </a>
     </div>
     
     <div class="wm-article-nav">
-      <a href="../git-git/" class="btn btn-xs btn-default pull-left">
+      <a href="../../git-git/" class="btn btn-xs btn-default pull-left">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../git-git/" class="btn btn-xs btn-link">
+        Previous</a><a href="../../git-git/" class="btn btn-xs btn-link">
         Git
       </a>
     </div>
@@ -83,6 +82,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
     <h1 id="git-flow">Git Flow</h1>
 <p>Info oficial -&gt; <a href="https://nvie.com/posts/a-successful-git-branching-model/">Git Flow</a></p>
+<p>Repositorio oficial -&gt; <a href="https://github.com/nvie/gitflow">Git Flow en Github</a></p>
 <p>Git Flow es una forma ordenada de trabajar con GIT en proyectos SW. Consiste en tener todo separado por ramas y seguir una política de rabajo y commits muy específicas con ellas. Así que tendremos:</p>
 <ul>
 <li><code>master</code>:<ul>
@@ -104,19 +104,19 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <li>Cuando se acaba, se mergea con <code>develop</code> y se finaliza la rama.</li>
 </ul>
 </li>
-<li><code>release-&lt;version&gt;</code>:<ul>
+<li><code>release/&lt;version&gt;</code>:<ul>
 <li>Parten de <code>develop</code>.</li>
 <li>Tienen código estable preparado para ser subido a <code>master</code> a falta de un buen testeo.</li>
 <li>Una vez su código está listo, se mergea tanto con <code>develop</code> como con <code>master</code> y se finaliza la rama.</li>
 </ul>
 </li>
-<li><code>hofix-&lt;version&gt;</code>:<ul>
+<li><code>hofix/&lt;version&gt;</code>:<ul>
 <li>Parten de <code>master</code>.</li>
 <li>Si en producción se encuentra un error, se genera esta rama, con la versión del código en producción como nombre, se arregla.</li>
 <li>Por último se mergea con <code>develop</code> como con <code>master</code> (poniéndole un <code>tag</code> que aumente la versión) y se finaliza la rama.</li>
 </ul>
 </li>
-<li><code>support-&lt;version&gt;</code>:<ul>
+<li><code>support/&lt;version&gt;</code>:<ul>
 <li>Esto no lo cubre en realidad Git Flow.</li>
 <li>Las ramas support son para si se mantienen distintas versiones al mismo tiempo.</li>
 <li>Sería equivalente a una rama <code>master</code> pero solo para una versión <code>major</code> de tu programa.</li>
@@ -130,8 +130,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p><img alt="Git Flow en horizontal" src="../img/git-flow-2.png" /></p>
 <p>Otra imagen en horizontal de Git Flow</p>
 <p><img alt="Git Flow en horizontal de Atlassian" src="../img/git-flow-3.svg" /></p>
-<h2 id="instalacion">Instalación</h2>
-<p>TODO</p>
 
   <br>
     
@@ -144,19 +142,19 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
   <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
     
     <div class="wm-article-nav pull-right">
-      <a href="../../ides/vscode/vscode/" class="btn btn-xs btn-default pull-right">
+      <a href="../gitflow-instalacion/" class="btn btn-xs btn-default pull-right">
         Next
         <i class="fa fa-chevron-right" aria-hidden="true"></i>
       </a>
-      <a href="../../ides/vscode/vscode/" class="btn btn-xs btn-link">
-        Visual Studio code
+      <a href="../gitflow-instalacion/" class="btn btn-xs btn-link">
+        Puesta a punto
       </a>
     </div>
     
     <div class="wm-article-nav">
-      <a href="../git-git/" class="btn btn-xs btn-default pull-left">
+      <a href="../../git-git/" class="btn btn-xs btn-default pull-left">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../git-git/" class="btn btn-xs btn-link">
+        Previous</a><a href="../../git-git/" class="btn btn-xs btn-link">
         Git
       </a>
     </div>
