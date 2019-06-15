@@ -16,9 +16,11 @@ nav:
         - Volumes: 'code/devops/docker/docker-volumes.md'
         - Network: 'code/devops/docker/docker-network.md'
         - Docker Compose: 'code/devops/docker/docker-dockercompose.md'
-    - GIT:
-      - Git: 'code/git/git-git.md'
-      - Git Flow: 'code/git/git-gitflow.md'
+      - Git: 'code/devops/git/git-git.md'
+      - Git Flow:
+          - Git Flow: 'code/devops/git/gitflow/gitflow-gitflow.md'
+          - Puesta a punto: 'code/devops/git/gitflow/gitflow-instalacion.md'
+          - Comandos: 'code/devops/git/gitflow/gitflow-comandos.md'
     - IDEs:
       - Visual Studio code: 'code/ides/vscode/vscode.md'
     - Python:
