@@ -30,6 +30,7 @@ Estos son algunos minitutoriales-recordatorios rápidos, para hacer algunas tare
         * [iptables](sw/redes/redes-iptables.md)
         * [IPv6](sw/redes/redes-ipv6.md)
     * Terminal:
+        * [Bash Scripting](sw/terminal/terminal-bash.md)
         * [tmux](sw/terminal/tmux/tmux-comandos.md)
         * [ZSH](sw/terminal/terminal-zsh.md)
 * Hardware:

@@ -52,6 +52,7 @@ nav:
       - iptables: 'sw/redes/redes-iptables.md'
       - IPv6: 'sw/redes/redes-ipv6.md'
     - Terminal:
+      - Bash: 'sw/terminal/terminal-bash.md'
       - tmux: 
         - Comandos: 'sw/terminal/tmux/tmux-comandos.md'
         - Customización: 'sw/terminal/tmux/tmux-customizar.md'
