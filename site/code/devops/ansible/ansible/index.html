@@ -33,6 +33,10 @@
         
         var pageToc = [
           {title: "Ansible", url: "#_top", children: [
+              {title: "Instalaci\u00f3n", url: "#instalacion" },
+              {title: "Configuraci\u00f3n", url: "#configuracion" },
+              {title: "Hosts", url: "#hosts" },
+              {title: "Comandos", url: "#comandos" },
           ]},
         ];
 
@@ -81,7 +85,72 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     
 
     <h1 id="ansible">Ansible</h1>
-<p>TODO</p>
+<p>Ansible es una herramienta de configuración de equipos (por decirlo muy resumidamente). Lo que hace es, a través de SSH, configurar equipos remotos. Estos equipos remotos no necesitan tener un agente / cliente de Ansible, solo SSH y poder usar sudo.</p>
+<h2 id="instalacion">Instalación</h2>
+<pre><code class="bash">sudo apt install ansible
+# El siguiente comando es para ver que está instalado correctamente
+ansible --version
+</code></pre>
+
+<p>Si no lo detectara, haría falta lo siguiente</p>
+<pre><code class="bash">sudo apt install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt update &amp;&amp; sudo apt install -y ansible
+</code></pre>
+
+<h2 id="configuracion">Configuración</h2>
+<p>Toda la configuración de Ansible se encuentra en <code>/etc/ansible</code>.<br />
+Por un lado tenemos el fichero de configuración -&gt; <code>/etc/ansible/ansible.cfg</code>.<br />
+Por otro tenemos el fichero de los sistemas administrados -&gt; <code>/etc/ansible/hosts</code>.<br />
+Los propios ficheros tienen toda la documentación para ser usados.</p>
+<h2 id="hosts">Hosts</h2>
+<p>Para que todo suceda en el propio equipo, definimos -&gt; <code>localhost</code>.
+Si queremos que no use SSH para el equipo local (cosa que tiene sentido), habría que poner <code>localhost ansible_connection=local</code></p>
+<p>Para que suceda en otro, añadimos su domino -&gt; <code>192.168.1.135</code>.<br />
+Hará falta también añadirle una clave SSH al host que se va a configurar con Ansible</p>
+<pre><code class="bash"># Generar clave (poner passphrase por seguridad)
+ssh-keygen -t &lt;algoritmo-cifrado&gt;
+# ssh-keygen -t rsa
+
+# Copiar clave al host
+ssh-copy-id -i &lt;ruta-clave-privada&gt; &lt;usuario-host&gt;@&lt;host&gt;
+# ssh-copy-id ~/.ssh/id_rsa pi@raspberrypi
+</code></pre>
+
+<h2 id="comandos">Comandos</h2>
+<h3 id="ping">Ping</h3>
+<p>Para hacer un hello world haríamos</p>
+<pre><code class="bash">ansible &lt;host&gt; -m ping
+</code></pre>
+
+<p>Por ejemplo <code>ansible localhost -m ping</code></p>
+<h3 id="comando-normal">Comando normal</h3>
+<p>Para usar un comando habría que hacer</p>
+<pre><code class="bash">ansible &lt;host&gt; -a &lt;comando&gt;
+</code></pre>
+
+<p>Por ejemplo</p>
+<pre><code class="bash">ansible &lt;host&gt; -a hostname
+</code></pre>
+
+<p>Y te devuelve el nombre del host en la red.</p>
+<h3 id="comando-para-todos-los-hosts">Comando para todos los hosts</h3>
+<pre><code class="bash">ansible all ...
+</code></pre>
+
+<h3 id="definir-el-usuario-con-el-que-vamos-a-realizar-la-accion">Definir el usuario con el que vamos a realizar la acción</h3>
+<pre><code class="bash">ansible &lt;host&gt; -u &lt;usuario&gt; -a &lt;comando&gt;
+</code></pre>
+
+<p>Esto se puede automatizar cambiando el fichero de host con</p>
+<pre><code class="bash">&lt;host&gt; ansible_user=&lt;usuario&gt;
+</code></pre>
+
+<h3 id="crear-un-usuario-root-en-los-hosts">Crear un usuario root en los hosts</h3>
+<pre><code class="bash">ansible &lt;host&gt; -m user -a &quot;name=&lt;usuario-nuevo&gt; state=present&quot; --become
+</code></pre>
+
+<p>Ahora tendré que añadir la opción <code>--become</code> cada vez que quiera usar este usuario.</p>
 
   <br>
     
