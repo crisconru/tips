@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Avanzado - Tips de Cristo</title>
+    <link href="../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Django Avanzado", url: "#_top", children: [
+              {title: "Vistas Basadas en Clases", url: "#vistas-basadas-en-clases" },
+              {title: "Vistas CRUD", url: "#vistas-crud" },
+              {title: "Formularios para Modelos", url: "#formularios-para-modelos" },
+              {title: "Incluir una plantilla html en todas las plantillas de la app", url: "#incluir-una-plantilla-html-en-todas-las-plantillas-de-la-app" },
+              {title: "Definir estructuras en los urlspattern", url: "#definir-estructuras-en-los-urlspattern" },
+          ]},
+          {title: "TODO", url: "#todo", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../../../../sw/linux/linux-fecha-hora/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../../../../sw/linux/linux-fecha-hora/" class="btn btn-xs btn-link">
+        Fecha y Hora
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../django-intermedio/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../django-intermedio/" class="btn btn-xs btn-link">
+        Intermedio
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="django-avanzado">Django Avanzado</h1>
+<h2 id="vistas-basadas-en-clases">Vistas Basadas en Clases</h2>
+<p>En el <code>views.py</code> importo el modelo que quiera, por ejemplo <code>TemplateView</code>. Hago que hereden de mi modelo, defino su template, y modifico el contexto con la función <code>get_context_data()</code>.</p>
+<pre><code class="python">from django.views.generic.base import TemplateView
+
+class HomePageView(TemplateView):
+    template_name = 'core/home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Mi chachi web'
+        return context
+
+class SamplePageView(TemplateView):
+    template_name = 'core/sample.html'
+
+</code></pre>
+
+<p>En el <code>urls.py</code> importo las vistas y las llamo con la función <code>as_view()</code>.</p>
+<pre><code class="python">from django.urls import path
+from .views import HomePageView, SamplePageView
+
+urlpatterns = [
+    path('', HomePageView.as_view(), name=&quot;home&quot;),
+    path('sample/', SamplePageView.as_view(), name=&quot;sample&quot;),
+]
+</code></pre>
+
+<p>Si la modificación en el contexto es poca, podría hacer en el <code>views.py</code></p>
+<pre><code class="python">from django.views.generic.base import TemplateView
+from django.shortcuts import render
+
+class HomePageView(TemplateView):
+    template_name = 'core/home.html'
+
+
+    def get(self, request, *args, **kwargs):
+        context = {'title': 'Mi chachi web'}
+        return render(request, self.template_name, context)
+</code></pre>
+
+<h3 id="listview">ListView</h3>
+<p>Cuando tenemos un modelo, y queremos ver listados varios objetos, una buena opción es usar una <code>ListView</code>. Si solo quisieramos ver uno en detalle, deberías de optar por <code>DetailView</code>.</p>
+<p><code>views.py</code> -&gt; Tendremos que importar <code>ListView</code>, dentro de la clase definirle que modelo de la bbdd vamos a usar.</p>
+<pre><code class="python">from django.views.generic.list import ListView
+from .models import Page
+
+
+# Create your views here.
+class PageListView(ListView):
+    model = Page
+</code></pre>
+
+<p><code>urls.py</code> -&gt; Modificar las urls</p>
+<pre><code class="python">from django.urls import path
+from .views import PageListView
+
+urlpatterns = [
+    path('', PageListView.as_view(), name='pages'),
+]
+</code></pre>
+
+<p><code>templates/&lt;app&gt;/&lt;modelo&gt;_list.html</code> -&gt; Veremos que si arrancamos el server da un error, y es porque esta vista usa un template llamado <code>&lt;modelo&gt;_list.html</code>. Así que en nuestra carpeta de templates, deberemos de llamar así a su template html. Además, donde tengamos el <code>for</code> para mostrar todos los elementos, debemos de usar el objeto <code>object</code> o el nombre del modelo (en este caso <code>page</code>)</p>
+<pre><code class="html"># Este sería el genérico
+{% for page in object_list %}
+# Este sería más específico, pero para el caso es igual
+{% for page in page_list %}
+</code></pre>
+
+<h3 id="detailview">DetailView</h3>
+<p>Para ver en detalle un único elemento de la bbdd, se suele usar <code>DetailView</code></p>
+<p><code>views.py</code> -&gt; Importar <code>DetailView</code>, así como el objeto del modelo de la bbdd y definirlo dentro de la clase.</p>
+<pre><code class="python">from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from .models import Page
+
+
+# Create your views here.
+class PageListView(ListView):
+    model = Page
+
+
+class PageDetailView(DetailView):
+    model = Page
+</code></pre>
+
+<p><code>urls.py</code> -&gt; Ojo en el pattern, que usa <code>pk</code> como índice.</p>
+<pre><code class="python">from django.urls import path
+from .views import PageListView, PageDetailView
+
+urlpatterns = [
+    path('', PageListView.as_view(), name='pages'),
+    path('&lt;int:pk&gt;/&lt;slug:slug&gt;/', PageDetailView.as_view(), name='page'),
+]
+</code></pre>
+
+<p><code>template/&lt;app&gt;/&lt;modelo&gt;_detail.html</code> -&gt; <code>DetailView</code> usa un template html llamado <code>&lt;modelo&gt;_detail.html</code>, así que debemos nombrar así al nuestro para que lo lea. De nuevo, tenemos que usar <code>object</code> dentro del template o el nombre del modelo (<code>page</code> en este caso).</p>
+<h2 id="vistas-crud">Vistas CRUD</h2>
+<p>Son un tipo de vistas basadas en clases, que están pensadas para interactuar con la bbdd.</p>
+<p>Create Read Update Delete</p>
+<h3 id="createview-vista-crud">CreateView - Vista CRUD</h3>
+<p>Sirve para poder crear una página donde un admin pueda editar / crear un objeto de la bbdd.</p>
+<p><code>views.py</code> -&gt; Importa <code>CreateView</code>, añade el modelo de la bbdd así como los campos a editar. El campo <code>sucess_url</code> es la vista que se pondrá cuando hayas completado el formulario</p>
+<pre><code class="python">from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
+from .models import Page
+
+
+# Create your views here.
+class PageListView(ListView):
+    model = Page
+
+
+class PageDetailView(DetailView):
+    model = Page
+
+
+class PageCreate(CreateView):
+    model = Page
+    fields = ['title', 'content', 'order']
+    success_url = reverse_lazy('pages:pages')
+
+</code></pre>
+
+<p><code>urls.py</code> -&gt; Importa la vista.</p>
+<pre><code class="python">from django.urls import path
+from .views import PageListView, PageDetailView, PageCreate
+
+pages_patterns = ([
+    path('', PageListView.as_view(), name='pages'),
+    path('&lt;int:pk&gt;/&lt;slug:slug&gt;/', PageDetailView.as_view(), name='page'),
+    path('create/', PageCreate.as_view(), name='create'),
+], 'pages')
+</code></pre>
+
+<p><code>template/&lt;app&gt;/&lt;modelo&gt;_form.html</code> -&gt; <code>CreateView</code> usa una plantilla llamada <code>&lt;modelo&gt;_form.html</code>, así que debes de renombrar así la tuya.</p>
+<h3 id="updateview-vista-crud">UpdateView - Vista CRUD</h3>
+<p>Es muy parecida a la anterior, pero ahora lo que vas a hacer es actualizar en lugar de crear.</p>
+<p><code>views.py</code> -&gt; La importas y solo necesitas pasarle 3 atributos, el modelo, los campos y por último el <code>template_name_suffix</code>. Con este campo se le indica que archivo tiene que leer cuando se ejecute (por defecto se pone <code>_update_form</code>). Para que devuelva una página al ser actualizado, habría que usar como antes el atributo <code>succes_url</code>. Si quieres que vuelva al mismo sitio (como en el ejemplo), sobreescribes la función <code>get_success_url</code> y devuelves el mismo objeto (si le añades algún parámetro, luego en el template puedes hacer que le indique al usuario que la actualización ha sido correcta).</p>
+<pre><code class="python">from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView
+from django.urls import reverse_lazy
+from .models import Page
+
+
+# Create your views here.
+class PageListView(ListView):
+    model = Page
+
+
+class PageDetailView(DetailView):
+    model = Page
+
+
+class PageCreateView(CreateView):
+    model = Page
+    fields = ['title', 'content', 'order']
+    success_url = reverse_lazy('pages:pages')
+
+class PageUpdateView(UpdateView):
+    model = Page
+    fields = ['title', 'content', 'order']
+    template_name_suffix = '_update_form'
+
+    def get_success_url(self):
+        return reverse_lazy('pages:update', args=[self.object.id]) + '?ok'
+
+</code></pre>
+
+<p><code>urls.py</code> -&gt; Debes de pasarle un <code>pk</code> para poder saber cual objeto editar.</p>
+<pre><code class="python">from django.urls import path
+from .views import PageListView, PageDetailView, PageCreateView, PageUpdateView
+
+pages_patterns = ([
+    path('', PageListView.as_view(), name='pages'),
+    path('&lt;int:pk&gt;/&lt;slug:slug&gt;/', PageDetailView.as_view(), name='page'),
+    path('create/', PageCreateView.as_view(), name='create'),
+    path('update/&lt;int:pk&gt;/', PageUpdateView.as_view(), name='update'),
+], 'pages')
+</code></pre>
+
+<p><code>template/&lt;app&gt;/&lt;modelo&gt;_update_form</code> -&gt; Por último, el template que usa esta vista es <code>&lt;modelo&gt;_update_form</code>, que se lo has definido en el <code>views.py</code>.</p>
+<h3 id="deleteview-vista-crud">DeleteView - Vista CRUD</h3>
+<p>Vista para borrar un objeto.</p>
+<p><code>views.py</code> -&gt; Importar la clase <code>DeleteView</code> y pasarle el modelo así como la url para cuando el borrado se haya completado.</p>
+<pre><code class="python">from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Page
+
+
+# Create your views here.
+class PageListView(ListView):
+    model = Page
+
+
+class PageDetailView(DetailView):
+    model = Page
+
+
+class PageCreateView(CreateView):
+    model = Page
+    fields = ['title', 'content', 'order']
+    success_url = reverse_lazy('pages:pages')
+
+class PageUpdateView(UpdateView):
+    model = Page
+    fields = ['title', 'content', 'order']
+    template_name_suffix = '_update_form'
+
+    def get_success_url(self):
+        return reverse_lazy('pages:update', args=[self.object.id]) + '?ok'
+
+class PageDeleteView(DeleteView):
+    model = Page
+    success_url = reverse_lazy('pages:pages')
+
+</code></pre>
+
+<p><code>urls.py</code> -&gt; Tienes que pasarle un pk o un slug para borrar el elemento.</p>
+<pre><code class="python">from django.urls import path
+from .views import PageListView, PageDetailView, PageCreateView, \
+    PageUpdateView, PageDeleteView
+
+pages_patterns = ([
+    path('', PageListView.as_view(), name='pages'),
+    path('&lt;int:pk&gt;/&lt;slug:slug&gt;/', PageDetailView.as_view(), name='page'),
+    path('create/', PageCreateView.as_view(), name='create'),
+    path('update/&lt;int:pk&gt;/', PageUpdateView.as_view(), name='update'),
+    path('delete/&lt;int:pk&gt;/', PageDeleteView.as_view(), name='delete'),
+], 'pages')
+</code></pre>
+
+<p><code>template/&lt;app&gt;/&lt;modelo&gt;_confirm_delete.html</code> -&gt; Por último tienes que crear el formulario de borrado en una template que se llame <code>&lt;modelo&gt;_confirm_delete.html</code></p>
+<h2 id="formularios-para-modelos">Formularios para Modelos</h2>
+<p>TODO</p>
+<h2 id="incluir-una-plantilla-html-en-todas-las-plantillas-de-la-app">Incluir una plantilla html en todas las plantillas de la app</h2>
+<p>Si quieres que en todas las plantillas de la app aparezca cierto código html común, debes de:</p>
+<ol>
+<li>Crear el directorio <code>&lt;proyecto&gt;/&lt;app&gt;/templates/includes</code>.</li>
+<li>Dentro de <code>includes</code> crear tu plantilla html común para los demás.</li>
+<li>En cada plantilla html de tu app, en el dentro de tu <code>{% block content %}</code>, añadirla con <code>{% include '&lt;app&gt;/includes/&lt;template&gt;.html' %}</code></li>
+</ol>
+<h2 id="definir-estructuras-en-los-urlspattern">Definir estructuras en los urlspattern</h2>
+<p>Suponte que tienes varias apps, donde hay una vista que se llama igual, por ejemplo <code>create</code>. En el <code>urls.py</code> le tienes puesto <code>name=&lt;app&gt;_create</code> para que no coincidan. Para no tener que hacer eso, se puede usar una reestructura de los urlpatterns.</p>
+<p><code>&lt;app&gt;/urls.py</code> -&gt; Le pones el nombre que quieras al <code>urlpatterns</code>, pero ahora en vez de ser una lista como antes, va a ser una tupla, que tiene en su primer miembro el <code>urlpatterns</code>, y en el segundo un nombre de referencia. Ahora puedes asignar nombres genéricos en el <code>urlpatterns</code>, como es el caso de <code>create</code> que lo vas a usar en más <code>urls.py</code> de otras apps.</p>
+<pre><code class="python">from django.urls import path
+from .views import PageListView, PageDetailView, PageCreate
+
+pages_patterns = ([
+    path('', PageListView.as_view(), name='pages'),
+    path('&lt;int:pk&gt;/&lt;slug:slug&gt;/', PageDetailView.as_view(), name='page'),
+    path('create/', PageCreate.as_view(), name='create'),
+], 'pages')
+</code></pre>
+
+<p><code>&lt;proyecto&gt;/&lt;proyecto&gt;/urls.py</code> -&gt; Importa tu <code>urlpatterns</code> tuneado (en este caso <code>pages_urlpatterns</code>), y lo incluyes directamente en la función <code>include()</code>.</p>
+<pre><code class="python">from django.contrib import admin
+from django.urls import path, include
+from pages.urls import pages_patterns
+
+urlpatterns = [
+    path('', include('core.urls')),
+    path('pages/', include(pages_patterns)),
+    path('admin/', admin.site.urls),
+]
+</code></pre>
+
+<p><code>&lt;..&gt;/template/&lt;..&gt;</code> -&gt; Lo único que te falta es que ahora, en todas las templates que lo enlazas con <code>{% urls '&lt;vista&gt;' ... %}</code> debes de poner <code>{% urls '&lt;urls de donde vengo&gt;:&lt;vista&gt;' ... %}</code>. En este ejemplo sería:</p>
+<ol>
+<li><code>{% urls 'pages:pages' ... %}</code> Cuando es un template fuera de la app, que enlaza desde el <code>urls.py</code> del proyecto a la app.</li>
+<li><code>{% urls 'pages:create' ... %}</code> Cuando es un template dentro de la app, que enlaza desde el <code>urls.py</code> de la propia app.</li>
+</ol>
+<h1 id="todo">TODO</h1>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../../../../sw/linux/linux-fecha-hora/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../../../../sw/linux/linux-fecha-hora/" class="btn btn-xs btn-link">
+        Fecha y Hora
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../django-intermedio/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../django-intermedio/" class="btn btn-xs btn-link">
+        Intermedio
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

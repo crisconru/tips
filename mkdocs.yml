@@ -42,6 +42,7 @@ nav:
           - Django: 'code/web/backend/django/django.md'
           - Principiante: 'code/web/backend/django/django-principiante.md'
           - Intermedio: 'code/web/backend/django/django-intermedio.md'
+          - Avanzado: 'code/web/backend/django/django-avanzado.md'
   - Software:
     - Linux:
       - Fecha y Hora: 'sw/linux/linux-fecha-hora.md'
