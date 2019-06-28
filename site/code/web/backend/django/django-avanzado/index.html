@@ -33,13 +33,11 @@
         
         var pageToc = [
           {title: "Django Avanzado", url: "#_top", children: [
+              {title: "Incluir una plantilla html en todas las plantillas de la app", url: "#incluir-una-plantilla-html-en-todas-las-plantillas-de-la-app" },
+              {title: "Definir estructuras en los urlspattern", url: "#definir-estructuras-en-los-urlspattern" },
               {title: "Vistas Basadas en Clases", url: "#vistas-basadas-en-clases" },
               {title: "Vistas CRUD", url: "#vistas-crud" },
               {title: "Formularios para Modelos", url: "#formularios-para-modelos" },
-              {title: "Incluir una plantilla html en todas las plantillas de la app", url: "#incluir-una-plantilla-html-en-todas-las-plantillas-de-la-app" },
-              {title: "Definir estructuras en los urlspattern", url: "#definir-estructuras-en-los-urlspattern" },
-          ]},
-          {title: "TODO", url: "#todo", children: [
           ]},
         ];
 
@@ -88,6 +86,43 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     
 
     <h1 id="django-avanzado">Django Avanzado</h1>
+<h2 id="incluir-una-plantilla-html-en-todas-las-plantillas-de-la-app">Incluir una plantilla html en todas las plantillas de la app</h2>
+<p>Si quieres que en todas las plantillas de la app aparezca cierto código html común, debes de:</p>
+<ol>
+<li>Crear el directorio <code>&lt;proyecto&gt;/&lt;app&gt;/templates/includes</code>.</li>
+<li>Dentro de <code>includes</code> crear tu plantilla html común para los demás.</li>
+<li>En cada plantilla html de tu app, en el dentro de tu <code>{% block content %}</code>, añadirla con <code>{% include '&lt;app&gt;/includes/&lt;template&gt;.html' %}</code></li>
+</ol>
+<h2 id="definir-estructuras-en-los-urlspattern">Definir estructuras en los urlspattern</h2>
+<p>Suponte que tienes varias apps, donde hay una vista que se llama igual, por ejemplo <code>create</code>. En el <code>urls.py</code> le tienes puesto <code>name=&lt;app&gt;_create</code> para que no coincidan. Para no tener que hacer eso, se puede usar una reestructura de los urlpatterns.</p>
+<p><code>&lt;app&gt;/urls.py</code> -&gt; Le pones el nombre que quieras al <code>urlpatterns</code>, pero ahora en vez de ser una lista como antes, va a ser una tupla, que tiene en su primer miembro el <code>urlpatterns</code>, y en el segundo un nombre de referencia. Ahora puedes asignar nombres genéricos en el <code>urlpatterns</code>, como es el caso de <code>create</code> que lo vas a usar en más <code>urls.py</code> de otras apps.</p>
+<pre><code class="python">from django.urls import path
+from .views import PageListView, PageDetailView, PageCreate
+
+pages_patterns = ([
+    path('', PageListView.as_view(), name='pages'),
+    path('&lt;int:pk&gt;/&lt;slug:slug&gt;/', PageDetailView.as_view(), name='page'),
+    path('create/', PageCreate.as_view(), name='create'),
+], 'pages')
+</code></pre>
+
+<p><code>&lt;proyecto&gt;/&lt;proyecto&gt;/urls.py</code> -&gt; Importa tu <code>urlpatterns</code> tuneado (en este caso <code>pages_urlpatterns</code>), y lo incluyes directamente en la función <code>include()</code>.</p>
+<pre><code class="python">from django.contrib import admin
+from django.urls import path, include
+from pages.urls import pages_patterns
+
+urlpatterns = [
+    path('', include('core.urls')),
+    path('pages/', include(pages_patterns)),
+    path('admin/', admin.site.urls),
+]
+</code></pre>
+
+<p><code>&lt;..&gt;/template/&lt;..&gt;</code> -&gt; Lo único que te falta es que ahora, en todas las templates que lo enlazas con <code>{% urls '&lt;vista&gt;' ... %}</code> debes de poner <code>{% urls '&lt;urls de donde vengo&gt;:&lt;vista&gt;' ... %}</code>. En este ejemplo sería:</p>
+<ol>
+<li><code>{% urls 'pages:pages' ... %}</code> Cuando es un template fuera de la app, que enlaza desde el <code>urls.py</code> del proyecto a la app.</li>
+<li><code>{% urls 'pages:create' ... %}</code> Cuando es un template dentro de la app, que enlaza desde el <code>urls.py</code> de la propia app.</li>
+</ol>
 <h2 id="vistas-basadas-en-clases">Vistas Basadas en Clases</h2>
 <p>En el <code>views.py</code> importo el modelo que quiera, por ejemplo <code>TemplateView</code>. Hago que hereden de mi modelo, defino su template, y modifico el contexto con la función <code>get_context_data()</code>.</p>
 <pre><code class="python">from django.views.generic.base import TemplateView
@@ -327,45 +362,126 @@ pages_patterns = ([
 
 <p><code>template/&lt;app&gt;/&lt;modelo&gt;_confirm_delete.html</code> -&gt; Por último tienes que crear el formulario de borrado en una template que se llame <code>&lt;modelo&gt;_confirm_delete.html</code></p>
 <h2 id="formularios-para-modelos">Formularios para Modelos</h2>
-<p>TODO</p>
-<h2 id="incluir-una-plantilla-html-en-todas-las-plantillas-de-la-app">Incluir una plantilla html en todas las plantillas de la app</h2>
-<p>Si quieres que en todas las plantillas de la app aparezca cierto código html común, debes de:</p>
-<ol>
-<li>Crear el directorio <code>&lt;proyecto&gt;/&lt;app&gt;/templates/includes</code>.</li>
-<li>Dentro de <code>includes</code> crear tu plantilla html común para los demás.</li>
-<li>En cada plantilla html de tu app, en el dentro de tu <code>{% block content %}</code>, añadirla con <code>{% include '&lt;app&gt;/includes/&lt;template&gt;.html' %}</code></li>
-</ol>
-<h2 id="definir-estructuras-en-los-urlspattern">Definir estructuras en los urlspattern</h2>
-<p>Suponte que tienes varias apps, donde hay una vista que se llama igual, por ejemplo <code>create</code>. En el <code>urls.py</code> le tienes puesto <code>name=&lt;app&gt;_create</code> para que no coincidan. Para no tener que hacer eso, se puede usar una reestructura de los urlpatterns.</p>
-<p><code>&lt;app&gt;/urls.py</code> -&gt; Le pones el nombre que quieras al <code>urlpatterns</code>, pero ahora en vez de ser una lista como antes, va a ser una tupla, que tiene en su primer miembro el <code>urlpatterns</code>, y en el segundo un nombre de referencia. Ahora puedes asignar nombres genéricos en el <code>urlpatterns</code>, como es el caso de <code>create</code> que lo vas a usar en más <code>urls.py</code> de otras apps.</p>
-<pre><code class="python">from django.urls import path
-from .views import PageListView, PageDetailView, PageCreate
+<p>Dentro de tu app, creas un fichero llamado <code>forms.py</code> e importas <code>from django import forms</code>, para crear la estructura de los campos. Al enlazarle un modelo al formulario, este se genera automáticamente.</p>
+<p><code>forms.py</code> -&gt; Importas el módulo <code>forms</code> y usas su clase <code>ModelForm</code>. Ahora debes de crear una clase <code>Meta</code> dentro, con el modelo y los campos. Con el atributo <code>widgets</code> le indicas que tipo de elemento html va a ser y dentro le pones los css que va a usar con el <code>attrs</code> y su diccionario. Con <code>labels</code> puedes cambiarle el texto del título del campo, quitándolo (como en el ejemplo) o poniéndole otro.</p>
+<pre><code class="python">from django import forms
+from .models import Page
 
-pages_patterns = ([
-    path('', PageListView.as_view(), name='pages'),
-    path('&lt;int:pk&gt;/&lt;slug:slug&gt;/', PageDetailView.as_view(), name='page'),
-    path('create/', PageCreate.as_view(), name='create'),
-], 'pages')
+class PageForm(forms.ModelForm):
+
+    class Meta:
+        model = Page
+        fields = ['title', 'content', 'order']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control',
+                                            'placeholder': 'Título'}),
+            'content': forms.Textarea(attrs={'class': 'form-control',
+                                            'placeholder': 'Contenido'}),
+            'order': forms.NumberInput(attrs={'class': 'form-control',
+                                            'placeholder': 'Orden'})
+        }
+        labels = { 'title': '', 'content': '', 'order': ''}
+
 </code></pre>
 
-<p><code>&lt;proyecto&gt;/&lt;proyecto&gt;/urls.py</code> -&gt; Importa tu <code>urlpatterns</code> tuneado (en este caso <code>pages_urlpatterns</code>), y lo incluyes directamente en la función <code>include()</code>.</p>
-<pre><code class="python">from django.contrib import admin
-from django.urls import path, include
-from pages.urls import pages_patterns
+<p><code>views.py</code> -&gt; Importas el formulario y lo metes dentro de su vista. Ahora el campo <code>fields</code> no es necesario porque va en el formulario.</p>
+<pre><code class="python">from django.views.generic.edit import CreateView, UpdateView
+from django.urls import reverse_lazy
+from .models import Page
+from .forms import PageForm
 
-urlpatterns = [
-    path('', include('core.urls')),
-    path('pages/', include(pages_patterns)),
-    path('admin/', admin.site.urls),
-]
+
+class PageCreateView(CreateView):
+    model = Page
+    form_class = PageForm
+    success_url = reverse_lazy('pages:pages')
+
+
+class PageUpdateView(UpdateView):
+    model = Page
+    form_class = PageForm
+    template_name_suffix = '_update_form'
+
+    def get_success_url(self):
+        return reverse_lazy('pages:update', args=[self.object.id]) + '?ok'
 </code></pre>
 
-<p><code>&lt;..&gt;/template/&lt;..&gt;</code> -&gt; Lo único que te falta es que ahora, en todas las templates que lo enlazas con <code>{% urls '&lt;vista&gt;' ... %}</code> debes de poner <code>{% urls '&lt;urls de donde vengo&gt;:&lt;vista&gt;' ... %}</code>. En este ejemplo sería:</p>
-<ol>
-<li><code>{% urls 'pages:pages' ... %}</code> Cuando es un template fuera de la app, que enlaza desde el <code>urls.py</code> del proyecto a la app.</li>
-<li><code>{% urls 'pages:create' ... %}</code> Cuando es un template dentro de la app, que enlaza desde el <code>urls.py</code> de la propia app.</li>
-</ol>
-<h1 id="todo">TODO</h1>
+<h3 id="ckeditor-adaptativo">ckeditor adaptativo</h3>
+<p>Para añadir y hacer adaptativo el ckeditor tienes que hacer lo siguiente:</p>
+<p><code>&lt;app&gt;/static/&lt;app&gt;/css/custom_ckeditor.css</code> -&gt; Creas un fichero css donde editas los estilos del ckeditor.</p>
+<pre><code class="css">.django-ckeditor-widget, .cke_editor_id_content {
+    width: 100% !important;
+    max-width: 821px !important;
+}
+</code></pre>
+
+<p>En el template que uses común para todos los demás templates, importalo y añade el link al css donde lo has a tuneado.</p>
+<pre><code class="html">{% load static %}
+&lt;script type=&quot;text/javascript&quot; src=&quot;{% static &quot;ckeditor/ckeditor-init.js&quot; %}&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;{% static &quot;ckeditor/ckeditor/ckeditor.js&quot; %}&quot;&gt;&lt;/script&gt;
+&lt;link href=&quot;{% static 'pages/css/custom_ckeditor.css' %}&quot; rel=&quot;stylesheet&quot;&gt;
+</code></pre>
+
+<h3 id="seguridad">Seguridad</h3>
+<p>Es probable que muchos de los formularios solo quieras que los puedan usar usuarios admin o registrados. Siempre que no seas un usuario loggeado, Django te detecta como usuario anónimo, <code>AnonymousUser</code>.</p>
+<p><code>views.py</code> -&gt; Para que en tu vista puedas detectar si el usuario está logeado, debes de reescribir el método <code>dispatch</code> de la clase. En él miras si el usuario está dentro del staff, y si no, lo rediriges donde quieras (por ejemplo, al login del admin).</p>
+<pre><code class="python">from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
+from .models import Page
+from .forms import PageForm
+from django.shortcuts import redirect
+
+
+# Create your views here.
+class PageCreateView(CreateView):
+    model = Page
+    form_class = PageForm
+    success_url = reverse_lazy('pages:pages')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return redirect(reverse_lazy('admin:login'))
+        return super(PageCreateView, self).dispatch(request, *args, **kwargs)
+</code></pre>
+
+<h3 id="seguridad-mixins">Seguridad - Mixins</h3>
+<p>Si quieres que esa reedireción de antes se use en más vistas, no hace falta que copias ese método en cada vista. Existe un mecanismo llamado <code>Mixin</code> que permite escribirlo una vez y usarlo en todas.</p>
+<p><code>views.py</code> -&gt; Creas una clase, que herede de <code>object</code> (en Python 3, por defecto, todas las clases heredan de <code>object</code>) y le pones el método <code>dispatch</code> de antes. Luego en cada vista haces que herede primero de esta nueva clase y luego de su modelo de vista.</p>
+<pre><code class="python">from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Page
+from .forms import PageForm
+from django.shortcuts import redirect
+
+
+# Create your views here.
+class StaffRequiredMixin():
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return redirect(reverse_lazy('admin:login'))
+        return super(StaffRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
+class PageCreateView(StaffRequiredMixin, CreateView):
+    model = Page
+    form_class = PageForm
+    success_url = reverse_lazy('pages:pages')
+
+
+
+class PageUpdateView(StaffRequiredMixin, UpdateView):
+    model = Page
+    form_class = PageForm
+    template_name_suffix = '_update_form'
+
+    def get_success_url(self):
+        return reverse_lazy('pages:update', args=[self.object.id]) + '?ok'
+
+
+class PageDeleteView(StaffRequiredMixin, DeleteView):
+    model = Page
+    success_url = reverse_lazy('pages:pages')
+</code></pre>
 
   <br>
     
