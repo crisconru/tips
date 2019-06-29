@@ -38,6 +38,7 @@
               {title: "Vistas Basadas en Clases", url: "#vistas-basadas-en-clases" },
               {title: "Vistas CRUD", url: "#vistas-crud" },
               {title: "Formularios para Modelos", url: "#formularios-para-modelos" },
+              {title: "TODO", url: "#todo" },
           ]},
         ];
 
@@ -444,7 +445,7 @@ class PageCreateView(CreateView):
         return super(PageCreateView, self).dispatch(request, *args, **kwargs)
 </code></pre>
 
-<h3 id="seguridad-mixins">Seguridad - Mixins</h3>
+<h3 id="seguridad-mixins-manual">Seguridad - Mixins Manual</h3>
 <p>Si quieres que esa reedireción de antes se use en más vistas, no hace falta que copias ese método en cada vista. Existe un mecanismo llamado <code>Mixin</code> que permite escribirlo una vez y usarlo en todas.</p>
 <p><code>views.py</code> -&gt; Creas una clase, que herede de <code>object</code> (en Python 3, por defecto, todas las clases heredan de <code>object</code>) y le pones el método <code>dispatch</code> de antes. Luego en cada vista haces que herede primero de esta nueva clase y luego de su modelo de vista.</p>
 <pre><code class="python">from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -482,6 +483,84 @@ class PageDeleteView(StaffRequiredMixin, DeleteView):
     model = Page
     success_url = reverse_lazy('pages:pages')
 </code></pre>
+
+<h3 id="seguridad-mixins-decorado">Seguridad - Mixins Decorado</h3>
+<p>El punto anterior ya se ha automatizado en Django usando decoradores.</p>
+<p><code>views.py</code> -&gt; Tienes que importar por un lado el <code>method_decorator</code>, que permite usar decoradores de Django, y por otro el decorador <code>staff_member_required</code>. Ahora en el método <code>dispatch</code> puedes quitar el <code>if</code> con la redirección, ya que se va a hacer sola. Ahora en la url al entrar, incluso te dirá donde debe de ir despues de loguearse.</p>
+<pre><code class="python">from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Page
+from .forms import PageForm
+from django.shortcuts import redirect
+from django.utils.decorators import method_decorator
+from django.contrib.admin.views.decorators import staff_member_required
+
+# Create your views here.
+class StaffRequiredMixin():
+
+    @method_decorator(staff_member_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(StaffRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
+class PageCreateView(StaffRequiredMixin, CreateView):
+    model = Page
+    form_class = PageForm
+    success_url = reverse_lazy('pages:pages')
+
+
+class PageUpdateView(StaffRequiredMixin, UpdateView):
+    model = Page
+    form_class = PageForm
+    template_name_suffix = '_update_form'
+
+    def get_success_url(self):
+        return reverse_lazy('pages:update', args=[self.object.id]) + '?ok'
+
+
+class PageDeleteView(StaffRequiredMixin, DeleteView):
+    model = Page
+    success_url = reverse_lazy('pages:pages')
+
+
+</code></pre>
+
+<p>Pero tener una clase solo para eso no tiene sentido, así que se puede usar el decorador en las propias vistas usando el <code>method_decorator</code> y pasándole el decorador, así como el método a decorar</p>
+<pre><code class="python">from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Page
+from .forms import PageForm
+from django.shortcuts import redirect
+from django.utils.decorators import method_decorator
+from django.contrib.admin.views.decorators import staff_member_required
+
+
+# Create your views here.
+@method_decorator(staff_member_required, name=&quot;dispatch&quot;)
+class PageCreateView(CreateView):
+    model = Page
+    form_class = PageForm
+    success_url = reverse_lazy('pages:pages')
+
+@method_decorator(staff_member_required, name=&quot;dispatch&quot;)
+class PageUpdateView(UpdateView):
+    model = Page
+    form_class = PageForm
+    template_name_suffix = '_update_form'
+
+    def get_success_url(self):
+        return reverse_lazy('pages:update', args=[self.object.id]) + '?ok'
+
+
+@method_decorator(staff_member_required, name=&quot;dispatch&quot;)
+class PageDeleteView(DeleteView):
+    model = Page
+    success_url = reverse_lazy('pages:pages')
+
+</code></pre>
+
+<p>Existen <strong>2 decoradores más</strong> que son interesantes: <code>login_required</code> y <code>permission_required</code>.</p>
+<h2 id="todo">TODO</h2>
 
   <br>
     
