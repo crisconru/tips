@@ -427,7 +427,7 @@ class PageCreateView(CreateView):
         return super(PageCreateView, self).dispatch(request, *args, **kwargs)
 ```
 
-### Seguridad - Mixins
+### Seguridad - Mixins Manual
 
 Si quieres que esa reedireción de antes se use en más vistas, no hace falta que copias ese método en cada vista. Existe un mecanismo llamado `Mixin` que permite escribirlo una vez y usarlo en todas.
 
@@ -469,3 +469,88 @@ class PageDeleteView(StaffRequiredMixin, DeleteView):
     model = Page
     success_url = reverse_lazy('pages:pages')
 ```
+
+### Seguridad - Mixins Decorado
+
+El punto anterior ya se ha automatizado en Django usando decoradores.
+
+`views.py` -> Tienes que importar por un lado el `method_decorator`, que permite usar decoradores de Django, y por otro el decorador `staff_member_required`. Ahora en el método `dispatch` puedes quitar el `if` con la redirección, ya que se va a hacer sola. Ahora en la url al entrar, incluso te dirá donde debe de ir despues de loguearse.
+
+```python
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Page
+from .forms import PageForm
+from django.shortcuts import redirect
+from django.utils.decorators import method_decorator
+from django.contrib.admin.views.decorators import staff_member_required
+
+# Create your views here.
+class StaffRequiredMixin():
+
+    @method_decorator(staff_member_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(StaffRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
+class PageCreateView(StaffRequiredMixin, CreateView):
+    model = Page
+    form_class = PageForm
+    success_url = reverse_lazy('pages:pages')
+
+
+class PageUpdateView(StaffRequiredMixin, UpdateView):
+    model = Page
+    form_class = PageForm
+    template_name_suffix = '_update_form'
+
+    def get_success_url(self):
+        return reverse_lazy('pages:update', args=[self.object.id]) + '?ok'
+
+
+class PageDeleteView(StaffRequiredMixin, DeleteView):
+    model = Page
+    success_url = reverse_lazy('pages:pages')
+
+
+```
+
+Pero tener una clase solo para eso no tiene sentido, así que se puede usar el decorador en las propias vistas usando el `method_decorator` y pasándole el decorador, así como el método a decorar
+
+```python
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Page
+from .forms import PageForm
+from django.shortcuts import redirect
+from django.utils.decorators import method_decorator
+from django.contrib.admin.views.decorators import staff_member_required
+
+
+# Create your views here.
+@method_decorator(staff_member_required, name="dispatch")
+class PageCreateView(CreateView):
+    model = Page
+    form_class = PageForm
+    success_url = reverse_lazy('pages:pages')
+
+@method_decorator(staff_member_required, name="dispatch")
+class PageUpdateView(UpdateView):
+    model = Page
+    form_class = PageForm
+    template_name_suffix = '_update_form'
+
+    def get_success_url(self):
+        return reverse_lazy('pages:update', args=[self.object.id]) + '?ok'
+
+
+@method_decorator(staff_member_required, name="dispatch")
+class PageDeleteView(DeleteView):
+    model = Page
+    success_url = reverse_lazy('pages:pages')
+
+```
+
+Existen **2 decoradores más** que son interesantes: `login_required` y `permission_required`.
+
+## TODO
