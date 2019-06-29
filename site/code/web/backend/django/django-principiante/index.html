@@ -50,6 +50,7 @@
               {title: "Servir ficheros multimedia", url: "#servir-ficheros-multimedia" },
           ]},
           {title: "Media files", url: "#media-files", children: [
+              {title: "MVT Modelo-Vista-Template", url: "#mvt-modelo-vista-template" },
           ]},
         ];
 
@@ -505,81 +506,83 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Ruta para encontrarlos dentro de
 <li>
 <p>Si en el modelo tenemos algún formulario donde los usuarios pueden subir este tipo de ficheros, debemos añadirle el parámetro <code>upload_to</code> con el nombre del directorio que tendrá dentro de la carpeta <code>media</code>
    Por ejemplo en el /miproyecto/core/models.py hacemos que las imágenes de los proyectos las guarde en la carpeta /miproyecto/media/projects que Django generará automáticamente con</p>
-<p>```python
+<p><code>python
 class Project(models.Model):
     ...
-    image = models.ImageField(verbose_name='Imagen', upload_to='projects')</p>
+    image = models.ImageField(verbose_name='Imagen', upload_to='projects')</code></p>
+</li>
+<li>
+<p>Ahora tenemos que habilitar una url para el directorio <code>media</code>, pero que solo sea accesible cuando estamos en modo <code>debug</code>.</p>
+<ol>
+<li>Modificar el <code>urls.py</code> del proyecto (<proyecto>/<proyecto>/urls.py) con</li>
+</ol>
+<p>```python
+from django.conf import settings</p>
+<p>urlpatterns = [...]</p>
+<p>if settings.DEBUG:
+    from django.conf.urls.static import static
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)</p>
+<p>```</p>
 </li>
 </ol>
-<pre><code>
-4. Ahora tenemos que habilitar una url para el directorio `media`, pero que solo sea accesible cuando estamos en modo `debug`.
-    1. Modificar el `urls.py` del proyecto (&lt;proyecto&gt;/&lt;proyecto&gt;/urls.py) con
-
-    ```python
-    from django.conf import settings
-
-    urlpatterns = [...]
-
-    if settings.DEBUG:
-        from django.conf.urls.static import static
-        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-    ```
-
-## MVT Modelo-Vista-Template
-
-Django se basa en el paradigma MVT, que está basado en el MVC (Modelo-Vista-Controlador). Estos paradigmas indican básicamente como es el flujo de trabajo y a la vez permiten desacoplar las distintas partes del proyecto. Es un poco lioso al principio si vienes del MVC.
-
-En el MVC tienes:
-
-* Modelo -&gt; Como está creada y almacenada la información (BBDD).
-* Vista -&gt; Es la parte encargada de la interfaz visual (Frontend).
-* Controlador -&gt; Como se manipula y trabaja con la información detrás de la interfaz (Backend).
-
-En el MVT hay:
-
-* Modelo -&gt; Igual que el anterior (BBDD).
-* Vista -&gt; Equivale en realidad al Controlador (Backend).
-    * Por eso decía que es lioso, porque al Controlador en Django se le llama Vista.
-    * Y a la Vista se le llama Template.
-* Template -&gt; Equivale a la Vista (Frontend).
-
-Hay que tener en cuenta que **MVT define el flujo de desarrollo**. En el MVT nosotros desarrollamos siguiendo estos pasos:
-
-1. MODELO
-    * `models.py` -&gt; Creamos / modificamos el Modelo (BBDD).
-    * `admin.py` -&gt; Habilitamos las opciones que sean necesarias en el Admin.
-2. VISTA
-    * `views.py` -&gt; Creamos / modificamos la Vista (Backend).
-    * `urls.py` -&gt; Habilitamos el acceso a través de la web a esa vista.
-3. TEMPLATE
-    * `templates/&lt;app&gt;/` -&gt; Creamos / modificamos la Template (Frontend).
-    * `static/&lt;app&gt;/` -&gt; Creamos / modificamos los estáticos (CSS's, JS's).
-
-**NOTA**: Un **mnemónico** para recordar esto es **MAVUTS** -&gt; Models.py Admin.py Views.py Urls.py Templates Static.
-
-Pero el flujo que sigue Django para servir una web en un enlace concreto es:
-
-1. El navegador hace una petición a una url concreta.
-2. Eso entra por el `urls.py` del proyecto y se redirecciona hasta llegar al `urls.py` de la app concreta.
-3. De ahí se pasa a la vista, `views.py`.
-4. El `views.py` interactua con la bbdd gracias al `models.py`.
-5. Después computar toda la info, devuelve la template específica, `&lt;app&gt;/templates/&lt;app&gt;/&lt;vista&gt;.html`, ya formateada (con los tags sustituidos por su valor final).
-6. El navegador renderiza el fichero y sirve la web.
-
-### Ejemplo práctico
-
-Para que tu editor no te de problemas, se recomienda instalar el linter `pylint-django`. Para activarlo hay que hacer:
-
-* Editar los `pylintArgs` con
-    * `--errors-only`
-    * `--load-plugins`
-    * `pytlint_django`
-
-Supongamos que vamos a querer tener una sección portfolio en esta web, llena de los proyectos. Lo primero será crear la app portfolio
-
-```bash
-python manage.py startapp portfolio
+<h2 id="mvt-modelo-vista-template">MVT Modelo-Vista-Template</h2>
+<p>Django se basa en el paradigma MVT, que está basado en el MVC (Modelo-Vista-Controlador). Estos paradigmas indican básicamente como es el flujo de trabajo y a la vez permiten desacoplar las distintas partes del proyecto. Es un poco lioso al principio si vienes del MVC.</p>
+<p>En el MVC tienes:</p>
+<ul>
+<li>Modelo -&gt; Como está creada y almacenada la información (BBDD).</li>
+<li>Vista -&gt; Es la parte encargada de la interfaz visual (Frontend).</li>
+<li>Controlador -&gt; Como se manipula y trabaja con la información detrás de la interfaz (Backend).</li>
+</ul>
+<p>En el MVT hay:</p>
+<ul>
+<li>Modelo -&gt; Igual que el anterior (BBDD).</li>
+<li>Vista -&gt; Equivale en realidad al Controlador (Backend).<ul>
+<li>Por eso decía que es lioso, porque al Controlador en Django se le llama Vista.</li>
+<li>Y a la Vista se le llama Template.</li>
+</ul>
+</li>
+<li>Template -&gt; Equivale a la Vista (Frontend).</li>
+</ul>
+<p>Hay que tener en cuenta que <strong>MVT define el flujo de desarrollo</strong>. En el MVT nosotros desarrollamos siguiendo estos pasos:</p>
+<ol>
+<li>MODELO<ul>
+<li><code>models.py</code> -&gt; Creamos / modificamos el Modelo (BBDD).</li>
+<li><code>admin.py</code> -&gt; Habilitamos las opciones que sean necesarias en el Admin.</li>
+</ul>
+</li>
+<li>VISTA<ul>
+<li><code>views.py</code> -&gt; Creamos / modificamos la Vista (Backend).</li>
+<li><code>urls.py</code> -&gt; Habilitamos el acceso a través de la web a esa vista.</li>
+</ul>
+</li>
+<li>TEMPLATE<ul>
+<li><code>templates/&lt;app&gt;/</code> -&gt; Creamos / modificamos la Template (Frontend).</li>
+<li><code>static/&lt;app&gt;/</code> -&gt; Creamos / modificamos los estáticos (CSS's, JS's).</li>
+</ul>
+</li>
+</ol>
+<p><strong>NOTA</strong>: Un <strong>mnemónico</strong> para recordar esto es <strong>MAVUTS</strong> -&gt; Models.py Admin.py Views.py Urls.py Templates Static.</p>
+<p>Pero el flujo que sigue Django para servir una web en un enlace concreto es:</p>
+<ol>
+<li>El navegador hace una petición a una url concreta.</li>
+<li>Eso entra por el <code>urls.py</code> del proyecto y se redirecciona hasta llegar al <code>urls.py</code> de la app concreta.</li>
+<li>De ahí se pasa a la vista, <code>views.py</code>.</li>
+<li>El <code>views.py</code> interactua con la bbdd gracias al <code>models.py</code>.</li>
+<li>Después computar toda la info, devuelve la template específica, <code>&lt;app&gt;/templates/&lt;app&gt;/&lt;vista&gt;.html</code>, ya formateada (con los tags sustituidos por su valor final).</li>
+<li>El navegador renderiza el fichero y sirve la web.</li>
+</ol>
+<h3 id="ejemplo-practico">Ejemplo práctico</h3>
+<p>Para que tu editor no te de problemas, se recomienda instalar el linter <code>pylint-django</code>. Para activarlo hay que hacer:</p>
+<ul>
+<li>Editar los <code>pylintArgs</code> con<ul>
+<li><code>--errors-only</code></li>
+<li><code>--load-plugins</code></li>
+<li><code>pytlint_django</code></li>
+</ul>
+</li>
+</ul>
+<p>Supongamos que vamos a querer tener una sección portfolio en esta web, llena de los proyectos. Lo primero será crear la app portfolio</p>
+<pre><code class="bash">python manage.py startapp portfolio
 </code></pre>
 
 <ol>
