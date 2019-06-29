@@ -1,19 +1,20 @@
 {
-    "python.pythonPath": "/home/klin/.local/share/virtualenvs/curso-django-ZjVRVgwg/bin/python",
+    "python.pythonPath": "/Users/crisconru/.virtualenvs/curso-django-mPwCKrEw/bin/python",
     "workbench.colorCustomizations": {
-        "activityBar.background": "#ea16b1",
-        "activityBar.foreground": "#e7e7e7",
-        "activityBar.inactiveForeground": "#e7e7e799",
-        "activityBarBadge.background": "#9bcd12",
-        "activityBarBadge.foreground": "#15202b",
-        "titleBar.activeBackground": "#bc118e",
-        "titleBar.inactiveBackground": "#bc118e99",
-        "titleBar.activeForeground": "#e7e7e7",
-        "titleBar.inactiveForeground": "#e7e7e799",
-        "statusBar.background": "#bc118e",
-        "statusBarItem.hoverBackground": "#ea16b1",
-        "statusBar.foreground": "#e7e7e7"
+        "activityBar.background": "#71c6df",
+        "activityBar.foreground": "#15202b",
+        "activityBar.inactiveForeground": "#15202b99",
+        "activityBarBadge.background": "#d02fab",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "titleBar.activeBackground": "#48b5d5",
+        "titleBar.inactiveBackground": "#48b5d599",
+        "titleBar.activeForeground": "#15202b",
+        "titleBar.inactiveForeground": "#15202b99",
+        "statusBar.background": "#48b5d5",
+        "statusBarItem.hoverBackground": "#2c9dbe",
+        "statusBar.foreground": "#15202b"
     },
+    "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true
+    "python.linting.pylintArgs": ["--load-plugins", "pylint_django"]
 }

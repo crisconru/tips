@@ -401,7 +401,7 @@ En el template que uses común para todos los demás templates, importalo y aña
 <link href="{% static 'pages/css/custom_ckeditor.css' %}" rel="stylesheet">
 ```
 
-### Seguridad
+### Usuarios registrados
 
 Es probable que muchos de los formularios solo quieras que los puedan usar usuarios admin o registrados. Siempre que no seas un usuario loggeado, Django te detecta como usuario anónimo, `AnonymousUser`.
 
@@ -427,7 +427,7 @@ class PageCreateView(CreateView):
         return super(PageCreateView, self).dispatch(request, *args, **kwargs)
 ```
 
-### Seguridad - Mixins Manual
+### Usuarios registrados - Mixins Manual
 
 Si quieres que esa reedireción de antes se use en más vistas, no hace falta que copias ese método en cada vista. Existe un mecanismo llamado `Mixin` que permite escribirlo una vez y usarlo en todas.
 
@@ -470,7 +470,7 @@ class PageDeleteView(StaffRequiredMixin, DeleteView):
     success_url = reverse_lazy('pages:pages')
 ```
 
-### Seguridad - Mixins Decorado
+### Usuarios registrados - Mixins Decorado
 
 El punto anterior ya se ha automatizado en Django usando decoradores.
 
@@ -553,4 +553,642 @@ class PageDeleteView(DeleteView):
 
 Existen **2 decoradores más** que son interesantes: `login_required` y `permission_required`.
 
-## TODO
+## Auth Views
+
+Django tiene vistas de autenticación ya creadas: login, logout, ... No hace falta crearlas, él las genera.
+
+`<proyecto>/<proyecto>/urls.py` -> Generar las urls para las vistas desde `accounts`.
+
+```python
+from django.contrib import admin
+from django.urls import path, include
+from pages.urls import pages_patterns
+
+urlpatterns = [
+    path('', include('core.urls')),
+    path('pages/', include(pages_patterns)),
+    path('admin/', admin.site.urls),
+    # Paths de Auth
+    path('accounts/', include('django.contrib.auth.urls')),
+]
+```
+
+Si abres la url con `accounts` te dice todos las urls que hay, como `accounts/login`.
+
+### LoginView
+
+Si abres `accounts/login` da error de template. Busca el template `<app>/login.html`, así que hay que crearlo.
+
+`<app>/templates/<app>/login.html`
+
+`settings.py` -> En el settings del proyecto tendremos que añadir la app al principio de todo, ya que muchos formularios pueden estar con conflicto con otras aplicaciones. También debemos de crear al final las redirecciones con la variable `LOGIN_REDIRECT_URL` donde se le indica donde ir al loguearse.
+
+```python
+# ...
+
+INSTALLED_APPS = [
+    'registration.apps.RegistrationConfig',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'ckeditor',
+    'core.apps.CoreConfig',
+    'pages.apps.PagesConfig',
+]
+# ...
+
+# Auth redirects
+LOGIN_REDIRECT_URL = 'home'
+```
+
+Luego en el template donde lo vayas a usar simplemente usa `{% url 'login' %}`
+
+### LogoutView
+
+Es parecido al anterior. En este caso solo tienes que definir la variable `LOGOUT_REDIRECT_URL` en el `settings`
+
+```python
+# Auth redirects
+LOGIN_REDIRECT_URL = 'pages:pages'
+LOGOUT_REDIRECT_URL = 'home'
+```
+
+Y luego en algún template puedes enlazar la acción con `{% url 'logout' %}`
+
+```html
+<ul class="navbar-nav">
+    {% if not request.user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Acceder</a>
+        </li>
+    {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Salir</a>
+        </li>
+    {% endif %}
+</ul>
+```
+
+## Registro de Usuario
+
+Se suele hacer en una app aparte (`registration` por ejemplo).
+
+`<app>/views.py` -> Importa el formulario de creación de usuario `UserCreationForm` y una vista genérica de creación como `CreateView`. Dentro de esta se le pasa el formulario en el atributo `form_class` así como su template. También debes de devolver la redirección con algún parámetro que permita saber que todo ha ido correcto.
+
+```python
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
+
+
+# Create your views here.
+class SignUpView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'registration/signup.html'
+
+    def get_success_url(self):
+        return reverse_lazy('login') + '?register'
+
+```
+
+`<app>/urls.py`
+
+```python
+from django.urls import path, include
+from .views import SignUpView
+
+urlpatterns = [
+    path('signup/', SignUpView.as_view(), name='signup'),
+]
+
+```
+
+`<proyecto>/urls.py`
+
+```python
+from django.contrib import admin
+from django.urls import path, include
+from pages.urls import pages_patterns
+
+urlpatterns = [
+    path('', include('core.urls')),
+    path('pages/', include(pages_patterns)),
+    path('admin/', admin.site.urls),
+    # Paths de Auth
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('registration.urls')),
+]
+
+```
+
+`<app>/templates/<app>/<template_name>` -> Es un formulario normal y corriente.
+
+```html
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Registro{% endblock %}
+{% block content %}
+<style>.errorlist{color:red;}</style>
+<main role="main">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto mb-5">
+        <form action="" method="post">{% csrf_token %}
+          <h3 class="mb-4">Registro</h3>
+          {{form.as_p}}
+          <p><input type="submit" class="btn btn-primary btn-block" value="Confirmar"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+```
+
+`<app>/templates/<app>/<success_url>` -> Para poder ver si te ha ido bien podrías añadir
+
+```html
+{% if 'register' in request.GET %}
+    <p style="color:green;">Usuario registrado correctamente, ya puedes loguearte.</p>
+{% endif %}
+```
+
+### Customizar el registro
+
+Para customizar el formulario de registro debes de trastearlo en tiempo de ejecución para no perder el que ya hay hecho.
+
+`<app>/views.py` -> Tienes que sobreescribir el método `get_form()`, modificando sus campos, que son: `username`, `password1` y `password2`.
+
+```python
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
+from django import forms
+
+
+# Create your views here.
+class SignUpView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'registration/signup.html'
+
+    def get_success_url(self):
+        return reverse_lazy('login') + '?register'
+
+    def get_form(self, form_class=None):
+        form = super(SignUpView, self).get_form()
+        # Customización en tiempo real
+        form.fields['username'].widget = forms.TextInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Nombre de usuario'})
+        form.fields['password1'].widget = forms.PasswordInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Contraseña'})
+        form.fields['password2'].widget = forms.PasswordInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Repite la contraseña'})
+        return form
+
+```
+
+`<app>/templates/<app>/<template_name>` -> Si quieres quitar todos los `labels`, lo puedes hacer desde el fichero anterior o simplemente en tu template pones
+
+```html
+<style>label{display:none}</style>
+```
+
+### Añadir email como requisito
+
+Para que añadas un email al registro lo mejor es extender el formulario ya existente en Django.
+
+`<app>/forms.py` -> Crea este fichero para extender el formulario. Añades el atributo `email`. En la clase `Meta` añades el atributo. con el método `clean_<field>` haces una validación, en este caso `clean_email` lo haces para que el `email` sea único para cada usuario (no puede haber dos usuarios con el mismo email) Si el email no existe, puede registrarse, sino, lanza un error de validación.
+
+```python
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+class UserCreationFormWithEmail(UserCreationForm):
+    email = forms.EmailField(
+        required=True,
+        help_text='Requerido, 254 caracteres como máximo y que sea válido')
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError('El email ya existe, usa otro.')
+        return email
+
+```
+
+`<app>/views.py` -> Cambiar el formulario anterior por el nuevo extendido, así como las modificaciones de su campo.
+
+```python
+from .forms import UserCreationFormWithEmail
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
+from django import forms
+
+
+# Create your views here.
+class SignUpView(CreateView):
+    form_class = UserCreationFormWithEmail
+    template_name = 'registration/signup.html'
+
+    def get_success_url(self):
+        return reverse_lazy('login') + '?register'
+
+    def get_form(self, form_class=None):
+        form = super(SignUpView, self).get_form()
+        # Customización en tiempo real
+        form.fields['username'].widget = forms.TextInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Nombre de usuario'})
+        form.fields['email'].widget = forms.EmailInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Email'})
+        form.fields['password1'].widget = forms.PasswordInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Contraseña'})
+        form.fields['password2'].widget = forms.PasswordInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Repite la contraseña'})
+        return form
+
+```
+
+### Recuperar contraseña
+
+Existen diferentes opciones, pero una típica es tener un servidor de correo SMTP que manda email con el link para el proceso de recuperación de contraseña. Aquí vas a hacer un truco para debug, que es tener un fichero local donde almacenas las credenciales.
+
+`<proyecto>/settings.py` -> Añades lo siguiente al final. Con `EMAIL_BACKEND` le estas diciendo que use un backend de ficheros de prueba para el email. Con `EMAIL_FILE_PATH` le indicas donde guardar ese fichero.
+
+```python
+# Email
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+    EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
+else:
+    # Configuración del servidor de correo SMTP real de producción
+    pass
+```
+
+Ahora te va a tocar sobreescribir los 4 templates que Django usa para recuperar la contraseña, ya que los que él ofrece son de forma admin, y tu quieres verlo como un usuario que ve el frontend. Los templates que debes crear son:
+
+* `password_reset_form.html` -> Pedir nueva contraseña.
+* `password_reset_done.html` -> Email con instrucciones enviado.
+* `password_reset_confirm.html` -> Definir nueva contraseña.
+* `password_reset_complete.html` -> Contraseña cambiada.
+
+Por último, en el template login deberías de añadir la típica línea para si has olvidado la contraseña
+
+```html
+<p>
+    <a href="{% url 'password_reset' %}">He olvidado mi contraseña</a>
+</p>
+```
+
+## Perfil de Usuario
+
+### Crear perfil
+
+`<app>/models.py` -> Creamos un modelo `Profile`, que tiene que tener una relación 1-1 con un usuario, una foto, biografía, web.
+
+```python
+from django.db import models
+from django.contrib.auth.models import User
+
+
+# Create your models here.
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to='profiles', null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
+    link = models.URLField(max_length=200, null=True, blank=True)
+
+```
+
+`settings.py` -> Hay que despachar los ficheros media del avatar y no tocar la redirección del login.
+
+```python
+# Auth redirects
+#LOGIN_REDIRECT_URL = 'pages:pages'
+LOGOUT_REDIRECT_URL = 'home'
+
+
+# Media Files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+```
+
+`urls.py` -> Añadir al `urlpatterns` del proyecto donde se despachan los ficheros media.
+
+```python
+from django.contrib import admin
+from django.urls import path, include
+from pages.urls import pages_patterns
+from django.conf import settings
+
+
+urlpatterns = [
+    path('', include('core.urls')),
+    path('pages/', include(pages_patterns)),
+    path('admin/', admin.site.urls),
+    # Paths de Auth
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('registration.urls')),
+]
+
+if settings.DEBUG:
+    from django.conf.urls.static import static
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+```
+
+`<app>/views.py` -> Crear su vista, con el decorador `login_required` para cuando estés logueado.
+
+```python
+from .forms import UserCreationFormWithEmail
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
+from django import forms
+from django.views.generic.base import TemplateView
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
+
+# Create your views here.
+class SignUpView(CreateView):
+    form_class = UserCreationFormWithEmail
+    template_name = 'registration/signup.html'
+
+    def get_success_url(self):
+        return reverse_lazy('login') + '?register'
+
+    def get_form(self, form_class=None):
+        form = super(SignUpView, self).get_form()
+        # Customización en tiempo real
+        form.fields['username'].widget = forms.TextInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Nombre de usuario'})
+        form.fields['email'].widget = forms.EmailInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Email'})
+        form.fields['password1'].widget = forms.PasswordInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Contraseña'})
+        form.fields['password2'].widget = forms.PasswordInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Repite la contraseña'})
+        return form
+
+
+@method_decorator(login_required, name='dispatch')
+class ProfileUpdate(TemplateView):
+    template_name = 'registration/profile_form.html'
+
+```
+
+`<app>/templates/<app>/<template_name>` -> Crear su template.
+
+```html
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Perfil{% endblock %}
+{% block content %}
+<main role="main">
+  <div class="container">
+    <div class="row mt-3 mb-5">
+      <div class="col-md-9 mx-auto">
+          <h3>Perfil</h3>
+          <form action="" method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <div class="text-center">
+              <input type="submit" class="btn btn-primary btn-block" value="Actualizar" />
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+```
+
+`<app>/urls.py` -> Redireccionarla en la urls.
+
+```python
+from django.urls import path, include
+from .views import SignUpView, ProfileUpdate
+
+urlpatterns = [
+    path('signup/', SignUpView.as_view(), name='signup'),
+    path('profile/', ProfileUpdate.as_view(), name='profile'),
+]
+
+```
+
+`core/templates/base.html` -> Añadir un enlace.
+
+```html
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'profile' %}">Perfil</a>
+</li>
+```
+
+Por último hacemos las migraciones.
+
+```bash
+python manage.py makemigrations <app>
+python manage.py migrate <app>
+```
+
+### Perfil editable
+
+`<app>views.py` -> Tienes que hacer que la vista herede de `UpdateView` (poniéndole su modelo y que campos son editables). Para que no de error a la hora de editar, se debe sobreescribir el método `get_object`, donde hay que obtener el usuario de la propia `request` para poder usarlo en la vista. Al obtener el usuario, si este no existe, la queryset puede petar, así que por eso hay que usar `get_or_create`.
+
+```python
+from .forms import UserCreationFormWithEmail
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
+from django import forms
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import UpdateView
+from .models import Profile
+
+
+# Create your views here.
+class SignUpView(CreateView):
+    form_class = UserCreationFormWithEmail
+    template_name = 'registration/signup.html'
+
+    def get_success_url(self):
+        return reverse_lazy('login') + '?register'
+
+    def get_form(self, form_class=None):
+        form = super(SignUpView, self).get_form()
+        # Customización en tiempo real
+        form.fields['username'].widget = forms.TextInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Nombre de usuario'})
+        form.fields['email'].widget = forms.EmailInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Email'})
+        form.fields['password1'].widget = forms.PasswordInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Contraseña'})
+        form.fields['password2'].widget = forms.PasswordInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Repite la contraseña'})
+        return form
+
+
+@method_decorator(login_required, name='dispatch')
+class ProfileUpdate(UpdateView):
+    model = Profile
+    fields = ['avatar', 'bio', 'link']
+    success_url = reverse_lazy('profile')
+    template_name = 'registration/profile_form.html'
+
+    def get_object(self):
+        # Obtener (o crear si no existe) el objeto a editar
+        profile, created = Profile.objects.get_or_create(user=self.request.user)
+        return profile
+
+```
+
+En el template, para poder ver el url de la imagen del avatar tienes que usar esto en el formulario
+
+```html
+ <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+```
+
+### Customizando formulario de Perfil
+
+`<app>/forms.py` -> Debes de importar el modelo. Crear un formulario que herede de `forms.ModelForm`. Dentro crear su clase `Meta` con el modelo, los campos y sus widgets para modificarlos.
+
+```python
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from .models import Profile
+
+
+class UserCreationFormWithEmail(UserCreationForm):
+    email = forms.EmailField(
+        required=True,
+        help_text='Requerido, 254 caracteres como máximo y que sea válido')
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError('El email ya existe, usa otro.')
+        return email
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['avatar', 'bio', 'link']
+        widgets = {
+            'avatar': forms.ClearableFileInput(attrs={
+                'class': 'form-control-file mt-3'
+            }),
+            'bio': forms.Textarea(attrs={
+                'class': 'form-control mt-3',
+                'rows': 3,
+                'placeholder': 'Biografia'
+            }),
+            'link': forms.URLInput(attrs={
+                'class': 'form-control mt-3',
+                'placeholder': 'Enlace'
+            }),
+        }
+
+```
+
+`<app>/views.py` -> Importa el formulario nuevo y cambia el atributo `model` por el de `form_class`, poniendole el formulario. El campo `fields` ya no es necesario pues está en el formulario.
+
+```python
+from .forms import UserCreationFormWithEmail, ProfileForm
+
+# ...
+
+@method_decorator(login_required, name='dispatch')
+class ProfileUpdate(UpdateView):
+    form_class = ProfileForm
+    success_url = reverse_lazy('profile')
+    template_name = 'registration/profile_form.html'
+
+    def get_object(self):
+        # Obtener (o crear si no existe) el objeto a editar
+        profile, _ = Profile.objects.get_or_create(user=self.request.user)
+        return profile
+
+```
+
+`<app>/templates/<app>/<template_name>` -> Modifica el formulario a pelo a tu gusto. En este ejemplo se ha puesto una imagen por defecto `no-avatar.jpg` en `<app>/static/<app>/img/no-avatar.jpg` para cuando el usuario no tenga, o borre la imagen, aparezca esta.
+
+```html
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Perfil{% endblock %}
+{% block content %}
+<style>.errorlist{color:red;} label{display:none}</style>
+<main role="main">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto mb-5">
+        <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+          <div class="row">
+            <!-- Previa del avatar -->
+            <div class="col-md-2">
+              {% if request.user.profile.avatar %}
+                <img src="{{request.user.profile.avatar.url}}" class="img-fluid">
+                <p class="mt-1">¿Borrar? <input type="checkbox" id="avatar-clear" name="avatar-clear" /></p>
+              {% else %}
+              <img src="{% static 'registration/img/no-avatar.jpg' %}" class="img-fluid">
+              {% endif %}
+            </div>
+            <!-- Formulario -->
+            <div class="col-md-10">
+              <h3>Perfil</h3>
+              <input type="file" name="avatar" class="form-control-file mt-3" id="id_avatar">
+              {{ form.bio }}
+              {{ form.link }}
+              <input type="submit" class="btn btn-primary btn-block mt-3" value="Actualizar">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+```
+
+### Email editable
+
+...
+
+### Contraseña Editable
+
+...
+
+## Señales
+
+...
+
+## Tests
+
+...

@@ -474,7 +474,7 @@ Django por defecto no puede servir ficheros multimedia (imágenes, vídeos, etc)
     class Project(models.Model):
         ...
         image = models.ImageField(verbose_name='Imagen', upload_to='projects')
-```
+    ```
 
 4. Ahora tenemos que habilitar una url para el directorio `media`, pero que solo sea accesible cuando estamos en modo `debug`.
     1. Modificar el `urls.py` del proyecto (<proyecto>/<proyecto>/urls.py) con
