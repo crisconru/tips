@@ -573,7 +573,7 @@ urlpatterns = [
 ]
 ```
 
-Si abres la url con `accounts` te dice todos las urls que hay, como `accounts/login`.
+Si abres la url [accounts](http://127.0.0.1:8000/accounts/) te dice todos las urls que hay, como `accounts/login`.
 
 ### LoginView
 
@@ -853,6 +853,8 @@ Por último, en el template login deberías de añadir la típica línea para si
     <a href="{% url 'password_reset' %}">He olvidado mi contraseña</a>
 </p>
 ```
+
+Para ver todos los templates de Django para cuentas puedes verlo en
 
 ## Perfil de Usuario
 
@@ -1179,11 +1181,236 @@ class ProfileUpdate(UpdateView):
 
 ### Email editable
 
-...
+Como es solo un campo, y para no tener que destrozar los modelos de formularios y vistas que ya estamos usando, lo mejor es que hagas un formulario solo para este campo.
+
+`<app>/templates/<app>/<template_perfil>` -> Añades un enlace para editar el email.
+
+```python
+
+```
+
+`<app>/forms.py` -> Creas el nuevo formulario `EmailForm` basándote en uno anterior. Ahora lo que vas a recuperar es un objeto que ya existe y que debe permitir cambiarlo si no existe el nuevo valor.
+
+```python
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from .models import Profile
+
+
+class UserCreationFormWithEmail(UserCreationForm):
+    email = forms.EmailField(
+        required=True,
+        help_text='Requerido, 254 caracteres como máximo y que sea válido')
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError('El email ya existe, usa otro.')
+        return email
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['avatar', 'bio', 'link']
+        widgets = {
+            'avatar': forms.ClearableFileInput(attrs={
+                'class': 'form-control-file mt-3'
+            }),
+            'bio': forms.Textarea(attrs={
+                'class': 'form-control mt-3',
+                'rows': 3,
+                'placeholder': 'Biografia'
+            }),
+            'link': forms.URLInput(attrs={
+                'class': 'form-control mt-3',
+                'placeholder': 'Enlace'
+            }),
+        }
+
+
+class EmailForm(forms.ModelForm):
+    email = forms.EmailField(
+        required=True,
+        help_text='Requerido, 254 caracteres como máximo y que sea válido')
+
+    class Meta:
+        model = User
+        fields = ['email']
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if 'email' in self.changed_data:
+            if User.objects.filter(email=email).exists():
+                raise forms.ValidationError('El email ya existe, usa otro.')
+        return email
+
+```
+
+`<app>/views.py` -> Creas su vista `EmailUpdate` y lo obtienes (el email) de la propia `request`.
+
+```python
+from .forms import UserCreationFormWithEmail, ProfileForm, EmailForm
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
+from django import forms
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import UpdateView
+from .models import Profile
+
+
+# Create your views here.
+class SignUpView(CreateView):
+    form_class = UserCreationFormWithEmail
+    template_name = 'registration/signup.html'
+
+    def get_success_url(self):
+        return reverse_lazy('login') + '?register'
+
+    def get_form(self, form_class=None):
+        form = super(SignUpView, self).get_form()
+        # Customización en tiempo real
+        form.fields['username'].widget = forms.TextInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Nombre de usuario'})
+        form.fields['email'].widget = forms.EmailInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Email'})
+        form.fields['password1'].widget = forms.PasswordInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Contraseña'})
+        form.fields['password2'].widget = forms.PasswordInput(
+            attrs={'class': 'form-control mb2',
+                   'placeholder': 'Repite la contraseña'})
+        return form
+
+
+@method_decorator(login_required, name='dispatch')
+class ProfileUpdate(UpdateView):
+    form_class = ProfileForm
+    success_url = reverse_lazy('profile')
+    template_name = 'registration/profile_form.html'
+
+    def get_object(self):
+        # Obtener (o crear si no existe) el objeto a editar
+        profile, _ = Profile.objects.get_or_create(user=self.request.user)
+        return profile
+
+
+@method_decorator(login_required, name='dispatch')
+class EmailUpdate(UpdateView):
+    form_class = EmailForm
+    success_url = reverse_lazy('profile')
+    template_name = 'registration/profile_email_form.html'
+
+    def get_object(self):
+        # Obtener el objeto a editar
+        return self.request.user
+
+```
+
+`<app>/urls.py` -> Creas su endpoint / url asociada a su vista.
+
+```python
+from django.urls import path
+from .views import SignUpView, ProfileUpdate, EmailUpdate
+
+urlpatterns = [
+    path('signup/', SignUpView.as_view(), name='signup'),
+    path('profile/', ProfileUpdate.as_view(), name='profile'),
+    path('profile/email/', EmailUpdate.as_view(), name='profile_email'),
+]
+
+```
+
+`<app>/templates/<app>/template_name` -> Por último creas la template.
+
+```html
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Email{% endblock %}
+{% block content %}
+<style>.errorlist{color:red;} label{display:none}</style>
+<main role="main">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto mb-5">
+        <form action="" method="post">{% csrf_token %}
+          <h3 class="mb-4">Email</h3>
+          {{form.as_p}}
+          <p><input type="submit" class="btn btn-primary btn-block" value="Actualizar"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+```
 
 ### Contraseña Editable
 
-...
+Al igual que sucedía anteriormente cuando querías cambiar la contraseña (Recuperar Contraseña), Django tiene urls de Admin para editar la contraseña. Tu vas a usar:
+
+* `password_change/` -> Vista con nombre `password_change` y template que usa un formulario `password_change_form-html`.
+* `password_change/done` -> Vista con nombre `password_change_done` y template `password_change_done.html`.
+
+Solo tienes que crear estos dos templates
+
+`<app>/templates/<app>/password_change_form.html`
+
+```html
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Cambio de contraseña{% endblock %}
+{% block content %}
+<style>.errorlist{color:red;}</style>
+<main role="main">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto mb-5">
+        <form action="" method="post">{% csrf_token %}
+            <h3 class="mb-4">Cambio de contraseña</h3>
+            <p>Por favor, introduzca su contraseña antigua por seguridad, y después introduzca dos veces la nueva contraseña para verificar que la ha escrito correctamente.</p>
+            {{form.old_password.errors}}
+            <p><input type="password" name="old_password" autofocus="" required="" id="id_old_password"class="form-control" placeholder="Contraseña antigua"></p>
+            {{form.new_password1.errors}}
+            <p><input type="password" name="new_password1" required="" id="id_new_password1" class="form-control" placeholder="Contraseña nueva"></p>
+            {{form.new_password2.errors}}
+            <p><input type="password" name="new_password2" required="" id="id_new_password2" class="form-control" placeholder="Contraseña nueva (confirmación)"></p>
+            <p><input type="submit" class="btn btn-primary btn-block" value="Cambiar mi contraseña"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+```
+
+`<app>/templates/<app>/password_change_done.html`
+
+```html
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Contraseña cambiada correctamente{% endblock %}
+{% block content %}
+<main role="main">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto mb-5">
+        <h3 class="mb-4">Contraseña cambiada correctamente</h3>
+        <p>Puedes volver a tu perfil haciendo clic <a href="{% url 'profile' %}">aquí</a>.</p>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+```
 
 ## Señales
 

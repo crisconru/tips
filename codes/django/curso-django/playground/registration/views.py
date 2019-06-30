@@ -1,4 +1,4 @@
-from .forms import UserCreationFormWithEmail, ProfileForm
+from .forms import UserCreationFormWithEmail, ProfileForm, EmailForm
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django import forms
@@ -44,3 +44,14 @@ class ProfileUpdate(UpdateView):
         # Obtener (o crear si no existe) el objeto a editar
         profile, _ = Profile.objects.get_or_create(user=self.request.user)
         return profile
+
+
+@method_decorator(login_required, name='dispatch')
+class EmailUpdate(UpdateView):
+    form_class = EmailForm
+    success_url = reverse_lazy('profile')
+    template_name = 'registration/profile_email_form.html'
+
+    def get_object(self):
+        # Obtener el objeto a editar
+        return self.request.user

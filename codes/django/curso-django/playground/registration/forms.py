@@ -38,3 +38,20 @@ class ProfileForm(forms.ModelForm):
                 'placeholder': 'Enlace'
             }),
         }
+
+
+class EmailForm(forms.ModelForm):
+    email = forms.EmailField(
+        required=True,
+        help_text='Requerido, 254 caracteres como máximo y que sea válido')
+
+    class Meta:
+        model = User
+        fields = ['email']
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if 'email' in self.changed_data:
+            if User.objects.filter(email=email).exists():
+                raise forms.ValidationError('El email ya existe, usa otro.')
+        return email
