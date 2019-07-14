@@ -1,6 +1,6 @@
 # Django
 
-TODO
+TODO:
 
 Django es (quizás) el mayor framework web usado en Python. Se usa para crear el backend (lo que no se ve) de una web.
 

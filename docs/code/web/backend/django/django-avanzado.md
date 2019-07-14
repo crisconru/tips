@@ -127,6 +127,76 @@ urlpatterns = [
 {% for page in page_list %}
 ```
 
+#### Paginación
+
+En las `ListView` puedes mostrar solo cierto número de objetos en lugar de todo a la vez, y poner un índice típico de
+
+<- Anterior **1**, 2, ... Siguiente ->
+
+`<app>/views.py` -> Donde tengas la `ListView` tienes que añadirle el campo `paginated_by` y ponerle un número. Por ejemplo, `paginated_by = 3` son 3 elementos por página.
+
+```python
+from django.views.generic.list import ListView
+from registration.models import Profile
+
+
+# Create your views here.
+class ProfileListView(ListView):
+    model = Profile
+    template_name = 'profiles/profile_list.html'
+    paginate_by = 3
+
+```
+
+`<app>/templates/<app>/<template_name>` -> En el template tienes que hacerle el menú para navegar entre páginas. En el ejemplo se adjunta uno hecho con bootstrap.
+
+```html
+<!-- Menú de paginación -->
+{% if is_paginated %}
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item ">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">&laquo;</a>
+        </li>
+        {% endif %}
+        {% for i in paginator.page_range %}
+        <li class="page-item {% if page_obj.number == i %}active{% endif %}">
+            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+        </li>
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <li class="page-item ">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">&raquo;</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+```
+
+En este ejemplo te saldrá un warning diciendo que no están ordenados. Para que no salga, te vas al `models.py` de la app donde usas ese modelo de la `ListView`, le creas una clase `Meta` y le pones el atributo `ordering` indicandole en una lista porque que campos los ordenas.
+
+```python
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to=custom_upload_to, null=True,
+                               blank=True)
+    bio = models.TextField(null=True, blank=True)
+    link = models.URLField(max_length=200, null=True, blank=True)
+
+    class Meta:
+        ordering = ['user__username']
+```
+
 ### DetailView
 
 Para ver en detalle un único elemento de la bbdd, se suele usar `DetailView`
@@ -1412,10 +1482,324 @@ Solo tienes que crear estos dos templates
 {% endblock %}
 ```
 
+### Optimizar guardado de avatar
+
+Si se guardan todas las imágenes a pelo de un usuario, esto es impracticable a la larga. Lo ideal es que cuando el usuario cargue una imagen nueva, borres la anterior y la sustituyas por la nueva. Para hacer esto tienes que:
+
+`<app>/models.py` -> En la app donde tengas la gestión del perfil, en el campo `avatar` le pasas al argumento `upload_to` una función, en este caso `custom_upload_to`. A esa función tienes que pasarle primero la instancia el perfil, y luego el nombre del fichero del nuevo avatar. Una vez dentro recuperas el perfil y borras su avatar. Por último devuelves el path con el nombre donde se va a guardar la nueva imagen.
+
+```python
+from django.db import models
+from django.contrib.auth.models import User
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
+
+def custom_upload_to(instance, filename):
+    old_instance = Profile.objects.get(pk=instance.pk)
+    old_instance.avatar.delete()
+    return 'profiles/' + filename
+
+
+# Create your models here.
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to=custom_upload_to, null=True,
+                               blank=True)
+    bio = models.TextField(null=True, blank=True)
+    link = models.URLField(max_length=200, null=True, blank=True)
+
+
+@receiver(post_save, sender=User)
+def ensure_profile_exists(sender, instance, **kwargs):
+    if kwargs.get('created', False):
+        Profile.objects.get_or_create(user=instance)
+        print('Se acaba de crear un usuario y su perfil enlazado')
+
+```
+
 ## Señales
 
-...
+Una señal es una función que se ejecuta después de que ocurra un evento. Por ejemplo, si quisieras saber cuando se ha creado un usuario correctamente, puedes hacer lo siguiente.
 
-## Tests
+`<app>/models.py` -> Creas la función `ensure_profile_exists`. Importas el decorador `receiver` y también la señal `post_save`. Decoras la función indicándole el decorador, la señal, y quien la envía (en este caso `User`). De los `kwargs` compruebas si se acaba de crear el usuario y ya puedes operar con él.
 
-...
+```python
+from django.db import models
+from django.contrib.auth.models import User
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
+
+# Create your models here.
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to='profiles', null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
+    link = models.URLField(max_length=200, null=True, blank=True)
+
+
+@receiver(post_save, sender=User)
+def ensure_profile_exists(sender, instance, **kwargs):
+    if kwargs.get('created', False):
+        Profile.objects.get_or_create(user=instance)
+        print('Se acaba de crear un usuario y su perfil enlazado')
+
+```
+
+## TDD
+
+### Tests Simples
+
+Los tests de cada app se crean en `<app>/test.py`. Un ejemplo fácil para que te quedes con la copla, sería testear el ejemplo de la señal.
+
+`<app>/test.py` -> Tienes que importar el modelo que vayas a testear, `Profile`, y en este caso vas a necesitar de `User` también. Creas una clase para pasar los tests de tu modelo. Con el método `setUp` generas los datos que necesites para hacer los tests. Luego generas un método por cada test y que siga el patrón `test_<cosa_a_probar>`. En este caso pruebas que se haya creado un perfil después de haber creado un usuario. En tu ejemplo obtienes el perfil que se acaba de crear por `setUp` y lanzas un `assert` si coincide.
+
+```python
+from django.test import TestCase
+from django.contrib.auth.models import User
+from .models import Profile
+
+
+# Create your tests here.
+class ProfileTestCase(TestCase):
+    def setUp(self):
+        User.objects.create_user('test', 'test@test.com', 'test1234')
+
+    def test_profile_exists(self):
+        exists = Profile.objects.filter(user__username='test').exists()
+        self.assertEqual(exists, True)
+
+```
+
+Para que se ejecuten el test debes hacer
+
+```bash
+# Testear todo
+python manage.py test
+# Testear la <app>
+python manage.py test <app>
+# Testear la <clase> de la <app>
+python manage.py test <app>.<clase>
+# Teastear el <método> de la <clase> de la <app>
+python manage.py test <app>.<clase>.<método>
+```
+
+Cada vez que acaba de ejecutarse un método se borra la bbdd temporal y vuelve a ejecutarse `setUp` y luego el siguiente método.
+
+### Ejemplo de Test con señales
+
+Suponte una app `messenger` con dos modelos:
+
+`messenger/models.py` -> `Message` tiene un usuario, contenido y fecha de creacion. `Thread` tiene usuarios, mensajes.
+
+```python
+from django.db import models
+from django.contrib.auth.models import User
+
+
+# Create your models here.
+class Message(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created']
+
+
+class ThreadManager(models.Manager):
+    def find(self, user1, user2):
+        # self es lo mismo que Thread.objects.all()
+        queryset = self.filter(users=user1).filter(users=user2)
+        if len(queryset):
+            return queryset[0]
+
+    def find_or_create(self, user1, user2):
+        thread = self.find(user1, user2)
+        if not thread:
+            thread = Thread.objects.create()
+            thread.users.add(user1, user2)
+        return thread
+
+
+class Thread(models.Model):
+    users = models.ManyToManyField(User, related_name='threads')
+    messages = models.ManyToManyField(Message)
+    # Model Manager
+    objects = ThreadManager()
+
+```
+
+`messenger/test.py` -> Abajo tienes el código, pero fíjate en el método `test_add_message_from_user_not_in_thread`. Quieres testear si un usuario que no está en un hilo, y el test falla.
+
+```python
+from django.test import TestCase
+from django.contrib.auth.models import User
+from .models import Message, Thread
+
+
+# Create your tests here.
+class ThreadTestCase(TestCase):
+    def setUp(self):
+        self.user1 = User.objects.create_user('user1', None, 'test1234')
+        self.user2 = User.objects.create_user('user2', None, 'test1234')
+        self.user3 = User.objects.create_user('user3', None, 'test1234')
+        self.thread = Thread.objects.create()
+
+    def test_add_to_thread(self):
+        self.thread.users.add(self.user1, self.user2)
+        self.assertEqual(len(self.thread.users.all()), 2)
+
+    def test_filter_thread_by_users(self):
+        self.thread.users.add(self.user1, self.user2)
+        threads = Thread.objects.filter(users=self.user1).\
+            filter(users=self.user2)
+        self.assertEqual(self.thread, threads[0])
+
+    def test_filter_non_existent_thread(self):
+        threads = Thread.objects.filter(users=self.user1).\
+            filter(users=self.user2)
+        self.assertEqual(len(threads), 0)
+
+    def test_add_message_to_thread(self):
+        self.thread.users.add(self.user1, self.user2)
+        message1 = Message.objects.create(user=self.user1, content='Jelou')
+        message2 = Message.objects.create(user=self.user2, content='Hola')
+        self.thread.messages.add(message1, message2)
+        self.assertEqual(len(self.thread.messages.all()), 2)
+
+        for message in self.thread.messages.all():
+            print(f'{message.user}: {message.content}')
+
+    def test_add_message_from_user_not_in_thread(self):
+        self.thread.users.add(self.user1, self.user2)
+        message1 = Message.objects.create(user=self.user1, content='Jelou')
+        message2 = Message.objects.create(user=self.user2, content='Hola')
+        message3 = Message.objects.create(user=self.user3, content='Shurmanos')
+        self.thread.messages.add(message1, message2, message3)
+        self.assertEqual(len(self.thread.messages.all()), 2)
+
+    def test_find_thread_with_custom_manager(self):
+        self.thread.users.add(self.user1, self.user2)
+        thread = Thread.objects.find(self.user1, self.user2)
+        self.assertEqual(self.thread, thread)
+
+    def test_find_or_create_thread_with_custom_manager(self):
+        self.thread.users.add(self.user1, self.user2)
+        thread = Thread.objects.find_or_create(self.user1, self.user2)
+        self.assertEqual(self.thread, thread)
+        thread = Thread.objects.find_or_create(self.user1, self.user3)
+        self.assertIsNotNone(self.thread, thread)
+
+```
+
+Para solucionar esto, la manera de hacerlo es capturar con una señal cuando se va a introducir un mensaje a un hilo, y no hacerlo. Cuando se añade un elemento a la bbdd, saltan al menos dos eventos, `pre_add` y `post_add`. Te interesa captar el primero con una señal y borrar lo que no vaya a ser guardado
+
+`messenger/models.py` -> Usa la señal `m2m_changed` para captar cuando se va a introducir un elemento. Creas la función `messages_changed` para manipular ese evento, con un bucle recorres todos elementos `pk_set` y los guardas en un conjunto a parte los que no quieres `false_pk_set` y eliminas del conjunto los elementos que no deben estar. Por último a `m2m_changed` le conectas la función `messages_changed` y le pones como `sender` (emisor) el flujo/caudal de mensajes de los hilos, `Thread.messages.through`.
+
+```python
+from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import m2m_changed
+
+
+# Create your models here.
+class Message(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created']
+
+
+class ThreadManager(models.Manager):
+    def find(self, user1, user2):
+        # self es lo mismo que Thread.objects.all()
+        queryset = self.filter(users=user1).filter(users=user2)
+        if len(queryset):
+            return queryset[0]
+
+    def find_or_create(self, user1, user2):
+        thread = self.find(user1, user2)
+        if not thread:
+            thread = Thread.objects.create()
+            thread.users.add(user1, user2)
+        return thread
+
+
+class Thread(models.Model):
+    users = models.ManyToManyField(User, related_name='threads')
+    messages = models.ManyToManyField(Message)
+    # Model Manager
+    objects = ThreadManager()
+
+
+def messages_changed(sender, **kwargs):
+    instance = kwargs.pop('instance', None)
+    action = kwargs.pop('action', None)
+    pk_set = kwargs.pop('pk_set', None)
+    print(f'{instance} {action} {pk_set}')
+    # Busca los mensajes que no deben de estar en el hilo
+    false_pk_set = set()
+    if action == 'pre_add':
+        for msg_pk in pk_set:
+            msg = Message.objects.get(pk=msg_pk)
+            if msg.user not in instance.users.all():
+                print(f'{msg.user} no forma parte del hilo')
+                false_pk_set.add(msg_pk)
+    # Borra del hilo los mensajes que no deben de estar
+    pk_set.difference_update(false_pk_set)
+
+
+m2m_changed.connect(messages_changed, sender=Thread.messages.through)
+
+```
+
+## Model Manager
+
+Para trabajar con bases de datos, Django tiene su propio ORM que llevas usando todo el rato. Cada vez que trabajas con un modelo, como con `User`, tienes atributos y métodos ya definidos. Si quisieras extenderlos, lo que debes crear es un Model Manager.
+
+`<app>/models.py` -> En el `models.py` de tu app, debes de crear una clase que herede de
+
+```python
+from django.db import models
+from django.contrib.auth.models import User
+
+
+class ThreadManager(models.Manager):
+    def find(self, user1, user2):
+        # self es lo mismo que Thread.objects.all()
+        queryset = self.filter(users=user1).filter(users=user2)
+        if len(queryset):
+            return queryset[0]
+
+    def find_or_create(self, user1, user2):
+        thread = self.find(user1, user2)
+        if not thread:
+            thread = Thread.objects.create()
+            thread.users.add(user1, user2)
+        return thread
+
+
+class Thread(models.Model):
+    users = models.ManyToManyField(User, related_name='threads')
+    messages = models.ManyToManyField(Message)
+    # Model Manager
+    objects = ThreadManager()
+```
+
+## JS - Peticiones asíncronas
+
+TODO:
+
+## Deploy
+
+TODO:
+
+recolectar los staticos con `python manage.py collecstatic`
+
+## Customizar el Admin
+
+TODO:

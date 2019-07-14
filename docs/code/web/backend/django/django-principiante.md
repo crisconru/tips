@@ -1,6 +1,6 @@
 # Django Principiante
 
-TODO
+TODO:
 
 Vamos a ver como empezar con Django a través de un mini ejemplo.
 

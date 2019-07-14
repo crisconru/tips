@@ -1,6 +1,6 @@
 # Django Intermedio
 
-TODO
+TODO:
 
 ## Relación entre modelos
 
