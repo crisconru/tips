@@ -20,10 +20,10 @@ sudo apt update && sudo apt install -y ansible
 
 ## Configuración
 
-Toda la configuración de Ansible se encuentra en `/etc/ansible`.  
-Por un lado tenemos el fichero de configuración -> `/etc/ansible/ansible.cfg`.  
-Por otro tenemos el fichero de los sistemas administrados -> `/etc/ansible/hosts`.  
-Los propios ficheros tienen toda la documentación para ser usados.
+Toda la configuración de Ansible se encuentra en `/etc/ansible`, y los propios ficheros tienen toda la documentación para ser usados:
+
+* `/etc/ansible/ansible.cfg` -> Fichero de configuración.  
+* `/etc/ansible/hosts` -> Fichero de los equipos administrados.  
 
 ## Hosts
 
@@ -83,7 +83,7 @@ ansible all ...
 ansible <host> -u <usuario> -a <comando>
 ```
 
-Esto se puede automatizar cambiando el fichero de host con
+Esto se puede automatizar cambiando el fichero de host `/etc/ansible/hosts` con
 
 ```bash
 <host> ansible_user=<usuario>
