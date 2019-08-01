@@ -39,6 +39,8 @@ nav:
         - Volumes: 'code/devops/docker/docker-volumes.md'
         - Network: 'code/devops/docker/docker-network.md'
         - Docker Compose: 'code/devops/docker/docker-dockercompose.md'
+      - ELK:
+        - code/devops/elk/elk.md
       - Git: 'code/devops/git/git-git.md'
       - Git Flow:
           - Git Flow: 'code/devops/git/gitflow/gitflow-gitflow.md'
