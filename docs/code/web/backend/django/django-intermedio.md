@@ -838,9 +838,9 @@ class ContactForm(forms.Form):
 
 ## Enviar emails
 
-Para poder enviar emails hay configurar el correo, y existen muchas opciones. 
+Para poder enviar emails hay configurar el correo, y existen muchas opciones.
 
-En este ejemplo para pruebas uso [mailtrap.io](mailtrap.io). Dentro de la `demo_inbox` podemos buscar la configuración para Django. La copiamos y la pegamos al final del `settings.py`
+En este ejemplo para pruebas uso [mailtrap.io](https://mailtrap.io/). Dentro de la `demo_inbox` podemos buscar la configuración para Django. La copiamos y la pegamos al final del `settings.py`
 
 ```python
 # Email config
