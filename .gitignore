@@ -1,8 +1,14 @@
+# IDEs
+.vscode
+.sonarlint
+.idea
+.DS_Store
+
 # Curso - Django
 django/curso-django/.sonarlint/
 django/curso-django/.vscode/
 django/curso-django/.mypy_cache/
-# Empresa
+# Curso - Django - Webapp Empresa
 django/curso-django/empresa/blog/__pycache__
 django/curso-django/empresa/blog/migrations/__pycache__
 django/curso-django/empresa/core/__pycache__
@@ -18,14 +24,14 @@ django/curso-django/empresa/services/__pycache__
 django/curso-django/empresa/services/migrations/__pycache__
 django/curso-django/empresa/social/__pycache__
 django/curso-django/empresa/social/migrations/__pycache__
-# Personal
+# Curso - Django - Webapp Personal
 django/curso-django/personal/core/__pycache__
 django/curso-django/personal/core/migrations/__pycache__
 django/curso-django/personal/personal/__pycache__
 django/curso-django/personal/personal/migrations/__pycache__
 django/curso-django/personal/portfolio/__pycache__
 django/curso-django/personal/portfolio/migrations/__pycache__
-# Playground
+# Curso - Django - Webapp Playground
 django/curso-django/playground/core/__pycache__
 django/curso-django/playground/core/migrations/__pycache__
 django/curso-django/playground/messenger/__pycache__
