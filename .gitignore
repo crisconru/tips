@@ -3,6 +3,7 @@
 .sonarlint
 .idea
 .DS_Store
+.python-version
 
 # Curso - Django
 django/curso-django/.sonarlint/
