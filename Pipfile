@@ -16,6 +16,8 @@ mkdocs-rtd-dropdown = "*"
 mkdocs-material = "*"
 mkdocs-windmill = "*"
 pymdown-extensions = "*"
+pygments = "*"
+mkdocs-minify-plugin = "*"
 
 [requires]
 python_version = "3.7"
