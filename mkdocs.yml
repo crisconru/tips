@@ -27,7 +27,9 @@ nav:
   - Contenido: 'index.md'
   - Code:
     - Devops:
-      - Ansible: 'code/devops/ansible/ansible.md'
+      - Ansible:
+        - Ansible: 'code/devops/ansible/ansible.md'
+        - Inventario: code/devops/ansible/inventario.md
       - Docker:
         - Aclaraciones: 'code/devops/docker/docker-aclaraciones.md'
         - Instalación: 'code/devops/docker/docker-instalacion.md'
