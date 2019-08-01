@@ -139,3 +139,9 @@ Con la opción `-i <fichero-de-hosts>` eliges que inventario quieres, para si po
 En vez de usar un fichero local, como el `/etc/ansible/hosts`, se hace una llamada a un proveedor cloud (que es el que te lo da) a través de un script generado por los creadores de Ansible. Estos scripts están en [github.com/ansible/ansible en la sección contrib/inventory](https://github.com/ansible/ansible/tree/devel/contrib/inventory).
 
 Para ejecutarlos, simplemente usamos el script como fichero de host, seleccionándolo con la opción `-i <script>.py`.
+
+## Combinar inventarios
+
+Si en un directorio / carpeta tienes un inventario estático y otro dinámico, con especificar con `-i` ese directorio, usará primero el estático y luego el dinámico.
+
+Se recomienda usar la opción `--list-hosts` al menos la primera vez para comprobar que haga la unión de los inventarios.
