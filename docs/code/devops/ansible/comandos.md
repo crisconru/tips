@@ -7,7 +7,11 @@ ansible [-i <inventario>] [<opciones>] <hosts> [-m <modulo>] [-a <comando-o-argu
 ```
 
 * `<opciones>`:
-    * `--limit <filtro>` -> Para poder definir a que hosts afecta.
+    * `--limit <filtro>` -> Para poder definir a que hosts afecta. `<filtro>` puede ser
+        * `host1,host2,host3,...` -> Lista de hosts.
+        * `grupo1:grupo2:grupo3:...` -> Lista de grupos.
+        * `grupo1:&grupo2` -> La intersección / lo común de grupo1 y grupo2.
+        * `grupo1:!grupo2` -> Grupo 1 excepto lo común / intersección de grupo 2.
     * `--user <usuario>`
     * `--become` -> Ser root
     * `-f <numero de procesos simultaneos>` -> Para que se haga en paralelo / simultáneamente.

@@ -32,6 +32,8 @@ nav:
         - Inventario: code/devops/ansible/inventario.md
         - Comandos: code/devops/ansible/comandos.md
         - Configuracion: code/devops/ansible/configuracion.md
+        - Playbooks:
+          - Playbook: code/devops/ansible/playbook/playbook.md
       - Docker:
         - Aclaraciones: code/devops/docker/docker-aclaraciones.md
         - Instalación: code/devops/docker/docker-instalacion.md
