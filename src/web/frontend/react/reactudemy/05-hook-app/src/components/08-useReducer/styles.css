@@ -1,0 +1,18 @@
+body {
+    padding: 50px;
+}
+
+p {
+    margin: 0px;
+    cursor: pointer;
+}
+
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.complete {
+    text-decoration: line-through;
+}

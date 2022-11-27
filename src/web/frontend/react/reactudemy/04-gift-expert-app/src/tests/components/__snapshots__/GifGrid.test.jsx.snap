@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pruebas para <GifGrid /> Debe mostrarse correctamente 1`] = `
+<Fragment>
+  <h3>
+    spiderman
+  </h3>
+  <p
+    className="animate__animated animate_flash"
+  >
+    Cargando...
+  </p>
+  <div
+    className="card-grid"
+  />
+</Fragment>
+`;

@@ -1,0 +1,5 @@
+###
+
+GET https://api.giphy.com/v1/gifs/search?api_key=pFrICczHs17HyVh26INqFMVEVUa45JlC&q=spiderman&limit=5
+
+###
