@@ -1,0 +1,55 @@
+api:
+  localIP: 192.168.97.27
+  https: false
+  url: 192.168.121.222
+  puerto: 3336
+  eventos:
+    endpoint: /api/1/log-tag
+    metodo: POST
+    timeout: 10000
+    reintentos: 3
+  ubicacion:
+    endpoint: /api/1/ubicacion-dispositivo-movil
+    metodo: PUT
+    timeout: 10000
+  gui:
+    endpoint: /api/1/puesto-de-control/html?ip=
+    metodo: GET
+    timeout: 2000
+
+db:
+  tablas:
+    eventos:
+      nombre: eventos
+      columnas:
+        evento: TEXT NOT NULL
+        ubicacion: TEXT
+        mercancia: TEXT
+        enviado: INTEGER NOT NULL
+        completado: INTEGER
+        error: TEXT
+
+evento:
+  carga: R
+  descarga: S
+
+tag:
+  vehiculo: TRASP4
+  mercancia:
+    flags:
+      # - "1"
+      # - "9"
+      - "E"
+    fields:
+      power: Count
+      tag: Tag
+      sensor: InpSens
+  ubicacion:
+    flags:
+      # - "10"
+      - "3"
+      - "A"
+    fields:
+      power: Count
+      tag: Tag
+      sensor: InpSens

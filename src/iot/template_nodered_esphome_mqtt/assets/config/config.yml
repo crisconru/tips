@@ -1,0 +1,155 @@
+mqtt:
+  # broker: 192.168.0.254
+  broker: broker
+  port: 1883
+  username: user
+  password: passwd
+
+api:
+  https: false
+  server:
+    url: localhost
+    port: 1880
+    # url: 192.168.97.2
+    # port: 88888
+  volcados:
+    endpoint: /api/1/log-tag
+    method: POST
+    timeout: 5000
+
+db:
+  tablas:
+    eventos:
+      nombre: eventos
+      columnas:
+        tipo: TEXT NOT NULL
+        evento: TEXT NOT NULL
+        enviado: INTEGER NOT NULL
+        error: INTEGER NOT NULL
+      
+trama:
+  trama_vanch:
+    hearbeat:
+      env: VANCH_HEARTBEAT_FIELD
+      value: HeartBeat
+    tag:
+      env: VANCH_TAG_FIELD
+      value: EPC
+    power:
+      env: VANCH_POWER_FIELD
+      value: RSSI
+    sensor:
+      env: VANCH_SENSOR_FIELD
+      value: InpSens
+  trama_sick:
+    hearbeat:
+      env: SICK_HEARTBEAT_FIELD
+      value: HeartBeat
+    tag:
+      env: SICK_TAG_FIELD
+      value: Count
+    power:
+      env: SICK_POWER_FIELD
+      value: Power
+    sensor:
+      env: SICK_SENSOR_FIELD
+      value: Inp
+
+volcados:
+  evento: V
+  volcado1:
+    ubicacion: VOLC1
+    reader:
+      host: 
+        env: VOLCADO1_READER_HOST
+        value: 192.168.1.128
+      port:
+        env: VOLCADO1_READER_PORT
+        value: 1969
+    topic: /titanic/topic
+
+llenados:
+  evento: L
+  aguacate_1:
+    clave: valor
+  aguacate_2:
+    clave: valor
+
+paletizados:
+  evento: P
+
+agrupados:
+  evento: A
+
+comprobados:
+  evento: 
+
+grabados:
+  evento: null
+  palots:
+    readers:
+      - 1:
+        ip: 192.168.8.27
+        puerto: 1969
+      - 2:
+        ip: 192.168.8.28
+        puerto: 1969
+      - 3:
+        ip: 192.168.8.35
+        puerto: 1969
+      - 4:
+        ip: 192.168.8.40
+        puerto: 1969
+    topics:
+      - ReyesGutierrez/grabador/palots/heartbeat
+      - ReyesGutierrez/grabador/palots/state
+      # - ReyesGutierrez/grabador/palots/entradas/get
+      - ReyesGutierrez/grabador/palots/entradas/state
+      # - ReyesGutierrez/grabador/palots/sensor1/get
+      - ReyesGutierrez/grabador/palots/sensor1/state
+      # - ReyesGutierrez/grabador/palots/sensor2/get
+      - ReyesGutierrez/grabador/palots/sensor2/state
+      # - ReyesGutierrez/grabador/palots/reintentar/get
+      - ReyesGutierrez/grabador/palots/reintentar/state
+      # - ReyesGutierrez/grabador/palots/silenciar/get
+      - ReyesGutierrez/grabador/palots/silenciar/state
+      # - ReyesGutierrez/grabador/palots/actuador2/set
+      - ReyesGutierrez/grabador/palots/actuador2/state
+      # - ReyesGutierrez/grabador/palots/actuador3/set
+      - ReyesGutierrez/grabador/palots/actuador3/state
+      # - ReyesGutierrez/grabador/palots/sirena/set
+      - ReyesGutierrez/grabador/palots/sirena/state
+    mqtt: ReyesGutierrez/grabador/palots/state
+    heartbeat: ReyesGutierrez/grabador/palots/heartbeat
+    entradas:
+      get: ReyesGutierrez/grabador/palots/entradas/get
+      state: ReyesGutierrez/grabador/palots/entradas/state
+    sensor1:
+      get: ReyesGutierrez/grabador/palots/sensor1/get
+      state: ReyesGutierrez/grabador/palots/sensor1/state
+    sensor2:
+      get: ReyesGutierrez/grabador/palots/sensor2/get
+      state: ReyesGutierrez/grabador/palots/sensor2/state
+    reintentar:
+      get: ReyesGutierrez/grabador/palots/reintentar/get
+      state: ReyesGutierrez/grabador/palots/reintentar/state
+    silenciar:
+      get: ReyesGutierrez/grabador/palots/silenciar/get
+      state: ReyesGutierrez/grabador/palots/silenciar/state
+    actuador2:
+      set: ReyesGutierrez/grabador/palots/actuador2/set
+      state: ReyesGutierrez/grabador/palots/actuador2/state
+    actuador3:
+      set: ReyesGutierrez/grabador/palots/actuador3/set
+      state: ReyesGutierrez/grabador/palots/actuador3/state
+    sirena:
+      set: ReyesGutierrez/grabador/palots/sirena/set
+      state: ReyesGutierrez/grabador/palots/sirena/state
+
+tags:
+  digitos: 24
+  caja: "1000"
+  bola: "1200"
+  palot: "1800"
+  palet: "1900"
+  pegatina: "99"

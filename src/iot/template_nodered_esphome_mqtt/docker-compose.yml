@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  broker:
+    image: 'eclipse-mosquitto:2'
+    restart: always
+    ports:
+      - '1883:1883'
+      - '9001:9001'
+    volumes:
+      - './mosquitto/config:/mosquitto/config'
+      - './mosquitto/data:/mosquitto/data'
+      - './mosquitto/log:/mosquitto/log'
+
+  nodered:
+    build:
+      context: ./nodered
+      dockerfile: Dockerfile
+    depends_on:
+      - broker
+    env_file:
+      - ./nodered/config/config.env
+    restart: always
+    # user: '1000:1000'
+    ports:
+      - '1880:1880'
+    volumes:
+      - './nodered/data:/data'
+      - './assets/config:/config'
+      - './assets/db:/db'
+      - './assets/static:/static'
+
+  esphome:
+    image: esphome/esphome
+    depends_on:
+      - broker
+      - nodered
+    ports:
+      - '6052:6052'
+    volumes:
+      - './esphome/devices:/config:rw'
+      - '/etc/localtime:/etc/localtime:ro'
+    restart: always
+
+  adminer:
+    build:
+      context: ./adminer
+      dockerfile: Dockerfile
+    depends_on:
+      - nodered
+    restart: always
+    ports:
+      - '8080:8080'
+    volumes:
+      - './adminer/login-password-less.php:/var/www/html/plugins-enabled/login-password-less.php'
+      - './assets/db:/app:rw'
