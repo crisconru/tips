@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Webcomponents</title>
+    <script defer type="module" src="main.js"></script>
+</head>
+<body>
+    <h1>Webcomponents</h1>
+    <klin-card
+        title="Hola klin"
+        button="cambiar el h1"
+    ></klin-card>
+    <klin-card
+        title="Jelowis"
+        button="anda ya"
+    ></klin-card>
+
+    <kikobeats-unavatar
+        social="github"
+        username="crisconru"
+        size="large"
+    ></kikobeats-unavatar>
+        
+    <kikobeats-unavatar
+        social="twitter"
+        username="midudev"
+    ></kikobeats-unavatar>
+        
+    <kikobeats-unavatar
+        social="twitter"
+        username="elonmusk"
+        size="small"
+    ></kikobeats-unavatar>
+
+    <button id="aumentar">Aumentar klin avatar</button>
+    <button id="disminuir">Disminuir klin avatar</button>
+    <klin-avatar
+        social="twitter"
+        username="crisconru"
+    ></klin-avatar>
+
+    <qr-code
+        data="https://crisconru.github.io"
+    ></qr-code>
+
+    <qr-code
+        data="hola mundo"
+        format="svg"
+        size="7"
+    ></qr-code>
+</body>
+</html>
