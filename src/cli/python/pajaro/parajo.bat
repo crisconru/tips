@@ -1,0 +1,1 @@
+C:\Users\ccont\Desktop\pajaro\venv\Scripts\python.exe C:\Users\ccont\Desktop\pajaro\main.py
