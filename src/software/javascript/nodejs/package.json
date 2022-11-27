@@ -1,0 +1,17 @@
+{
+  "name": "js-npm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "crc": "^4.1.1",
+    "node-crc-itu": "^0.1.0",
+    "package-info": "^4.1.4"
+  }
+}
