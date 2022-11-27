@@ -1,0 +1,20 @@
+version: '3'
+services:
+  nodered2:
+    build:
+      context: ./nodered2
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '12880:1880'
+    volumes:
+      - './nodered2/data:/data'
+  nodered3:
+    build:
+      context: ./nodered3
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '13880:1880'
+    volumes:
+      - './nodered3/data:/data'

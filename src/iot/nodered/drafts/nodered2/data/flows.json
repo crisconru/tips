@@ -1,0 +1,1321 @@
+[
+    {
+        "id": "e4fe9c44.6dee1",
+        "type": "tab",
+        "label": "AMQP General Examples",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "eefbe223.cc053",
+        "type": "tab",
+        "label": "AMQP Out - RPC Pattern",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "da0e69ee.791638",
+        "type": "tab",
+        "label": "AMQP Manual Ack With Complete",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6408ba88.c1e304",
+        "type": "tab",
+        "label": "AMQP Manual Ack With Links",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "4ac46355.6b3ddc",
+        "type": "tab",
+        "label": "Manual Nack With Links",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "3aca64338fa9d863",
+        "type": "amqp-broker",
+        "name": "CloudAMQP  - Test",
+        "host": "sparrow-01.rmq.cloudamqp.com",
+        "port": "5671",
+        "vhost": "odslfnsg",
+        "tls": true,
+        "credsFromSettings": false
+    },
+    {
+        "id": "f06e114b6982e239",
+        "type": "amqp-broker",
+        "name": "CloudAMQP- Paid",
+        "host": "diligent-green-camel-01.rmq4.cloudamqp.com",
+        "port": "5671",
+        "vhost": "htnrqpzu",
+        "tls": true,
+        "credsFromSettings": false
+    },
+    {
+        "id": "efaf7d3f6cd3fc33",
+        "type": "amqp-broker",
+        "name": "CloudAMQP - Tracker",
+        "host": "diligent-green-camel-01.rmq4.cloudamqp.com",
+        "port": "5671",
+        "vhost": "htnrqpzu",
+        "tls": true,
+        "credsFromSettings": false
+    },
+    {
+        "id": "19af6507.cc992b",
+        "type": "amqp-out",
+        "z": "e4fe9c44.6dee1",
+        "name": "",
+        "broker": "3aca64338fa9d863",
+        "exchangeName": "amq.topic",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "old.routing.key",
+        "exchangeRoutingKeyType": "str",
+        "exchangeDurable": true,
+        "amqpProperties": "{\"appId\":\"app-123\"}",
+        "rpcTimeoutMilliseconds": "",
+        "outputs": 0,
+        "x": 370,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "32ebb2ab.99fc6e",
+        "type": "inject",
+        "z": "e4fe9c44.6dee1",
+        "name": "Topic Input",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "properties",
+                "v": "{\"correlationId\":\"correlation-123\",\"headers\":{\"arbitrary\":\"data\"}}",
+                "vt": "json"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "new.routing.key",
+        "payload": "{\"data\":\"the payload\"}",
+        "payloadType": "json",
+        "x": 100,
+        "y": 380,
+        "wires": [
+            [
+                "19af6507.cc992b",
+                "4b73c96caaa96864"
+            ]
+        ]
+    },
+    {
+        "id": "716664b4.d3e6fc",
+        "type": "debug",
+        "z": "e4fe9c44.6dee1",
+        "name": "Topic Output",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 330,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "3c555900.750918",
+        "type": "amqp-in",
+        "z": "e4fe9c44.6dee1",
+        "name": "",
+        "broker": "3aca64338fa9d863",
+        "prefetch": 0,
+        "noAck": true,
+        "exchangeName": "amq.topic",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "*.routing.key",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": false,
+        "queueDurable": false,
+        "queueAutoDelete": true,
+        "headers": "",
+        "x": 120,
+        "y": 440,
+        "wires": [
+            [
+                "716664b4.d3e6fc"
+            ]
+        ]
+    },
+    {
+        "id": "c76c0f14.f6bf8",
+        "type": "comment",
+        "z": "e4fe9c44.6dee1",
+        "name": "Topic Exchange Example",
+        "info": "",
+        "x": 130,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "985c80c7.32f88",
+        "type": "amqp-out",
+        "z": "e4fe9c44.6dee1",
+        "name": "",
+        "broker": "",
+        "exchangeName": "amq.fanout",
+        "exchangeType": "fanout",
+        "exchangeRoutingKey": "",
+        "exchangeDurable": true,
+        "amqpProperties": "{\"appId\":\"really_new\"}",
+        "outputs": 0,
+        "x": 290,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "47a41431.e1c49c",
+        "type": "inject",
+        "z": "e4fe9c44.6dee1",
+        "name": "Fanout Input",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "properties",
+                "v": "{\"correlationId\":\"yar-123\",\"headers\":{\"arbitrary\":\"data\"}}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"data\":\"the payload\"}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 600,
+        "wires": [
+            [
+                "985c80c7.32f88",
+                "b5c4faab45395602"
+            ]
+        ]
+    },
+    {
+        "id": "31cf21dd.3de65e",
+        "type": "debug",
+        "z": "e4fe9c44.6dee1",
+        "name": "Fanout Output",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 300,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "da3a3158.c844e",
+        "type": "amqp-in",
+        "z": "e4fe9c44.6dee1",
+        "name": "",
+        "broker": "",
+        "prefetch": 0,
+        "noAck": true,
+        "exchangeName": "amq.fanout",
+        "exchangeType": "fanout",
+        "exchangeRoutingKey": "",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": false,
+        "queueDurable": false,
+        "queueAutoDelete": true,
+        "headers": "",
+        "x": 80,
+        "y": 640,
+        "wires": [
+            [
+                "31cf21dd.3de65e"
+            ]
+        ]
+    },
+    {
+        "id": "e13f5415.b32358",
+        "type": "amqp-in",
+        "z": "e4fe9c44.6dee1",
+        "name": "",
+        "broker": "",
+        "prefetch": 0,
+        "noAck": true,
+        "exchangeName": "amq.fanout",
+        "exchangeType": "fanout",
+        "exchangeRoutingKey": "",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": false,
+        "queueDurable": false,
+        "queueAutoDelete": true,
+        "headers": "",
+        "x": 80,
+        "y": 720,
+        "wires": [
+            [
+                "31cf21dd.3de65e"
+            ]
+        ]
+    },
+    {
+        "id": "91b26155.dc80e",
+        "type": "comment",
+        "z": "e4fe9c44.6dee1",
+        "name": "Fanout Exchange Example",
+        "info": "",
+        "x": 130,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "c93fe173.9c98c",
+        "type": "amqp-out",
+        "z": "e4fe9c44.6dee1",
+        "d": true,
+        "name": "",
+        "broker": "efaf7d3f6cd3fc33",
+        "exchangeName": "amq.direct",
+        "exchangeType": "direct",
+        "exchangeRoutingKey": "old-routing-key",
+        "exchangeRoutingKeyType": "str",
+        "exchangeDurable": true,
+        "amqpProperties": "{\"appId\":\"app-123\"}",
+        "rpcTimeoutMilliseconds": "",
+        "outputs": 0,
+        "x": 420,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "cd5ab12b.e0e04",
+        "type": "inject",
+        "z": "e4fe9c44.6dee1",
+        "name": "Direct Input",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "properties",
+                "v": "{\"correlationId\":\"correlation-123\",\"headers\":{\"arbitrary\":\"data\"}}",
+                "vt": "json"
+            },
+            {
+                "p": "routingKey",
+                "v": "new-routing-key",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"data\":\"the payload\"}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 160,
+        "wires": [
+            [
+                "c93fe173.9c98c",
+                "20078ea4ee3ec5ed"
+            ]
+        ]
+    },
+    {
+        "id": "88ed2319.87f56",
+        "type": "debug",
+        "z": "e4fe9c44.6dee1",
+        "name": "Direct Output",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "66ba8a46.b3ba84",
+        "type": "amqp-in",
+        "z": "e4fe9c44.6dee1",
+        "name": "",
+        "broker": "efaf7d3f6cd3fc33",
+        "prefetch": 0,
+        "noAck": true,
+        "exchangeName": "amq.direct",
+        "exchangeType": "direct",
+        "exchangeRoutingKey": "new-routing-key",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": false,
+        "queueDurable": false,
+        "queueAutoDelete": true,
+        "headers": "",
+        "x": 140,
+        "y": 220,
+        "wires": [
+            [
+                "88ed2319.87f56"
+            ]
+        ]
+    },
+    {
+        "id": "33421fba.f8418",
+        "type": "comment",
+        "z": "e4fe9c44.6dee1",
+        "name": "Direct Exchange Example",
+        "info": "",
+        "x": 130,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "12c8048f.4eaefb",
+        "type": "amqp-in",
+        "z": "e4fe9c44.6dee1",
+        "name": "",
+        "broker": "",
+        "prefetch": 0,
+        "noAck": true,
+        "exchangeName": "amq.headers",
+        "exchangeType": "headers",
+        "exchangeRoutingKey": "",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": true,
+        "queueDurable": false,
+        "queueAutoDelete": true,
+        "headers": "{\"x-match\":\"all\",\"name\":\"header-name\",\"topic\":\"header-topic\"}",
+        "x": 110,
+        "y": 940,
+        "wires": [
+            [
+                "8ec3fa87.70c338"
+            ]
+        ]
+    },
+    {
+        "id": "6eccc4f.c6a2a3c",
+        "type": "amqp-out",
+        "z": "e4fe9c44.6dee1",
+        "name": "",
+        "broker": "",
+        "exchangeName": "amq.headers",
+        "exchangeType": "headers",
+        "exchangeRoutingKey": "",
+        "exchangeDurable": true,
+        "amqpProperties": "{\"appId\":\"really_new\",\"headers\":{\"name\":\"header-name\",\"topic\":\"header-topic\"}}",
+        "outputs": 0,
+        "x": 290,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "cb5093bf.1d524",
+        "type": "inject",
+        "z": "e4fe9c44.6dee1",
+        "name": "Headers Input",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "properties",
+                "v": "{\"appId\":\"hello\"}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"name\":\"hello-there\"}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 880,
+        "wires": [
+            [
+                "6eccc4f.c6a2a3c",
+                "337a6477daa0ca92"
+            ]
+        ]
+    },
+    {
+        "id": "8ec3fa87.70c338",
+        "type": "debug",
+        "z": "e4fe9c44.6dee1",
+        "name": "Headers Output",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 300,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "3f7dd2f6.9db46e",
+        "type": "comment",
+        "z": "e4fe9c44.6dee1",
+        "name": "Headers Exchange Example",
+        "info": "",
+        "x": 140,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "20078ea4ee3ec5ed",
+        "type": "debug",
+        "z": "e4fe9c44.6dee1",
+        "name": "Direct Input",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 110,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "4b73c96caaa96864",
+        "type": "debug",
+        "z": "e4fe9c44.6dee1",
+        "name": "Topic Input",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 110,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "b5c4faab45395602",
+        "type": "debug",
+        "z": "e4fe9c44.6dee1",
+        "name": "Fanout Input",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 110,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "337a6477daa0ca92",
+        "type": "debug",
+        "z": "e4fe9c44.6dee1",
+        "name": "Headers Input",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 120,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "108e6de3.693562",
+        "type": "amqp-out",
+        "z": "eefbe223.cc053",
+        "name": "amqp out",
+        "broker": "",
+        "exchangeName": "amq.direct",
+        "exchangeType": "direct",
+        "exchangeRoutingKey": "direct_route",
+        "exchangeRoutingKeyType": "str",
+        "exchangeDurable": true,
+        "amqpProperties": "{ \"headers\": {} }",
+        "rpcTimeoutMilliseconds": "1000",
+        "outputs": 1,
+        "x": 300,
+        "y": 180,
+        "wires": [
+            [
+                "6d2ea4fe.b5731c"
+            ]
+        ]
+    },
+    {
+        "id": "faa23e4.affc0c",
+        "type": "amqp-in",
+        "z": "eefbe223.cc053",
+        "name": "Listening for RPC",
+        "broker": "3efe01c6.16a3de",
+        "prefetch": 0,
+        "noAck": true,
+        "exchangeName": "amq.direct",
+        "exchangeType": "direct",
+        "exchangeRoutingKey": "direct_route",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": false,
+        "queueDurable": false,
+        "queueAutoDelete": true,
+        "headers": "{}",
+        "x": 140,
+        "y": 280,
+        "wires": [
+            [
+                "cc27c446.274c18",
+                "6059672203df6a0c"
+            ]
+        ]
+    },
+    {
+        "id": "91cf531e.4455c",
+        "type": "inject",
+        "z": "eefbe223.cc053",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "108e6de3.693562",
+                "992711ef03248419"
+            ]
+        ]
+    },
+    {
+        "id": "83f0ae3b.a732f",
+        "type": "amqp-out",
+        "z": "eefbe223.cc053",
+        "name": "Send RPC Response",
+        "broker": "3efe01c6.16a3de",
+        "exchangeName": "",
+        "exchangeType": "direct",
+        "exchangeRoutingKey": "",
+        "exchangeDurable": true,
+        "amqpProperties": "{ \"headers\": {} }",
+        "rpcTimeoutMilliseconds": 3000,
+        "outputs": 0,
+        "x": 560,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "6d2ea4fe.b5731c",
+        "type": "debug",
+        "z": "eefbe223.cc053",
+        "name": "RPC Response",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "cc27c446.274c18",
+        "type": "change",
+        "z": "eefbe223.cc053",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "routingKey",
+                "pt": "msg",
+                "to": "properties.replyTo",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Coming from RPC",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 280,
+        "wires": [
+            [
+                "83f0ae3b.a732f",
+                "20b4b7a99cba08e5"
+            ]
+        ]
+    },
+    {
+        "id": "992711ef03248419",
+        "type": "debug",
+        "z": "eefbe223.cc053",
+        "name": "RPC REQUEST",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "6059672203df6a0c",
+        "type": "debug",
+        "z": "eefbe223.cc053",
+        "name": "Listening RPC",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 140,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "20b4b7a99cba08e5",
+        "type": "debug",
+        "z": "eefbe223.cc053",
+        "name": "Send RPC Response",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "54883a06.6ce0f4",
+        "type": "debug",
+        "z": "da0e69ee.791638",
+        "name": "With \"Complete\" Message",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "42a93135.4cad3",
+        "type": "amqp-in-manual-ack",
+        "z": "da0e69ee.791638",
+        "name": "amqp-in-manual-ack",
+        "broker": "",
+        "prefetch": "0",
+        "exchangeName": "amq.topic",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "acked.with.complete",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": false,
+        "queueDurable": false,
+        "queueAutoDelete": false,
+        "headers": "",
+        "x": 300,
+        "y": 160,
+        "wires": [
+            [
+                "54883a06.6ce0f4",
+                "e6a075e1.1c4b28"
+            ]
+        ]
+    },
+    {
+        "id": "e6a075e1.1c4b28",
+        "type": "delay",
+        "z": "da0e69ee.791638",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 500,
+        "y": 200,
+        "wires": [
+            [
+                "eb547c9e.cf806"
+            ]
+        ]
+    },
+    {
+        "id": "eb547c9e.cf806",
+        "type": "debug",
+        "z": "da0e69ee.791638",
+        "name": "After \"Complete\" Delay",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "25cc7051.4b336",
+        "type": "amqp-out",
+        "z": "da0e69ee.791638",
+        "name": "amqp-out",
+        "broker": "",
+        "exchangeName": "amq.topic",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "acked.with.complete",
+        "exchangeDurable": true,
+        "amqpProperties": "{\"appId\":\"app-123\"}",
+        "outputs": 0,
+        "x": 300,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "b34052fb.fd329",
+        "type": "inject",
+        "z": "da0e69ee.791638",
+        "name": "Topic Input",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "properties",
+                "v": "{\"correlationId\":\"correlation-123\",\"headers\":{\"arbitrary\":\"data\"}}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"data\":\"the payload\"}",
+        "payloadType": "json",
+        "x": 140,
+        "y": 100,
+        "wires": [
+            [
+                "25cc7051.4b336",
+                "fe827a6c6e6994af"
+            ]
+        ]
+    },
+    {
+        "id": "32b91549.383ffa",
+        "type": "complete",
+        "z": "da0e69ee.791638",
+        "name": "ack",
+        "scope": [
+            "eb547c9e.cf806"
+        ],
+        "uncaught": false,
+        "x": 110,
+        "y": 160,
+        "wires": [
+            [
+                "42a93135.4cad3"
+            ]
+        ]
+    },
+    {
+        "id": "fe827a6c6e6994af",
+        "type": "debug",
+        "z": "da0e69ee.791638",
+        "name": "Topic Input",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 150,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "72db3892.5e0e78",
+        "type": "debug",
+        "z": "6408ba88.c1e304",
+        "name": "With \"Link\" Message",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "1129b47c.81b8dc",
+        "type": "amqp-in-manual-ack",
+        "z": "6408ba88.c1e304",
+        "name": "amqp-in-manual-ack",
+        "broker": "",
+        "prefetch": 0,
+        "exchangeName": "amq.topic",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "acked.with.link",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": false,
+        "queueDurable": false,
+        "queueAutoDelete": false,
+        "headers": "",
+        "x": 240,
+        "y": 160,
+        "wires": [
+            [
+                "72db3892.5e0e78",
+                "8d988bdd.46d508"
+            ]
+        ]
+    },
+    {
+        "id": "8d988bdd.46d508",
+        "type": "delay",
+        "z": "6408ba88.c1e304",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 440,
+        "y": 200,
+        "wires": [
+            [
+                "dc2363d.8f5b9a",
+                "8b98b224.5675"
+            ]
+        ]
+    },
+    {
+        "id": "9d861002.d13da",
+        "type": "link in",
+        "z": "6408ba88.c1e304",
+        "name": "Send Ack",
+        "links": [
+            "dc2363d.8f5b9a"
+        ],
+        "x": 75,
+        "y": 160,
+        "wires": [
+            [
+                "1129b47c.81b8dc"
+            ]
+        ]
+    },
+    {
+        "id": "dc2363d.8f5b9a",
+        "type": "link out",
+        "z": "6408ba88.c1e304",
+        "name": "Acknowledge",
+        "links": [
+            "9d861002.d13da"
+        ],
+        "x": 555,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "be7918ee.7dee98",
+        "type": "amqp-out",
+        "z": "6408ba88.c1e304",
+        "name": "amqp-out",
+        "broker": "",
+        "exchangeName": "amq.topic",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "acked.with.link",
+        "exchangeDurable": true,
+        "amqpProperties": "{\"appId\":\"app-123\"}",
+        "outputs": 0,
+        "x": 300,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "2410e130.331b2e",
+        "type": "inject",
+        "z": "6408ba88.c1e304",
+        "name": "Topic Input",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "properties",
+                "v": "{\"correlationId\":\"correlation-123\",\"headers\":{\"arbitrary\":\"data\"}}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"data\":\"the payload\"}",
+        "payloadType": "json",
+        "x": 140,
+        "y": 100,
+        "wires": [
+            [
+                "be7918ee.7dee98",
+                "08d68c70d15a9738"
+            ]
+        ]
+    },
+    {
+        "id": "8b98b224.5675",
+        "type": "debug",
+        "z": "6408ba88.c1e304",
+        "name": "After \"Link\" Delay",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "08d68c70d15a9738",
+        "type": "debug",
+        "z": "6408ba88.c1e304",
+        "name": "Topic Input",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 150,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "9a0f6314.32cc9",
+        "type": "amqp-in-manual-ack",
+        "z": "4ac46355.6b3ddc",
+        "name": "",
+        "broker": "",
+        "prefetch": "1",
+        "noAck": false,
+        "exchangeName": "",
+        "exchangeType": "direct",
+        "exchangeRoutingKey": "",
+        "exchangeDurable": true,
+        "queueName": "test-direct-queue",
+        "queueExclusive": false,
+        "queueDurable": true,
+        "queueAutoDelete": false,
+        "headers": "{}",
+        "x": 220,
+        "y": 200,
+        "wires": [
+            [
+                "8d539ac3.728408",
+                "28d902c.a0374fe"
+            ]
+        ]
+    },
+    {
+        "id": "8d539ac3.728408",
+        "type": "debug",
+        "z": "4ac46355.6b3ddc",
+        "name": "ACK - OUT",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 270,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "28d902c.a0374fe",
+        "type": "function",
+        "z": "4ac46355.6b3ddc",
+        "name": "Your business logic",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [
+                "7d0c827e.032efc"
+            ]
+        ]
+    },
+    {
+        "id": "7373712.cbbce9",
+        "type": "function",
+        "z": "4ac46355.6b3ddc",
+        "name": "Decide ACK mode",
+        "func": "msg.manualAck = {\n    // ackMode: \"ack\",\n    // ackMode: \"ackAll\",\n    ackMode: \"nack\",\n    // ackMode: \"nackAll\",\n    // ackMode: \"reject\",\n    \n    // allUpTo: true,\n    // requeue: true,\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 200,
+        "wires": [
+            [
+                "ff9d6956.6f9e68",
+                "6a6ae2e0.36238c"
+            ]
+        ]
+    },
+    {
+        "id": "6a6ae2e0.36238c",
+        "type": "link out",
+        "z": "4ac46355.6b3ddc",
+        "name": "ACK",
+        "mode": "link",
+        "links": [
+            "29a65c8a.cdd984"
+        ],
+        "x": 1095,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "29a65c8a.cdd984",
+        "type": "link in",
+        "z": "4ac46355.6b3ddc",
+        "name": "ACK",
+        "links": [
+            "6a6ae2e0.36238c"
+        ],
+        "x": 75,
+        "y": 200,
+        "wires": [
+            [
+                "9a0f6314.32cc9"
+            ]
+        ]
+    },
+    {
+        "id": "7d0c827e.032efc",
+        "type": "delay",
+        "z": "4ac46355.6b3ddc",
+        "name": "Work takes long time to finish",
+        "pauseType": "delay",
+        "timeout": "6",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 700,
+        "y": 200,
+        "wires": [
+            [
+                "7373712.cbbce9"
+            ]
+        ]
+    },
+    {
+        "id": "ff9d6956.6f9e68",
+        "type": "debug",
+        "z": "4ac46355.6b3ddc",
+        "name": "ACK - IN",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b5df106e.e7955",
+        "type": "inject",
+        "z": "4ac46355.6b3ddc",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 100,
+        "wires": [
+            [
+                "2ebcd4ca.ce551c",
+                "10bb0222e1f3a9e1"
+            ]
+        ]
+    },
+    {
+        "id": "2ebcd4ca.ce551c",
+        "type": "amqp-out",
+        "z": "4ac46355.6b3ddc",
+        "name": "",
+        "broker": "",
+        "exchangeName": "test-direct-exchange",
+        "exchangeType": "direct",
+        "exchangeRoutingKey": "",
+        "exchangeRoutingKeyType": "str",
+        "exchangeDurable": true,
+        "amqpProperties": "{ \"headers\": {} }",
+        "rpcTimeoutMilliseconds": 3000,
+        "outputs": 0,
+        "x": 340,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "10bb0222e1f3a9e1",
+        "type": "debug",
+        "z": "4ac46355.6b3ddc",
+        "name": "Timestamp",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 150,
+        "y": 60,
+        "wires": []
+    }
+]
