@@ -1,0 +1,47 @@
+# IDEs
+.vscode
+.sonarlint
+.idea
+.DS_Store
+.python-version
+
+# Curso - Django
+django/curso-django/.sonarlint/
+django/curso-django/.vscode/
+django/curso-django/.mypy_cache/
+# Curso - Django - Webapp Empresa
+django/curso-django/empresa/blog/__pycache__
+django/curso-django/empresa/blog/migrations/__pycache__
+django/curso-django/empresa/core/__pycache__
+django/curso-django/empresa/core/migrations/__pycache__
+django/curso-django/empresa/contact/__pycache__
+django/curso-django/empresa/contact/migrations/__pycache__
+django/curso-django/empresa/empresa/__pycache__
+django/curso-django/empresa/empresa/migrations/__pycache__
+django/curso-django/empresa/pages/__pycache__
+django/curso-django/empresa/pages/migrations/__pycache__
+django/curso-django/empresa/pages/templatetags/__pycache__
+django/curso-django/empresa/services/__pycache__
+django/curso-django/empresa/services/migrations/__pycache__
+django/curso-django/empresa/social/__pycache__
+django/curso-django/empresa/social/migrations/__pycache__
+# Curso - Django - Webapp Personal
+django/curso-django/personal/core/__pycache__
+django/curso-django/personal/core/migrations/__pycache__
+django/curso-django/personal/personal/__pycache__
+django/curso-django/personal/personal/migrations/__pycache__
+django/curso-django/personal/portfolio/__pycache__
+django/curso-django/personal/portfolio/migrations/__pycache__
+# Curso - Django - Webapp Playground
+django/curso-django/playground/core/__pycache__
+django/curso-django/playground/core/migrations/__pycache__
+django/curso-django/playground/messenger/__pycache__
+django/curso-django/playground/messenger/migrations/__pycache__
+django/curso-django/playground/pages/__pycache__
+django/curso-django/playground/pages/migrations/__pycache__
+django/curso-django/playground/playground/__pycache__
+django/curso-django/playground/playground/migrations/__pycache__
+django/curso-django/playground/profiles/__pycache__
+django/curso-django/playground/profiles/migrations/__pycache__
+django/curso-django/playground/registration/__pycache__
+django/curso-django/playground/registration/migrations/__pycache__
