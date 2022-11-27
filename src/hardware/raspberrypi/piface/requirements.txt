@@ -1,0 +1,4 @@
+paho-mqtt==1.6.1
+pifacecommon==4.2.2
+pifacedigitalio==3.0.5
+PyYAML==6.0

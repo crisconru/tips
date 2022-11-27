@@ -1,0 +1,215 @@
+mqtt:
+  broker: 192.168.0.26
+  port: 1883
+
+debounce: 1.5
+
+boards:
+  - piface0:
+    address: 0
+    inputs:
+      0:
+        subscribe: /board0/entrada0/read
+        publish: /board0/entrada0/state
+      1:
+        subscribe: /board0/entrada1/read
+        publish: /board0/entrada1/state
+      2:
+        subscribe:
+        publish:
+      3:
+        subscribe:
+        publish:
+      4:
+        subscribe:
+        publish:
+      5:
+        subscribe:
+        publish:
+      6:
+        subscribe:
+        publish:
+      7:
+        subscribe: /board0/entrada7/read
+        publish: /board0/entrada7/state
+    outputs:
+      0:
+        subscribe: /board0/salida0/set
+        publish: /board0/salida0/state
+      1:
+        subscribe: /board0/salida1/set
+        publish: /board0/salida1/state
+      2:
+        subscribe:
+        publish:
+      3:
+        subscribe:
+        publish:
+      4:
+        subscribe:
+        publish:
+      5:
+        subscribe:
+        publish:
+      6:
+        subscribe: /board0/salida6/set
+        publish: /board0/salida6/state
+      7:
+        subscribe:
+        publish:
+  - piface1:
+    address: 
+    inputs:
+      0:
+        subscribe:
+        publish:
+      1:
+        subscribe:
+        publish:
+      2:
+        subscribe:
+        publish:
+      3:
+        subscribe:
+        publish:
+      4:
+        subscribe:
+        publish:
+      5:
+        subscribe:
+        publish:
+      6:
+        subscribe:
+        publish:
+      7:
+        subscribe:
+        publish:
+    outputs:
+      0:
+        subscribe:
+        publish:
+      1:
+        subscribe:
+        publish:
+      2:
+        subscribe:
+        publish:
+      3:
+        subscribe:
+        publish:
+      4:
+        subscribe:
+        publish:
+      5:
+        subscribe:
+        publish:
+      6:
+        subscribe:
+        publish:
+      7:
+        subscribe:
+        publish:
+  - piface2:
+    address: 2
+    inputs:
+      0:
+        subscribe:
+        publish:
+      1:
+        subscribe:
+        publish:
+      2:
+        subscribe:
+        publish:
+      3:
+        subscribe:
+        publish:
+      4:
+        subscribe:
+        publish:
+      5:
+        subscribe:
+        publish:
+      6:
+        subscribe:
+        publish:
+      7:
+        subscribe:
+        publish:
+    outputs:
+      0:
+        subscribe:
+        publish:
+      1:
+        subscribe:
+        publish:
+      2:
+        subscribe:
+        publish:
+      3:
+        subscribe:
+        publish:
+      4:
+        subscribe:
+        publish:
+      5:
+        subscribe:
+        publish:
+      6:
+        subscribe:
+        publish:
+      7:
+        subscribe:
+        publish:
+  - piface3:
+    address: 3
+    inputs:
+      0:
+        subscribe:
+        publish:
+      1:
+        subscribe:
+        publish:
+      2:
+        subscribe:
+        publish:
+      3:
+        subscribe:
+        publish:
+      4:
+        subscribe:
+        publish:
+      5:
+        subscribe:
+        publish:
+      6:
+        subscribe:
+        publish:
+      7:
+        subscribe:
+        publish:
+    outputs:
+      0:
+        subscribe:
+        publish:
+      1:
+        subscribe:
+        publish:
+      2:
+        subscribe:
+        publish:
+      3:
+        subscribe:
+        publish:
+      4:
+        subscribe:
+        publish:
+      5:
+        subscribe:
+        publish:
+      6:
+        subscribe:
+        publish:
+      7:
+        subscribe:
+        publish:
