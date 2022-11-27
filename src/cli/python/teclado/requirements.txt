@@ -1,0 +1,4 @@
+evdev @ file:///home/eriddes/.cache/pypoetry/artifacts/59/24/fc/4da72812a9bcf1fb13e6046bedd6e16600dff233a3b013efdebd98a93d/evdev-1.4.0.tar.gz
+pynput @ file:///home/eriddes/.cache/pypoetry/artifacts/67/6d/1b/d0a50eaf3de3c557102ad1032177843efc910e04261810e80dee6bb9dc/pynput-1.7.5-py2.py3-none-any.whl
+python-xlib @ file:///home/eriddes/.cache/pypoetry/artifacts/d5/47/22/a82f2c6cbcca7060bbf48889996d331e3ad5de2ddd0db87f0f509c61d3/python_xlib-0.31-py2.py3-none-any.whl
+six @ file:///home/eriddes/.cache/pypoetry/artifacts/48/e6/04/8118155ae3ec3a16dd2a213bbf7a7d8a62c596b2e90f73a22c896269f1/six-1.16.0-py2.py3-none-any.whl
