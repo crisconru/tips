@@ -1,0 +1,3 @@
+# ESPHome
+
+Código para ESPHome.
