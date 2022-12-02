@@ -201,5 +201,5 @@ plugins:
   - search:
       lang: es
       separator: '[\s\-,:!=\[\]()"/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
-  - minify:
-      minify_html: true
+  # - minify:
+  #     minify_html: true
