@@ -9,7 +9,7 @@ Crear código para hardware embebido no es sumamente complicado. El problema may
 * Depende también de la placa que use el chip.
 * Etc
 
-[Platformio](https://platformio.org/) es un ecosistema Open Source, multiplataforma, pensado para evitar todo esto. Con él podremos programar desde un Arduino, a un ARM, o alguna de las muchísimas placas que soporta. Lo único que necesita para funcionar es tener instalado Python 2 en el ordenador.
+[Platformio](https://platformio.org/) es un ecosistema Open Source, multiplataforma, pensado para evitar todo esto. Con él podremos programar desde un Arduino, a un ARM, o alguna de las muchísimas placas que soporta. Lo único que necesita para funcionar es tener instalado Python 3 en el ordenador.
 
 Documentación Oficial de Platformio -> [aquí](https://docs.platformio.org/en/latest/what-is-platformio.html)
 
@@ -18,18 +18,18 @@ Documentación Oficial de Platformio -> [aquí](https://docs.platformio.org/en/l
 Platformio tiene varias herramientas, pero para nosotros, las podemos dividir en dos:
 
 * Platformio Core (CLI)
-  * Es el núcleo de todo.
-  * Con esto gestionamos y cargamos nuestro código en los chips.
-  * Tiene una herramienta de comandos (CLI) muy útil.
+    * Es el núcleo de todo.
+    * Con esto gestionamos y cargamos nuestro código en los chips.
+    * Tiene una herramienta de comandos (CLI) muy útil.
 * Platformio IDE
-  * Es una extensión / plugin que se le pone a entornos gráficos para poder usar Platformio Core de manera más sencilla.
-  * El IDE "por defecto" donde usarlo es Visual Studio Code.
+    * Es una extensión / plugin que se le pone a entornos gráficos para poder usar Platformio Core de manera más sencilla.
+    * El IDE "por defecto" donde usarlo es Visual Studio Code.
 
 Documentación oficial para su instalación -> [aquí](https://docs.platformio.org/en/latest/installation.html)
 
->> Nota:  
->> Si usas Linux, debes instalar las [99-platformio-udev.rules](https://docs.platformio.org/en/latest/faq.html#faq-udev-rules) para que vaya mejor la detección de placas.  
->> A partir de ahora nos referiremos a Platformio también como PIO, para abreviar.
+> Nota:  
+> Si usas Linux, debes instalar las [99-platformio-udev.rules](https://docs.platformio.org/en/latest/faq.html#faq-udev-rules) para que vaya mejor la detección de placas.  
+> A partir de ahora nos referiremos a Platformio también como PIO, para abreviar.
 
 Si solo vamos a usar PIO Core, desde Python 2.7 hacemos
 
@@ -125,3 +125,4 @@ Conectamos la placa y le subimos el programa con:
 
 ## platformio.ini
 
+TODO:

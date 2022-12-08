@@ -1,12 +1,12 @@
-# Contenido
+# Índice
 
 Cosas que toco (si no hay enlaces es porque no hay apuntes sobre eso).
 
 * Web
-    * Frontend
-        * [HTML](web/frontend/html/html-indice.md)
-        * [CSS](web/frontend/css/css-plugins.md)
-        * [VanillaJS](web/frontend/js/js-indice.md)
+    * [Frontend](web/frontend/frontend.md)
+        * [HTML](web/frontend/html/html.md)
+        * [CSS](web/frontend/css/css.md)
+        * [VanillaJS](web/frontend/js/javascript.md)
         * Frameworks / Libs JS
             * React
             * VueJS
@@ -20,16 +20,14 @@ Cosas que toco (si no hay enlaces es porque no hay apuntes sobre eso).
     * [Platformio](hw/pio/pio-informacion.md)
     * [Micropython](hw/upython/upython-informacion.md)
 * IoT
-    * ESPHome
-    * Node-Red
     * [MQTT](iot/mqtt/mqtt.md)
     * RabbitMQ
+    * ESPHome
+    * Node-Red
 * Software
     * IDEs
         * [Visual Studio code](sw/ides/vscode/vscode.md)
-    * Python
-        * [Entornos virtuales](sw/python/venv/venv-introduccion.md)
-        * [PYTHONPATH](sw/python/python-pythonpath.md)
+    * [Python](sw/python/python.md)
     * JavaScript
 * GUI
     * Python

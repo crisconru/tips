@@ -30,35 +30,33 @@ extra:
       name: Github de Cristo
 # 4. Navegación
 nav:
-  - Contenido: index.md # TODO: Reodernar todo bien
+  - Índice: index.md # TODO: Reodernar todo bien
   - Web:
     - Frontend:
-      - HTML: web/frontend/html/html-indice.md
-      - CSS:  # TODO:
-        - Plugins: web/frontend/css/css-plugins.md
-      - VanillaJS: web/frontend/js/js-indice.md
+      - Índice: web/frontend/frontend.md
+      - HTML: web/frontend/html/html.md # TODO:
+      - CSS:  web/frontend/css/css.md # TODO:
+      - VanillaJS: web/frontend/js/javascript.md # TODO:
     - Backend:
       - Django:
         - Principiante: web/backend/django/principiante.md
         - Intermedio: web/backend/django/intermedio.md
         - Avanzado: web/backend/django/avanzado.md
   - Hardware:
-    - Micropython: hw/upython/upython-informacion.md
-    - Platformio: hw/pio/pio-informacion.md
+    - Platformio: hw/platformio/platformio.md
+    - Micropython: hw/micropython/micropython.md
   - IoT:
-    - MQTT: iot/mqtt/mqtt.md
-    # - RabbitMQ: TODO:
+    - Que es el IoT: iot/iot.md # TODO:
+    - MQTT: iot/mqtt/mqtt.md # TODO: La parte de Docker
+    # - RabbitMQ: iot/rabbitmq/rabbitmq.md TODO:
+    # - ESPHome: iot/esphome/esphome.md # TODO:
+    # - Node-Red: iot/nodered/nodered.md # TODO:
+    # - ThingsBoard: iot/thingsboard/thingsboard.md # TODO:
   - Software:
-    - IDEs:
-      - Visual Studio code: sw/ides/vscode/vscode.md
+    - Visual Studio code: sw/ides/vscode/vscode.md
     - Python:
-      - Entornos virtuales:
-        - Introducción: sw/python/venv/venv-introduccion.md
-        - virtualenv: sw/python/venv/venv-virtualenv.md
-        - virtualenvwrapper: sw/python/venv/venv-virtualenvwrapper.md
-        - pipenv: sw/python/venv/venv-pipenv.md
-        - pyenv: sw/python/venv/venv-pyenv.md
-      - PYTHONPATH: sw/python/python-pythonpath.md
+      - Setup: sw/python/python.md
+      - Entornos virtuales: sw/python/entornos_virtuales.md
   - Devops:
     - Git: 
       - Comandos: devops/git/git.md
@@ -77,6 +75,12 @@ nav:
     - Ansible: devops/ansible/ansible.md
     # - ELK: devops/elk/elk.md
   - Linux:
+    - Terminal:
+      - ZSH: linux/terminal/zsh.md
+      - TMUX: 
+        - Comandos: linux/terminal/tmux/tmux-comandos.md
+        - Customización: linux/terminal/tmux/tmux-customizar.md
+      - Bash Scripting: linux/terminal/terminal-bash.md
     - Comandos:
       - Fecha y Hora: linux/comandos/linux-fecha-hora.md
       - Ficheros: linux/comandos/linux-ficheros.md
@@ -85,12 +89,6 @@ nav:
       - SSH: linux/redes/redes-ssh.md
       - iptables: linux/redes/redes-iptables.md
       - IPv6: linux/redes/redes-ipv6.md
-    - Terminal:
-      - ZSH: linux/terminal/zsh.md
-      - Bash Scripting: linux/terminal/terminal-bash.md
-      - TMUX: 
-        - Comandos: linux/terminal/tmux/tmux-comandos.md
-        - Customización: linux/terminal/tmux/tmux-customizar.md
 
 # 5. Google Analytics
 #google_analytics:
@@ -190,5 +188,4 @@ plugins:
   - search:
       lang: es
       separator: '[\s\-,:!=\[\]()"/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
-  # - minify:
-  #     minify_html: true
+
