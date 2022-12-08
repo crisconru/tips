@@ -17,8 +17,8 @@ Cosas que toco (si no hay enlaces es porque no hay apuntes sobre eso).
             * [Django](web/backend/django/principiante.md)
 * Hardware
     * Arduino
-    * [Platformio](hw/pio/pio-informacion.md)
-    * [Micropython](hw/upython/upython-informacion.md)
+    * [Platformio](hw/platformio/platformio.md)
+    * [Micropython](hw/micropython/micropython.md)
 * IoT
     * [MQTT](iot/mqtt/mqtt.md)
     * RabbitMQ
@@ -38,8 +38,8 @@ Cosas que toco (si no hay enlaces es porque no hay apuntes sobre eso).
     * Cross-Platform
 * Devops
     * [Docker](devops/docker/docker-aclaraciones.md)
-    * [Git](devops/git/git-git.md)
-    * [Gitflow](devops/git/gitflow/gitflow-gitflow.md)
+    * [Git](devops/git/git.md)
+    * [Gitflow](devops/git/gitflow/gitflow.md)
     * [Ansible](devops/ansible/ansible.md)
 * Linux
     * Terminal
