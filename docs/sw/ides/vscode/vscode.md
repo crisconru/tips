@@ -1,226 +1,60 @@
 # Visual Studio Code
 
-## Atajos de teclado
-
 Ayuda oficial -> [Tips & Tricks](https://code.visualstudio.com/docs/getstarted/tips-and-tricks)
 
-Hojas de resumen de atajos de teclado:
+???+ tip "Fernando Herrera tiene un curso de VSCode"
+    Repo de un curso a Introducción a VSCode -> [repo](https://github.com/Klerith/curso-VSCode)
 
-* [Windows](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
-* [Mac](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf)
-* [Linux](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf)
+## Atajos de teclado
 
-Repo de un curso a Introducción a VSCode -> [repo](https://github.com/Klerith/curso-VSCode)
+Enlaces a las hojas de resumen de atajos de teclado.
 
-Empezamos con los atajos de teclado / shortcuts:
+=== "Linux"
+    [Enlace oficial Linux](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf)
+    ![Linux](linux_cheatsheet.jpg)
 
-* Mover Líneas -> Seleccionar poner el cursor en la o las líneas y
+=== "Mac"
+    [Enlace oficial Mac](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf)
+    ![Mac](mac_cheatsheet.jpg)
 
-```bash
-⌥ ↓ / ⌥ ↑
-Alt + ↑ / ↓
-```
+=== "Windows"
+    [Enlace oficial Windows](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
+    ![Windows](windows_cheatsheet.jpg)
 
-* Comentar / descomentar línea
+## Atajos interesantes
 
-```bash
-⌘ /
-Ctrl + \
-```
-
-* Comentar texto -> Seleccionar solo el trozo de texto a comentar y
-
-```bash
-⇧ ⌥ A
-Shift + Ctrl + A
-```
-
-* Creación rápida de archivos -> Si indicamos como fuente un archivo dentro de un directorio, ponemos el cursor sobre este y el atajo creará tanto el directorio como el archivo
-
-```bash
-⌥ click derecho
-Ctrl + click derecho
-```
-
-* Ir a la definición de una función o variable -> Cursor sobre la función o variable y
-
-```bash
-⌥ F12
-F12
-```
-
-* Borrar línea
-
-```bash
-⇧ ⌘ K
-Ctrl + Shift + K
-```
-
-* Borrar todas las ocurrencias de una selección (variable/ funcion/...) -> Seleccionar palabra (variable/funcion/...) y
-
-```bash
-# Primero seleccionar
-⇧ ⌘ L
-Ctrl + Shift + L
-# Borrar línea (atajo del punto anterior)
-⇧ ⌘ K
-Ctrl + Shift + K
-```
-
-* Deshacer y Rehacer
-
-```bash
-# Deshacer
-⌘ Z
-Ctrl + Z
-# Rehacer
-⌘ ⇧ Z
-Ctrl + Shift + Z
-```
-
-* Ocultar / Mostrar Sidebar
-
-```bash
-⌘ B
-Ctrl + B
-```
-
-* Modo Zen (entrar y salir)
-
-```bash
-⌘ K Z
-Ctrl + K Z
-```
-
-* Abrir fichero (útil para el Zen Mode)
-
-```bash
-# Primero teclear
-⌘ P
-Ctrl + P
-# Luego el nombre del fichero y pulsar enter
-```
-
-* Mostrar / Ocultar Terminal
-
-```bash
-⌃ `
-Ctrl + `
-```
-
-* Encapsular / Wrap código -> Emmet Wrap
-
-```bash
-# Primero hay que abrir la Paleta de Comandos
-⇧ ⌘ P
-Ctrl + SHIFT + P
-# Luego poner
-wrap with Abbrevation
-# Poner que queremos que encapsule y código y darle a enter
-```
-
-* Cerrar / Reabrir / Cambiar de pestañas
-
-```bash
-# Cerrar pestaña
-⌘ W
-Ctrl + W
-# Cerrar todas las pestañas
-⌘ K ⌘ W
-Ctrl + K  Ctrl + W
-# Reabrir pestaña anterior
-⇧ ⌘ T
-Ctrl + Shift + T
-# Cambiar de pestaña
-⌃ TAB
-Ctrl + TAB
-```
-
-* Copiar linea Arriba / Abajo
-
-```bash
-# Copiar abajo
-⇧ ⌥ Down
-Ctrl + Shift + Alt + ↓
-# Copiar Arriba
-⇧ ⌥ Up
-Ctrl + Shift + Alt + ↑
-```
-
-* Crear multicursor en cualquier lado / Abajo / Arriba / Siguiente ocurrencia
-
-```bash
-# Para crear más de un cursor en sitio específico
-⌥ click
-Alt + click
-# Si quiero crear más de un cursor pero seleccionando palabras
-⌥ doble click
-Alt + doble click
-# Crear cursor abajo
-⇧ ⌥ ↓
-Ctrl + Alt + ↓
-# Crear cursor arriba
-⇧ ⌥ ↑
-Ctrl + Alt + ↑
-# Multiples ocurrencias -> Primero selecciono la palabra y luego
-⌘ + D
-Ctrl + D
-```
-
-* Lowercase / Uppercase
-
-```bash
-# Seleccionar palabra / palabras
-# Lowercase
-⌃ ⇧ L
-Ctrl + Shift + L
-# Uppercase
-⌃ ⇧ U
-Ctrl + Shift + U
-```
-
-* Ver definiciones de clases / funciones / etc, en un fichero
-
-```bash
-# Primero es abrir el menu con
-⌘ P
-Ctrl + P
-# Luego escribir
-@
-# Si queremos que ordene por tipo (clases, funciones, etc), ponemos
-@:
-```
-
-* Ir a una línea
-
-```bash
-⌃ G
-Ctrl + G
-```
-
-* Markdown Preview
-
-```bash
-# Abrir vista previa
-⌘ ⌃ V
-Ctrl + Shift + V
-# Abrir vista previa en el lateral
-⌘ K, V
-Ctrl + K, V
-# Abrir vista previa fija en el lateral
-Hay que ejecutarlo desde la paleta de comandos o asignarle un atajo
-```
-
-* Reemplazar símbolo
-
-```bash
-# Poner el cursor sobre el nombre de la clase / funcion / etc y apretar
-F2
-# Escribir el sustituto y presionar ENTER
-```
-
-* atajo
-
-  ```bash
-
-  ```
+| Comando | Atajo  de teclado |
+| :------ | :---------------: |
+| Multiples cursores | Mantengo ++alt++ y luego click donde quiera cursores |
+| Multiples cursores con palabras | Mantengo ++alt++ y luego doble click las palabras donde quiera cursores |
+| Duplicar cursor hacia arriba | ++ctrl+shift+up++ |
+| Selecionar lineas | Mantener ++alt++ y click en la línea |
+| Duplicar cursor hacia abajo | ++ctrl+shift+down++ |
+| Mover líneas arriba | ++alt+up++ |
+| Mover líneas abajo | ++alt+down++ |
+| Comentar / descomentar línea | Linux ++ctrl+slash++<br>Mac ++cmd+slash++ |
+| Ir a la definición de una función o variable | Cursor sobre la función o variable y ++f12++ |
+| Borrar línea | Oficial ++ctrl+shift+k++<br>Para mi es ++ctrl+d++ |
+| Borrar todas las ocurrencias de una palabra / variable/ funcion/... | Cursor sobre la palabra / variable / funcion /...<br>+<br>Seleccionar todas con<br>Linux ++ctrl+shift+l++<br>Mac ++cmd+shift+l++<br>+<br>Borrar línea | 
+| Deshacer | Linux ++ctrl+z++<br>Mac ++cmd+z++ |
+| Rehacer | Linux ++ctrl+shift+z++<br>Mac ++cmd+shift+z++ |
+| Toggle sidebar | Linux ++ctrl+b++<br>Mac ++cmd+b++ |
+| Pantalla completa | ++f11++ |
+| Toggle Modo Zen | Linux ++ctrl+k++ y ++z++<br>Mac ++cmd+k++ y ++z++ |
+| Toggle terminal | Linux ++ctrl+j++<br>Mac ++cmd+j++ |
+| Cambiar pestaña | ++ctrl+tab++ |
+| Cerrar pestaña | Linux ++ctrl+w++<br>Mac ++cmd+w++ |
+| Reabrir pestaña | Linux ++ctrl+shift+t++<br>Mac ++cmd+shift+t++ |
+| Cerrar todas las pestañas | Linux ++ctrl+k++ y ++ctrl+w++<br>Mac ++cmd+k++ y ++cmd+w++ |
+| Copiar linea arriba | Linux ++ctrl+shift+up++<br>Mac ++cmd+shift+up++ | 
+| Copiar linea abajo | Linux ++ctrl+shift+down++<br>Mac ++cmd+shift+down++ | 
+| Abrir fichero (útil en el Modo Zen) | Linux ++ctrl+p++<br>Mac ++cmd+p++ |
+| Abrir paleta de comandos | Linux ++ctrl+alt+p++ o ++ctrl+p++ y luego escribir ++>++<br>Mac ++cmd+alt+p++ o ++cmd+p++ y luego escribir ++>++ |
+| Ir a una línea del fichero | Linux ++ctrl+g++ o ++ctrl+p++ y luego escribir ++:++<br>Mac ++cmd+g++ o ++cmd+p++ y luego escribir ++:++ |
+| Ver definición de una clase / función / etc en un fichero | Linux ++ctrl+p++ y luego escribir ++@++<br>Mac ++cmd+p++ y luego escribir ++@++ |
+| Ordenar por definición de una clase / función / etc en un fichero | Linux ++ctrl+p++ y luego escribir ++@:++<br>Mac ++cmd+p++ y luego escribir ++@:++ |
+| Cambiar nombre a un fichero | Con el fichero seleccionado en la navbar y pulsar ++f2++ |
+| Refactor de una variable / función / clase | Seleccionar una variable / función / clase y pulsar ++f2++ |
+| Markdown preview | Linux ++ctrl+shift+v++<br>Mac ++cmd+shift+v++ |
+| Markdown preview en el lateral | Linux ++ctrl+k++ y luego ++v++<br>Mac ++cmd+k++ y luego ++v++ |
+| Markdown preview en el lateral fija | Tiene que ser desde la paleta de comandos |
