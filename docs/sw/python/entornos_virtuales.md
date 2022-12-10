@@ -10,17 +10,18 @@ Que al final tengo instalado desde pip una cantidad de paquetes "basura", que no
 
 Para solucionar todo esto se creó un concepto llamado **"Entorno virtual"** o **Virtualenv**. Consiste en decir
 
->"venga quiero tener una versión (aislada del sistema operativo) de Python con su pip para poder cacharrear/trabajar, y cuando me harte la borro y listo"
+>Venga quiero tener una versión (aislada del sistema operativo) de Python con su pip para poder cacharrear/trabajar, y cuando me harte la borro y listo.
 
 ¿Por qué aislada? Porque el sistema operativo usa Python para sus cosas también, así que es recomendable siempre, en la medida de lo posible, no tocar nunca el Python del sistema.
 
-> NOTA: En vez de usar `virtualenv`, usa `venv` que ya viene instalado en el propio Python
+???+ tip "Usa venv no virtualenv"
+    En vez de usar `virtualenv`, usa `venv` que ya viene instalado en el propio Python
 
 ### Instalar venv
 
 `venv` ya viene instalado con Python. Si no viniese, instalalo con
 
-```bash
+``` bash
 sudo apt install python3-venv
 ```
 
@@ -55,7 +56,7 @@ Para que funcione tienes que hacer:
 
 Así que al final tu fichero `/home/manuel/.bashrc` o `/home/manuel/.zshrc` tiene que tener algo así:
 
-```bash
+``` bash title=".zshrc"
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Coding
@@ -78,11 +79,12 @@ El único problema que tienes ahora es que esto solo tira con un Python que sea 
 
 ### Añadir PYTHONPATH
 
-> La solución ha sido obtenida de [aquí](https://stackoverflow.com/a/17963979/3616381).  
+???+ tip "Solución sacada de internet"
+    La solución ha sido obtenida de [aquí](https://stackoverflow.com/a/17963979/3616381).  
 
 Supon que tienes un proyecto python con la siguiente estructura:  
 
-```bash
+``` bash
 proj
 |-src
   |-foo.py
@@ -93,7 +95,7 @@ proj
 
 Y que el fichero `bar.py` contiene la siguiente línea
 
-```python
+``` python title="bar.py"
 from src import foo
 ```
 
@@ -108,7 +110,7 @@ Lo más probable es que la consola te dé un error como
 
 Esto es porque `proj` no está añadido a la variable de entorno `$PYTHONPATH`. Para ver que contiene esta variable puedes abrir la consola de python y ejectuar
 
-```python
+``` python title="python"
 import sys
 sys.path
 ```
@@ -127,7 +129,8 @@ Si quisieras deshacer lo que has hecho, simplemente en el paso 3. de antes ejecu
 
 [Pyenv](https://github.com/pyenv/pyenv) es una herramienta, copiada de otra del lenguage Ruby, para poder tener distintas versiones de Python instaladas en el equipo sin comprometer la integrigad del sistema operativo. Básicamente pyenv lo que hace es poner en la variable del sistema `$PATH` los binarios de las versiones de Python que instala.
 
-> Este link está chachi -> [artículo de David Naranjo](https://ubunlog.com/pyenv-instala-multiples-versiones-de-python-en-tu-sistema/)
+???+ tip "Artículo que explica como funciona Pyenv"
+    Este link está chachi -> [artículo de David Naranjo](https://ubunlog.com/pyenv-instala-multiples-versiones-de-python-en-tu-sistema/)
 
 ### Instalar pyenv
 
@@ -135,7 +138,7 @@ Hay un instalador automático:
 
 1. Descarga el instalador de pyenv y este instalará todo normalmente `$HOME/.pyenv`
 
-    ```bash
+    ``` bash
     # Para BASH
     curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
     # Para ZSH
@@ -144,7 +147,7 @@ Hay un instalador automático:
 
 2. Enlazar los binarios en la variable del sistema `$PATH`. Pon esto en tu fichero `$HOME/.bashrc` si usas BASH o `$HOME/.zshrc` si usas ZSH.
 
-    ```bash
+    ``` bash title=".zshrc"
     export PYENV_ROOT="$HOME/.pyenv"
     command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
@@ -154,7 +157,7 @@ Hay un instalador automático:
 
 Si te da problemas de deps, pues ve instalándolas conforme las pida. Antes las deps que necesitaba eran estas:
 
-```bash
+``` bash
 sudo apt install -y make build-essential git libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
 ```
 
@@ -166,25 +169,25 @@ Para desintalar todo es tan sencillo como borrar la carpeta `$HOME/.pyenv` -> `s
 
 Actualiza primero pyenv con
 
-```bash
+``` bash
 pyenv update
 ```
 
 Ahora puedes listar todas las versiones de Python para instalar en tu equipo con
 
-```bash
+``` bash
 pyenv install -l
 ```
 
 Imagina que quieres instalar la versión `3.11.1` pues entonces haces
 
-```bash
+``` bash
 pyenv install 3.11.1
 ```
 
 Esto instalará un interprete de Python 3.11.1 en la carpeta `~/.pyenv/versions/`. Para que puedas ver que versiones de Python tienes instaladas ejecuta
 
-```bash
+``` bash
 pyenv versions
 ```
 
@@ -192,7 +195,7 @@ Y tendrás listadas tanto la versión del sistema, como las que hayas instalado 
 
 Cuando quieras usar una versión de Python concreta, por ejemplo la 3.11.1 que acabas de instalar, ejecuta
 
-```bash
+``` bash
 pyenv local 3.11.1
 ```
 
@@ -200,13 +203,13 @@ En esa carpeta donde estás se te creará un fichero `.python-version` que conti
 
 Para deshacer esto y que vuelva a tener la versión de Python del sistema operativo, borra ese fichero `.python-version` o ejecuta
 
-```bash
+``` bash
 pyenv local system
 ```
 
 También puedes modificar el Python global que puedes usar, pero no te lo recomiendo.
 
-```bash
+``` bash
 # Con esto modificas el Python global para que tira del 3.11.1 que has instalado
 pyenv global 3.11.1
 # Con esto dejas todo como estaba
@@ -228,7 +231,7 @@ Virtualenvwrapper + Pyenv ya te sirve para tener todo chachi para trabajar, pero
 
 Hay que ejecutar
 
-```bash
+``` bash
 curl -sSL https://install.python-poetry.org | python3 -
 ```
 
@@ -239,13 +242,13 @@ Básicamente el comando lo que ha hecho es:
 
 Para comprobar que se ha instalado bien ejecuta
 
-```bash
+``` bash
 poetry --version
 ```
 
 Si no te va, es porque no tienes `$HOME/.local/bin` añadido a tu `$PATH`. Te recomiendo que añadas entonces solo esto a tu `$HOME/.bashrc` o  `$HOME/.zshrc`.
 
-```bash
+``` bash title=".zshrc"
 export POETRY_HOME="$HOME/.local/share/pypoetry/venv/"
 command -v poetry >/dev/null || export PATH="$POETRY_HOME/bin:$PATH"
 ```
@@ -254,7 +257,7 @@ Recarga la terminal con `source $HOME/.bashrc` o `$HOME/.zshrc` y prueba de nuev
 
 Si tuvieras que desinstalar poetry usa
 
-```bash
+``` bash
 curl -sSL https://install.python-poetry.org | python3 - --uninstall
 ```
 
@@ -262,19 +265,19 @@ curl -sSL https://install.python-poetry.org | python3 - --uninstall
 
 Antes de usarlo, te recomiendo que hagas unos pequeños ajustes. Para poder ver la configuración de poetry ejecuta
 
-```bash
+``` bash
 poetry config --list
 ```
 
 La parte que debes de cambiar es `virtualenvs.path` para que use la que configuraste con Virtualenvwrapper.
 
-```bash
+``` bash
 poetry config virtualenvs.path $HOME/.virtualenvs
 ```
 
 También puedes hacerlo añadiendo al fichero `$HOME/.bashrc` o `$HOME/.zshrc`
 
-```bash
+``` bash
 export POETRY_VIRTUALENVS_PATH=$HOME/.virtualenvs
 ```
 
@@ -282,7 +285,7 @@ export POETRY_VIRTUALENVS_PATH=$HOME/.virtualenvs
 
 Lo primero, actualiza poetry con
 
-```bash
+``` bash
 poetry self update
 ```
 
@@ -290,13 +293,13 @@ Poetry funciona en tus proyectos usando un fichero `pyproject.toml`. Abrelo y te
 
 Si tienes un proyecto ya hecho y quieres *"poetryzarlo"* ejecuta
 
-```bash
+``` bash
 poetry init
 ```
 
 Si vas a empezar un proyecto desde cero con poetry, él puede crearte todo el scafolding (toda la estructura de carpetas) con
 
-```bash
+``` bash
 poetry new mi_proyecto
 ```
 
@@ -306,13 +309,13 @@ Sea como sea, una vez tengas un proyecto ya con tu ficherico `pyproject.toml` te
 
 1. Elige la versión de Python para ese proyecto con pyenv (por ejemplo 3.11.1)
 
-    ```bash
+    ``` bash
     pyenv local 3.11.1
     ```
 
 2. Crea el entorno virtual con poetry usando esa versión de Python
 
-    ```bash
+    ``` bash
     poetry env use 3.11
     ```
 
@@ -320,30 +323,30 @@ Ahora ya tienes una el entorno virtual listo.
 
 Para añadir dependencias a tu proyecto
 
-```bash
+``` bash
 poetry add <dependencia>
 ```
 
 Si la dependencia es solo de desarrollo, es decir que no la usa el proyecto en producción pero tu si para desarrollar (como un linter o tests)
 
-```bash
-poetry add -D <dependencia>
+``` bash
+poetry add --G dev <dependencia>
 ```
 
 Si lo que quieres es instalar todas las deps que tenía definido el proyecto
 
-```bash
+``` bash
 poetry install
 ```
 
 Si quieres activar el entorno virtual
 
-```bash
+``` bash
 poetry shell
 ```
 
 Para desactivarlo pues con
 
-```bash
+``` bash
 deactivate
 ```
