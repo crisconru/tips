@@ -1,118 +1,206 @@
 # MQTT
 
-Referencia -> [aquí](https://programarfacil.com/esp8266/mqtt-esp8266-raspberry-pi/)
+???+ tip "Lectura de ayuda chachi"
+      Referencia -> [aquí](https://programarfacil.com/esp8266/mqtt-esp8266-raspberry-pi/)
 
 MQTT es un protocolo de mensajería para IoT, que va montando sobre la capa TCP, pensado para comunicaciones M2M.
 
 ## Arquitectura
 
-Hay dos elementos:
+Se compone de dos elementos, **Broker** y **Clientes**
 
-* Cliente
-* Servidor (broker)
+=== "Broker"
+    - Es el único que sabe que cliente está suscrito a cada topic, luego los clientes son independientes.
+    - Puede almacenar mensajes hasta que los lea el o los suscriptores.
+=== "Cliente"
+    - Cada cliente abre una conexión MQTT con el broker (algo asi como un socket).
+    - Los hay de dos tipos: Publisher (manda mensajes) y Subscriber (recibe mensajes)
 
-La arquitectura consiste en publicación-suscripción:
+Consiste en el patrón Pub/Sub (publicación / suscripción):
 
-* Un cliente publica un topic dentro del broker.
-* Un cliente le dice al broker a que topic se suscribe.
+- Normalmente solo un cliente publica en un topic dentro del broker.
+- Un cliente o varios le dicen al broker a que topic se suscriben.
 
-## Topic
-
-Un topic es el asunto / tema del mensaje.
-
-Van jerarquizados, separados por `/` y dentro de categorías. Por ejemplo:
-
-* Hay definido un topic `tv`
-* Está dentro de la categoría `salón`
-* Esta a su vez en la categoría `casa`
-* El topic se referencia `/casa/salon/tv`
-
-Un cliente (o varios) se pueden suscribir a uno o varios topic, y también a las categorías (todos los topics que tienen por debajo).
-
-Existen dos operadores para ayudar a la suscripción, `+` y `#`:
-
-* Con `+` sustituye cualquier categoría / nivel -> `/casa/+/tv` = Suscribirse a todos los topic `tv` de la `/casa`.
-* Con `#` sustituye cualquier categoría / nivel inferior -> `/casa/#` = Suscribirse a todos los topic de la `/casa`.
+<figure markdown>
+  ![Arquitectura MQTT](mqtt.webp)
+  <figcaption>Imagen sacada de <a src="https://borrowbits.com/2020/04/mqtt-vs-http-que-protocolo-es-mejor-para-iot/">aquí</a></figcaption>
+</figure>
 
 ## Mensajes
 
-Tienen 3 partes:
+Se envían mensajes asíncronamente. Del publisher al broker y del broker a los subscribers.
 
-1. Encabezado fijo -> 2B (2 Bytes), es obligatorio
-2. Encabezado variable -> 4b (4 bits), no es obligatorio.
-3. Mensaje (payload) -> Hasta 2-4 kB (teoricamente hasta 256MB).
+Básicamente la conexión de un cliente con el broker, es un socket TCP. Pero se permite también la conexión sobre WebSockets.
 
-Se envían asíncronamente.
+!!! info "Se puede usar en páginas web"
+    Si usas MQTT sobre Websockets, entonces podrás conectar una página web por MQTT.
 
-El broker:
+    AMQP no permite esto.
 
-* Es el único que sabe que cliente está suscrito a cada topic, luego los clientes son independientes.
-* Puede almacenar mensajes hasta que los lea el o los suscriptores.
-* Cada cliente abre una conexión MQTT con el broker (algo asi como un socket).
+Para nosotros, consisten solo en **topic** + **payload**.
 
-Existe QoS, permitiendo información fiable (o no). Hay 3 grados de QoS:
+=== "Topic"
+    - Sería como el endpoint en cliente / servidor.
 
-* QoS 0 -> Enviar solo 1 vez -> Puede que se pierda mensaje.
-* QoS 1 -> Permite al menos 1 reenvío -> Se garantiza entrega del mensaje, pero puede haber duplicidad.
-* QoS 2 -> Llega 1 vez -> Se garantiza que el mensaje llega 1 sola vez.
+=== "Payload"
+    - Es el contenido del mensaje.
+    - Es de tipo de tipo String.
 
-A mayor calidad, menos rendimiento.
+??? abstract "Siendo rigurosos"
+    Tienen 3 partes:
 
-## Primeros pasos
+    1. Encabezado fijo -> 2B (2 Bytes), es obligatorio
+    2. Encabezado variable -> 4b (4 bits), no es obligatorio.
+    3. Mensaje (payload) -> Hasta 2-4 kB (teoricamente hasta 256MB).
 
-Vamos montar la infraestructura para poder trabajar con MQTT. Se va a usar 2 RPis, pero con un pc sirve. En uno va el broker, y en la otra el cliente.
+Cada mensaje tiene también QoS, permitiendo información fiable (o no). Hay 3 grados de QoS:
+
+=== "QoS 0"
+    - Enviar solo 1 vez.
+    - Puede que se pierda mensaje.
+=== "QoS 1"
+    - Permite al menos 1 reenvío.
+    - Se garantiza entrega del mensaje, pero puede haber duplicidad.
+=== "QoS 2"
+    - Llega 1 vez.
+    - Se garantiza que el mensaje llega 1 sola vez.
+
+!!! warning "¿Porque no usamos solo QoS 2?"
+    A mayor calidad, menos rendimiento.
+
+### Topic
+
+Un topic es el asunto / tema del mensaje.
+
+Van jerarquizados, separados por `/` y dentro de categorías.
+
+??? example "Definir un topic para tu tv del salón"
+    - La thing sería `tv`
+    - Está dentro de la categoría `salón`
+    - Esta a su vez en la categoría `casa`
+    - El topic podría ser `/casa/salon/tv`
+
+Un cliente (o varios) se pueden suscribir a uno o varios topic. Existen dos operadores para ayudar a las suscripciones, `+` y `#`.
+
+=== "Operador `+`"
+    - Sustituye categorías / niveles intermedios
+    - `/casa/+/tv` equivale a suscribirse a todos los topic `tv` de `/casa`
+=== "Operador `#`"
+    - Sustituye categorías / niveles inferiores
+    - `/casa/#` equivale a Suscribirse a todos los topic de `/casa`
+
+### Payload
+
+Es una cadena de texto o strings.
+
+!!! tip "Consejo: Mandar JSON"
+    Una buena estrategia es que tu payload sea un JSON.
+
+## MQTT Explorer
+
+Se recomienda usar esta app para poder ver los topics y sus contenidos en un broker, ya sea mosquitto o no.
+
+[MQTT Explorer](http://mqtt-explorer.com/ "Descárgatelo ya") está en Linux, Mac y Windows.
+
+## Mosquitto
+
+[Mosquitto](https://mosquitto.org/) es un broker Open Source y muy liviano para empezar.
+
+Si se deseara un broker más potente, se recomienda [HiveMQ](https://www.hivemq.com/) o [VerneMQ](https://vernemq.com/).
 
 ### Broker
 
-Se va a usar un broker [Mosquitto](https://mosquitto.org/), ya que es Open Source y muy liviano para empezar. Si se deseara un broker más potenta para el cloud, se recomienda [HiveMQ](https://www.hivemq.com/) o [VerneMQ](https://vernemq.com/).
+??? info "Docker para levantar Mosquitto"
+    - Levantar con un contenedor docker, para no tener que instalar nada.
+    - Toda la información de este contenedor está aquí -> [Contenedor eclipse-mosquitto](https://hub.docker.com/_/eclipse-mosquitto)
 
-El broker Mosquitto lo vamos a levantar con un contenedor docker, para no tener que instalar nada. Toda la información de este contenedor está aquí -> [Contenedor eclipse-mosquitto](https://hub.docker.com/_/eclipse-mosquitto)
+Abajo hay lo mínimo para poder levantar un Mosquitto:
 
-```bash
-docker run -it -p 1883:1883 -p 9001:9001 --name mqttbroker eclipse-mosquitto
-```
+- Se pueda usar desde fuera del Localhost (Mosquitto 2 por defecto no lo deja, hay que habilitarlo).
+- Se han abierto los puertos 1883  para mqtt y 9001 para mqtt sobre websockets.
+- Se pueden ver los logs que sucedan en cada comunicación.
 
-Con este comando levantamos un contenedor eclipse-mosquitto, llamandolo mqttbroker, y abriendo sus puertos 1883 y 9001. Además dejaremos el contenedor abierto para ir viendo los logs que sucedan en cada comunicación.
+=== "docker-compose.yml"
 
-### Cliente
+    ``` yaml
+    version: '3'
 
-Para el cliente si vamos a instalarlo, ya que ocupa poco
+    services:
+    broker:
+    image: 'eclipse-mosquitto:2'
+    restart: always
+    ports:
+          - '1883:1883'
+          - '9001:9001'
+    volumes:
+          - './mosquitto/config:/mosquitto/config'
+          - './mosquitto/data:/mosquitto/data'
+          - './mosquitto/log:/mosquitto/log'
+    ```
 
-```bash
+=== "mosquitto.conf"
+
+    ``` bash
+    # Poder conectar desde fuera del localhost
+    allow_anonymous true
+    per_listener_settings true
+    # Listeners
+    listener 1883
+    protocol mqtt
+    listener 9001
+    protocol websockets
+    # Log
+    log_type all
+    connection_messages true
+    log_timestamp true
+    log_timestamp_format %Y-%m-%dT%H:%M:%S
+    websockets_log_level 0
+    ```
+
+### Clientes
+
+Con Mosquitto se puede usar cualquier cliente MQTT. Pero Mosquitto cuenta con clientes CLI. Para instalarlos basta  con
+
+``` bash
 sudo apt install mosquitto-clients
 ```
 
 Ahora abrimos 2 terminales en el cliente, uno para ser usado como publisher y otro suscriber
 
-#### `mosquitto_sub`
+=== "Subscriber `mosquitto_sub`"
+    Comando para suscribirse a un topic:
 
-```bash
-mosquitto_sub -h <broker> -t <topic>
-```
+    - `-h <broker>` indica el host / ip del broker.
+    - `-t <topic>` indica el topic al que se va a suscribir.
 
-Comando para suscribirse a un topic:
+    ``` bash
+    mosquitto_sub -h <broker> -t <topic>
+    ```
 
-* `-h <broker>` indica el host del broker, hay que poner la ip del broker.
-* `-t <topic>` indica el topic al que se va a suscribir.
+=== "Publisher `mosquitto_pub`"
+    Comando para publicar en un topic:
 
-#### `mosquitto_pub`
+    - `-h <broker>` idem que antes.
+    - `-t <topic>` idem que antes.
+    - `-m <mensaje>` mensaje que se envía al topic (debe ir entre comillas dobles).
 
-```bash
-mosquitto_pub -h <broker> -t <topic> -m <mensaje>
-```
-
-Comando para publicar en un topic:
-
-* `-h <broker>` idem que antes.
-* `-t <topic>` idem que antes.
-* `-m <mensaje>` mensaje que se envía al topic (debe ir entre comillas dobles).
+    ``` bash
+    mosquitto_pub -h <broker> -t <topic> -m <mensaje>
+    ```
 
 ### Hola mundo
 
-1. Tenemos el broker (con ip 192.168.1.110) en una terminal abierto, para ver sus logs.
-2. En otra terminal abrimos un suscriptor con `mosquitto_sub -h 192.168.1.110 -t /casa/salon/temperatura`.
-      * Veremos como en el broker aparece el nuevo cliente conectado.
-      * La terminal de nuestro cliente se queda a la espera de nuevos mensajes entrantes.
-3. En otra terminal publicamos con `mosquitto_pub -h 192.168.1.110 -t /casa/salon/temperatura -m "Hola mundo, hace 25ºC"`.
-      * Veremos como en el broker aparecen los logs de envío
-      * En el cliente suscrito sale el mensaje.
+1. Supón que tienes el broker en la ip `192.168.1.110`.
+2. Abre dos terminales, una para el subscriber y otra para el publisher.
+3. En el subscriber te vas a subscribir a todos los topics.
+4. Con la opción `-v` se puede ver a que topic procede el payload.
+5. Con el publisher vas publicar en el topic `/casa/salon/temperatura` el mensaje `"Hola mundo, hace 25ºC"`.
+
+=== "Suscriber"
+    ```bash
+    mosquitto_sub -v -h 192.168.1.110 -t /casa/salon/temperatura
+    ```
+=== "Publisher"
+    ```bash
+    mosquitto_pub -h 192.168.1.110 -t /casa/salon/temperatura -m "Hola mundo, hace 25ºC"
+    ```
