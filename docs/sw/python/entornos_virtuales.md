@@ -339,6 +339,12 @@ Si lo que quieres es instalar todas las deps que tenía definido el proyecto
 poetry install
 ```
 
+Para pasar del proyecto de poetry al típico `requirements.txt`
+
+``` bash
+poetry export --without-hashes --format=requirements.txt > requirements.txt
+```
+
 Si quieres activar el entorno virtual
 
 ``` bash
