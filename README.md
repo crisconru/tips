@@ -1,5 +1,5 @@
 # Tips
 
-[![Build Status](https://travis-ci.org/crisconru/tips.svg?branch=master)](https://travis-ci.org/crisconru/tips)
+[![ci](https://github.com/crisconru/tips/actions/workflows/ci.yml/badge.svg)](https://github.com/crisconru/tips/actions/workflows/ci.yml)
 
 Repo para apuntes y cacharreos con cosas que toco.
