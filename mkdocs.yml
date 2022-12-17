@@ -53,10 +53,15 @@ nav:
     # - Node-Red: iot/nodered/nodered.md # TODO:
     # - ThingsBoard: iot/thingsboard/thingsboard.md # TODO:
   - Software:
-    - Visual Studio code: sw/ides/vscode/vscode.md
     - Python:
       - Setup: sw/python/python.md
       - Entornos virtuales: sw/python/entornos_virtuales.md
+    - JavaScript:
+      - JavaScript: sw/javascript/javascript.md
+      - NodeJS:
+        - TypeScript: sw/javascript/nodejs/typescript.md
+        - TCP: sw/javascript/nodejs/tcp.md
+    - Visual Studio code: sw/ides/vscode/vscode.md
   - Devops:
     - Git: 
       - Comandos: devops/git/git.md

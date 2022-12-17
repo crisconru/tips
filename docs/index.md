@@ -25,10 +25,9 @@ Cosas que toco (si no hay enlaces es porque no hay apuntes sobre eso).
     * ESPHome
     * Node-Red
 * Software
-    * IDEs
-        * [Visual Studio code](sw/ides/vscode/vscode.md)
     * [Python](sw/python/python.md)
-    * JavaScript
+    * [JavaScript](sw/javascript/javascript.md)
+    * [Visual Studio code](sw/ides/vscode/vscode.md)
 * GUI
     * Python
     * JavaScript
