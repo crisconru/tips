@@ -1,4 +1,4 @@
-# JavaScript
+# VanillaJS
 
 El lenguaje mondo y lirondo, o dicho en plan bien, VanillaJS, se puede ejecutar
 en la consola de un navegador, o sea en Frontend. Si quieres ejecutar JavaScript

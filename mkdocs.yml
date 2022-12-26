@@ -31,17 +31,28 @@ extra:
 # 4. Navegación
 nav:
   - Índice: index.md # TODO: Reodernar todo bien
-  - Web:
-    - Frontend:
-      - Índice: web/frontend/frontend.md
-      - HTML: web/frontend/html/html.md # TODO:
-      - CSS:  web/frontend/css/css.md # TODO:
-      - VanillaJS: web/frontend/js/javascript.md # TODO:
-    - Backend:
-      - Django:
-        - Principiante: web/backend/django/principiante.md
-        - Intermedio: web/backend/django/intermedio.md
-        - Avanzado: web/backend/django/avanzado.md
+  - Software:
+    - Lenguajes:
+      - Python:
+        - Setup: sw/coding/python/python.md
+        - Entornos virtuales: sw/coding/python/entornos_virtuales.md
+      - JavaScript:
+        - VanillaJS: sw/coding/javascript/javascript.md
+        - NodeJS:
+          - TypeScript: sw/coding/javascript/nodejs/typescript.md
+          - TCP: sw/coding/javascript/nodejs/tcp.md
+    - Visual Studio code: sw/coding/ides/vscode/vscode.md
+    - Web:
+      - Frontend:
+        - Índice: sw/web/frontend/frontend.md
+        - HTML: sw/web/frontend/html/html.md # TODO:
+        - CSS:  sw/web/frontend/css/css.md # TODO:
+        - VanillaJS: sw/web/frontend/js/javascript.md # TODO:
+      - Backend:
+        - Django:
+          - Principiante: sw/web/backend/django/principiante.md
+          - Intermedio: sw/web/backend/django/intermedio.md
+          - Avanzado: sw/web/backend/django/avanzado.md
   - Hardware:
     - Platformio: hw/platformio/platformio.md
     - Micropython: hw/micropython/micropython.md
@@ -52,17 +63,7 @@ nav:
     # - ESPHome: iot/esphome/esphome.md # TODO:
     # - Node-Red: iot/nodered/nodered.md # TODO:
     # - ThingsBoard: iot/thingsboard/thingsboard.md # TODO:
-  - Software:
-    - Python:
-      - Setup: sw/python/python.md
-      - Entornos virtuales: sw/python/entornos_virtuales.md
-    - JavaScript:
-      - JavaScript: sw/javascript/javascript.md
-      - NodeJS:
-        - TypeScript: sw/javascript/nodejs/typescript.md
-        - TCP: sw/javascript/nodejs/tcp.md
-    - Visual Studio code: sw/ides/vscode/vscode.md
-  - Devops:
+  - DevOps:
     - Git: 
       - Comandos: devops/git/git.md
       - Git Flow: devops/git/gitflow/gitflow.md
@@ -78,7 +79,6 @@ nav:
       - Network: devops/docker/docker-network.md
       - Docker Compose: devops/docker/docker-dockercompose.md
     - Ansible: devops/ansible/ansible.md
-    # - ELK: devops/elk/elk.md
   - Linux:
     - Terminal:
       - ZSH: linux/terminal/zsh.md

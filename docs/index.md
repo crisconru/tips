@@ -2,19 +2,31 @@
 
 Cosas que toco (si no hay enlaces es porque no hay apuntes sobre eso).
 
-* Web
-    * [Frontend](web/frontend/frontend.md)
-        * [HTML](web/frontend/html/html.md)
-        * [CSS](web/frontend/css/css.md)
-        * [VanillaJS](web/frontend/js/javascript.md)
-        * Frameworks / Libs JS
-            * React
-            * VueJS
-    * Backend
-        * JavaScript
+* Software
+    * Lenguajes + IDEs
+        * [Python](sw/coding/python/python.md)
+        * [JavaScript](sw/coding/javascript/javascript.md)
+        * [Visual Studio code](sw/coding/ides/vscode/vscode.md)
+    * Web
+        * [Frontend](sw/web/frontend/frontend.md)
+            * [HTML](sw/web/frontend/html/html.md)
+            * [CSS](sw/web/frontend/css/css.md)
+            * [VanillaJS](sw/web/frontend/js/javascript.md)
+            * Frameworks / Libs JS
+                * React
+                * VueJS
+        * Backend
+            * JavaScript
+            * Python
+                * FastAPI
+                * [Django](sw/web/backend/django/principiante.md)
+    * GUI
         * Python
-            * FastAPI
-            * [Django](web/backend/django/principiante.md)
+        * JavaScript
+    * Mobile
+        * Android
+        * iOS
+        * Cross-Platform
 * Hardware
     * Arduino
     * [Platformio](hw/platformio/platformio.md)
@@ -24,17 +36,6 @@ Cosas que toco (si no hay enlaces es porque no hay apuntes sobre eso).
     * RabbitMQ
     * ESPHome
     * Node-Red
-* Software
-    * [Python](sw/python/python.md)
-    * [JavaScript](sw/javascript/javascript.md)
-    * [Visual Studio code](sw/ides/vscode/vscode.md)
-* GUI
-    * Python
-    * JavaScript
-* Mobile
-    * Android
-    * iOS
-    * Cross-Platform
 * Devops
     * [Docker](devops/docker/docker-aclaraciones.md)
     * [Git](devops/git/git.md)
