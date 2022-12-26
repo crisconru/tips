@@ -41,7 +41,8 @@ nav:
         - NodeJS:
           - TypeScript: sw/coding/javascript/nodejs/typescript.md
           - TCP: sw/coding/javascript/nodejs/tcp.md
-    - Visual Studio code: sw/coding/ides/vscode/vscode.md
+    - IDEs:
+      - Visual Studio code: sw/coding/ides/vscode/vscode.md
     - Web:
       - Frontend:
         - Índice: sw/web/frontend/frontend.md
@@ -54,6 +55,7 @@ nav:
           - Intermedio: sw/web/backend/django/intermedio.md
           - Avanzado: sw/web/backend/django/avanzado.md
   - Hardware:
+    - Protocolos Serie: hw/serie.md
     - Platformio: hw/platformio/platformio.md
     - Micropython: hw/micropython/micropython.md
   - IoT:

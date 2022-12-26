@@ -28,6 +28,7 @@ Cosas que toco (si no hay enlaces es porque no hay apuntes sobre eso).
         * iOS
         * Cross-Platform
 * Hardware
+    * [Protocolos Serie](hw/serie.md)
     * Arduino
     * [Platformio](hw/platformio/platformio.md)
     * [Micropython](hw/micropython/micropython.md)
