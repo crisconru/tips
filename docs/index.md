@@ -29,7 +29,7 @@ Cosas que toco (si no hay enlaces es porque no hay apuntes sobre eso).
         * Cross-Platform
 * Hardware
     * [Protocolos Serie](hw/serie.md)
-    * Arduino
+    * [Arduino](hw/arduino/arduino.md)
     * [Platformio](hw/platformio/platformio.md)
     * [Micropython](hw/micropython/micropython.md)
 * IoT

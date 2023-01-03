@@ -22,29 +22,42 @@
         - [RS232](https://www.lammertbies.nl/comm/info/rs-232-specs)
         - [Velocidad distancia](https://forum.huawei.com/enterprise/es/velocidad-de-transimisi%C3%B3n-serial-generalmente-a-9600-y-no-115200-%C2%BFpor-qu%C3%A9/thread/506863-100251)
 
+???+ danger "No decir nunca más "Maestro-Esclavo""
+
+    Aunque antiguamente se ha usado el término **Maestro** y **Esclavo**, esto tiene connotaciones muy negativas.
+
+    A partir de ahora se recomienda usar **Controlador** y **Periférico**.
+
+    Las palabras son herramientas, y las herramientas modelan nuestra forma de ver las cosas. No uses herramientas ofensivas.
+
+    Si en algún momento ves estas palabras, se han dejado por legibilidad, para que entiendas el legacy que ya existe, o por error. Pero no porque se esté a a favor de esta terminologóa.
+
 |     | UART | SPI | I2C |
 | :-: |:---- | :-- | :-- |
 | Nombre | Universal Asynchronous Receiver/Transmitter | Serial Peripheral Interface | Inter-Integrated Circuit |
 | Diagrama | ![Comunicación UART](uart.webp) | ![Comunicación SPI](spi.webp)| ![Comunicación I2C](i2c.webp) |
 | Pines | - TX: Transmisión de datos.<br>- RX: Recepción de datos. | - SCLK: Reloj Serial<br>- MOSI: Salida de maestro, entrada de esclavo.<br>- MISO: Entrada del maestro y salida del esclavo.<br>- SS: Selector de esclavo. | - SDA: Datos<br>- SCL: Reloj Serial |
 | Sincronía | Asincrona | Sincrona | Sincrona |
-| Tranmisión | Simplex / Duplex | Duplex | Half-duplex |
+| Tranmisión | Duplex | Duplex | Half-duplex |
 | Topología | Uno-a-Uno | Bus | Bus |
 | Numero de Masters | No hay | Uno | Varios |
 | Velocidad máxima | 230Kbbs ~ 460kbb | 10Mbbs ~ 20Mbbs | Hasta 3.4Mbbs<br>Algunas variantes hasta 1Mbbs |
-| Distancia | Menos de 15 metros | Comunicaciones dentro de la PCB | Comunicaciones dentro de la PCB |
+| Distancia | Menos de 15 metros | Comunicaciones dentro de la PCB<br>Menos de 30cm | Comunicaciones dentro de la PCB<br>Menos de 1 metro |
+| Consumo energético | Medio | Bajo | Medio |
 | Complejidad HW | Poco | Media | Bastante (según los maestros) |
 | Direccionamiento SW | No | Señal SS (SS1, SS2…) para seleccionar que dispositivo, cuantos más dispositivos más salidas SS necesitamos. | Todos los maestros pueden comunicarse con todos los esclavos, podemos colocar 27 esclavos y colocar la dirección en el protocolo I2C. |
 | Ventajas | Muy simple<br>Permite conectar de forma rápida dos dispositivos<br>Suele usarse con RS232 o RS485 por ejemplo. | Simple.<br>Dispone de comunicación full duplex<br>SPI usa push-pull y gran velocidad de datos.<br>Requiere menos energía que I2C | Más de un maestro.<br>Solo necesita dos cables para la comunicación.<br>Es más sencillo que SPI, al necesitar menos líneas.<br>Concepto de colector abierto<br>Tiene control de flujo. |
 | Desventajas | Esta limitado a la comunicación entre dos dispositivos.<br>La velocidad se debe acordar al principio de la conexión en caso de no ser la misma dará lecturas erróneas. | Cuanto más esclavos, más conexiones se necesitan.<br>Añadir un dispositivo requiere una conexión adicional.<br>No hay control de flujo. | Se incrementa la complejidad del circuito cuando aumentan los masteres y los esclavos.<br>I2C es half duplex<br>El software puede sobrecargar el procesador. |
 | Inicio |  | Motorola en 1980 | Philips en 1982 |
 
-## UART / Serial
+## UART (Universal Asynchronous Receiver/Transmitter) / Serial
 
-Es la comunicación serie ASÍNCRONA más sencilla que existe. Solo necesita dos conexiones:
+El Transmisor / Receptor Universal Asíncrono es la comunicación serie ASÍNCRONA más sencilla que existe.
+Es comunicación 1 a 1.
+Solo necesita dos conexiones:
 
-1. TX / RX (por donde se mandan / reciben datos)
-2. GND (la referencia a tierra)
+1. GND - Referencia a tierra
+2. TX / RX - Por donde se mandan / reciben datos.
 
 En realidad es una comunicación simplex (de un solo sentido). Pero normalmente una UART viene preparada con una señal TX y otra RX, así que se consigue una comunicación duplex (1 simplex para escribir y 1 simplex para leer).
 
@@ -76,7 +89,7 @@ La más típica es `9600/8N1` o `8N1` a `9600`:
 7. El RX después de leer el bit de Stop, empieza a leer 1 todo el rato y se queda a la espera de que vuelva a recibir un bit de Start.
 
 <figure markdown>
-  ![Muestra de una trama 8N1](serial.png)
+  ![Ejemplo trama en 8N1](serial.png)
   <figcaption>Ejemplo trama en 8N1</figcaption>
 </figure>
 
@@ -153,10 +166,84 @@ La más típica es `9600/8N1` o `8N1` a `9600`:
     Esto sirve a modo de control de error, pero no indica donde está el error. Y como se envía con cada trama, es demasiado redundante.
     Es preferible implementar un sistema de CRC a enviar los bits de paridad.
 
-## SPI
+## SPI (Serial Peripherial Interface)
 
-TODO:
+La Interfaz Serie Periférica, es un protocolo de comunicación serie SÍNCRONO.
+Es para comunicar una unidad con varios periféricos dentro de una placa.
+Esta unidad sería el Controlador, y las demás los Periféricos. Es decir, comunicación 1 a N.
+Necesita de las siguentes conexiones:
 
-## I2C
+1. GND - Referencia a tierra
+2. SCLK (Serial Clock) - Señal de reloj mandada por el Controlador
+3. MOSI (Master Output Slave Input) / COPI (Controller Output Peripheral Input) - El TX del Controlador y RX del Periférico
+4. MISO (Master Input Slave Output) / CIPO (Controller Input Peripheral Output) - El RX del Controlador y TX del Periférico
+5. SSx (Slave Select) / CSx (Chip Select) - Señal que habilita la comunicación con el Periférico
 
-TODO:
+<figure markdown>
+  ![Ejemplo conexión SPI 1 a 1](spi.png)
+  <figcaption>Conexión SPI con solo un Periférico</figcaption>
+</figure>
+
+En realidad es una comunicación simplex (de un solo sentido). Pero normalmente tanto el Controlador como los Periféricos para emitir y otra para recibir, así que se consigue una comunicación duplex (1 simplex para escribir y 1 simplex para leer).
+
+Antes de cada comunicación, el Controlador-Periférico saben cuantos datos / bytes / bits se van a mandar / recibir.
+
+¿Como funciona?
+
+1. El Controlador decide iniciar la comunicación con un Periférico poniendo su señal CS a 0 y haciendo que funcione la señal SCLK.
+2. El Controlador manda datos por su COPI y el Periférico los lee por su COPI.
+3. El Controlador recibe datos por su CISO y el Periférico los manda por su CIPO.
+4. El Controlador vuelve a poner la señal CS a 1.
+
+<figure markdown>
+  ![Muestra de comunicación SPI](spi-protocol.png)
+  <figcaption>Muestra de comunicación SPI</figcaption>
+</figure>
+
+## I2C (Inter-Integrated Circuit)
+
+El Circuito Inter-Integrado es un protocolo de comunicación serie SÍNCRONO.
+Es para comunicar una unidad con varios periféricos dentro de una placa.
+Esta unidad sería el Controlador, y las demás los Periféricos. Es decir, comunicación 1 a N.
+Necesita de las siguentes conexiones:
+
+1. GND - Referencia a tierra
+2. SCLK (Serial Clock) - Señal de reloj mandada por el Controlador
+3. SDA (Serial Data) - Por donde transitan los datos del Controlador y los Periféricos
+
+<figure markdown>
+  ![Ejemplo conexión I2C en bus](i2c-bus-esquema.png)
+  <figcaption>Ejemplo conexión I2C en bus</figcaption>
+</figure>
+
+Es una comunicación half-duplex. Solo un controlador o periférico puede enviar datos por SDA.
+
+Antes de cada comunicación, el Controlador-Periférico saben cuantos datos / bytes / bits se van a mandar / recibir.
+
+¿Como funciona?
+
+1. Como se comparte SDA, cada Periférico tiene una dirección.
+2. Un Controlador decide iniciar la comunicación con un Periférico.
+3. Inicia la señal de SCLK y manda por SDA:
+    1. La dirección de memoria del Periférico.
+    2. Si quiere transmitir o leer datos.
+    3. Si quiere transmitir, manda los datos.
+    4. Si quiere recibir, espera que el Periférico le mande la información.
+4. El único Periférico que tenga esa dirección es el que ejecutará la acción, y los demás no harán nada.
+5. Por último el Controlador vuelve a dejar el bus intacto a nivel alto (gracias a las resistencias de pull-up del bus).
+
+<figure markdown>
+  ![Muestra de comunicación I2C](i2c-protocol.png)
+  <figcaption>Muestra de comunicación I2C</figcaption>
+</figure>
+
+## Otros
+
+Existen numerosos tipos de comunicaciones serie:
+
+- USART (como UART pero soportando sincronía)
+- One Wire (un solo cable)
+- Modbus
+- CAN bus
+- I2S (I2C para sonido)
+- ...

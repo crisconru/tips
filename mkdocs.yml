@@ -30,7 +30,7 @@ extra:
       name: Github de Cristo
 # 4. Navegación
 nav:
-  - Índice: index.md # TODO: Reodernar todo bien
+  - Índice: index.md
   - Software:
     - Lenguajes:
       - Python:
@@ -56,6 +56,9 @@ nav:
           - Avanzado: sw/web/backend/django/avanzado.md
   - Hardware:
     - Protocolos Serie: hw/serie.md
+    - Arduino: 
+      - Sobre Arduino: hw/arduino/arduino.md
+      - Serial: hw/arduino/serial.md
     - Platformio: hw/platformio/platformio.md
     - Micropython: hw/micropython/micropython.md
   - IoT:
