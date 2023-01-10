@@ -2,11 +2,18 @@
 
 Todo lo que voy a poner aquí es pura opinión personal.
 
-!!! tip "tldr - Mi recomendación"
+???+ tip "tldr - Mi recomendación"
 
     - Placas ESP32 o incluso la Raspi Pico W.
     - ESPHome con el framework Arduino para progamar esas placas.
     - Si necesitas cosillas puntuales a más bajo nivel, usa Platformio con Arduino framework.
+    - El Arduino IDE solo es interesante tenerlo instalado por el Monitor Serial, nada más.
+
+???+ note "Documentación"
+
+    Arduino tiene toda la docu en su [Reference](https://www.arduino.cc/reference/en/) pero también tienen una sección con ejemplillos en el [Learn](https://docs.arduino.cc/learn/).
+
+    A mi me ha gustado mucho [esta página](https://arduwiki.perut.org/index.php/P%C3%A1gina_principal).
 
 Lo que realmente merece la pena de Arduino es la parte del Software, es decir, el framework (creado por Hernando Barragán) y sus librerías (la comunidad).
 

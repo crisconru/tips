@@ -58,7 +58,8 @@ nav:
     - Protocolos Serie: hw/serie.md
     - Arduino: 
       - Sobre Arduino: hw/arduino/arduino.md
-      - Serial: hw/arduino/serial.md
+      - Stream: hw/arduino/stream.md
+      - UART: hw/arduino/uart.md
     - Platformio: hw/platformio/platformio.md
     - Micropython: hw/micropython/micropython.md
   - IoT:
