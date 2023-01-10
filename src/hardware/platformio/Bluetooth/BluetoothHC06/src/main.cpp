@@ -58,8 +58,6 @@ void setup() {
   Serial.begin(9600);
   Serial.setTimeout(1000);
   // BT
-  pinMode(RX, INPUT);
-  pinMode(TX, OUTPUT);
   bt.begin(9600);
   bt.setTimeout(100);
 }
@@ -69,6 +67,7 @@ void loop() {
     String msg = bt.readStringUntil(END);
     if (msg.length()) {
       Serial.println("RX HC06 -> " + msg);
+      Serial.readBytesUntil()
     }
   }
 }

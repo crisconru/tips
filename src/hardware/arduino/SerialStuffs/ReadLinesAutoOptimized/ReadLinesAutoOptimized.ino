@@ -7,7 +7,7 @@ void setup() {
 // Loop
 void loop() {}
 // Functions Implementations
-void serialEventRun() {
+void serialEvent() {
   if(Serial.available()) {
     inputStringBuffer = Serial.readStringUntil('\n');
     if(inputStringBuffer.length()) {
