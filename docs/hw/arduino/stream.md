@@ -33,7 +33,7 @@ Esta clase a su vez hereda de la clase `Print`, que se usa para la parte de sali
 
 Para poder leer varios datos puedes usar las funciones de antes en un bucle del estilo
 
-``` c
+``` cpp
 if (Stream.available()) {
     while (Stream.available()) {
         char car = (char)Stream.read();
@@ -98,13 +98,13 @@ Como las anteriores funciones hay que definirles un `timeout`:
 
 La función usada es
 
-``` c
+``` cpp
 size_t write(const uint8_t *buffer[, size_t size])
 ```
 
 Pero la forma de usarla sería más bien
 
-``` c
+``` cpp
 size_t write(uint8_t data)
 ```
 
@@ -118,13 +118,13 @@ Se podrían mandar usando un bucle con el comando anterior, pero lo ideal es usa
 
     La función a usar es
 
-    ``` c
+    ``` cpp
     size_t write(const uint8_t *buffer[, size_t size])
     ```
 
     Se puede definir que se manden `size` bytes. Un par de ejemplos.
 
-    ``` c
+    ``` cpp
     Serial.write(65);            // int
     Serial.write("65");          // string
     Serial.write("Hello World"); // string
@@ -134,7 +134,7 @@ Se podrían mandar usando un bucle con el comando anterior, pero lo ideal es usa
 
     La función a usar puede tener tres formas
 
-    ``` c
+    ``` cpp
     size_t print(const String &s)
     size_t print(data[, formato])
     size_t print(number[, decimals])
@@ -142,7 +142,7 @@ Se podrían mandar usando un bucle con el comando anterior, pero lo ideal es usa
 
     Ejemplos
 
-    ``` c
+    ``` cpp
     // size_t print(const String &s)
     Serial.print("Hello World");
     // size_t print(data[, formato])
@@ -162,13 +162,13 @@ Se podrían mandar usando un bucle con el comando anterior, pero lo ideal es usa
 
     Es igual que la anterior, pero por último envía un retorno de carro + salto de línea
 
-    ``` c
+    ``` cpp
     println(<something>) = print(<something>) + print("\r\n")
     ```
 
 También está la función siguiente para esperar a que se
 hayan enviado todos los datos del buffer.
 
-``` c
+``` cpp
 flush()
 ```
