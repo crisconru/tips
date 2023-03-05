@@ -60,6 +60,7 @@ nav:
       - Sobre Arduino: hw/arduino/arduino.md
       - Stream: hw/arduino/stream.md
       - UART: hw/arduino/uart.md
+      - Bluetooth: hw/arduino/bluetooth.md
     - Platformio: hw/platformio/platformio.md
     - Micropython: hw/micropython/micropython.md
   - IoT:
@@ -92,6 +93,7 @@ nav:
         - Comandos: linux/terminal/tmux/tmux-comandos.md
         - Customización: linux/terminal/tmux/tmux-customizar.md
       - Bash Scripting: linux/terminal/terminal-bash.md
+      - Bluetooth: linux/bluetooth.md
     - Comandos:
       - Fecha y Hora: linux/comandos/linux-fecha-hora.md
       - Ficheros: linux/comandos/linux-ficheros.md

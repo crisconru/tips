@@ -47,6 +47,7 @@ Cosas que toco (si no hay enlaces es porque no hay apuntes sobre eso).
         * [ZSH](linux/terminal/zsh.md)
         * [TMUX](linux/terminal/tmux/tmux-comandos.md)
         * [Bash Scripting](linux/terminal/terminal-bash.md)
+        * [Bluetooth](linux/bluetooth.md)
     * Comandos
         * [Fecha y Hora](linux/comandos/linux-fecha-hora.md)
         * [Ficheros](linux/comandos/linux-ficheros.md)
