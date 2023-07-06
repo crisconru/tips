@@ -45,3 +45,4 @@ django/curso-django/playground/profiles/__pycache__
 django/curso-django/playground/profiles/migrations/__pycache__
 django/curso-django/playground/registration/__pycache__
 django/curso-django/playground/registration/migrations/__pycache__
+.pdm-python
