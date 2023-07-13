@@ -32,11 +32,11 @@ Cosas que toco (si no hay enlaces es porque no hay apuntes sobre eso).
     * [Arduino](hw/arduino/arduino.md)
     * [Platformio](hw/platformio/platformio.md)
     * [Micropython](hw/micropython/micropython.md)
-* IoT
+* [IoT](iot/iot.md)
     * [MQTT](iot/mqtt/mqtt.md)
     * RabbitMQ
+    * [Node-Red](iot/nodered/nodered.md)
     * ESPHome
-    * Node-Red
 * Devops
     * [Docker](devops/docker/docker-aclaraciones.md)
     * [Git](devops/git/git.md)
