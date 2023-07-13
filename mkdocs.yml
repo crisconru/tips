@@ -67,8 +67,10 @@ nav:
     - Que es el IoT: iot/iot.md # TODO:
     - MQTT: iot/mqtt/mqtt.md # TODO: La parte de Docker
     # - RabbitMQ: iot/rabbitmq/rabbitmq.md TODO:
+    - Node-Red: 
+      - Que es Node-Red: iot/nodered/nodered.md
+      - Crear Componentes: iot/nodered/custom-components/custom-components.md
     # - ESPHome: iot/esphome/esphome.md # TODO:
-    # - Node-Red: iot/nodered/nodered.md # TODO:
     # - ThingsBoard: iot/thingsboard/thingsboard.md # TODO:
   - DevOps:
     - Git: 
