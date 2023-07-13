@@ -1,0 +1,1436 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Apuntes de fácil acceso para distintas tecnologías." name="description"/>
+<meta content="Cristóbal Contreras Rubio" name="author"/>
+<link href="https://crisconru.github.io/hw/serie/" rel="canonical"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-8.5.10" name="generator"/>
+<title>Protocolos Serie - Tips de Cristo</title>
+<link href="../../assets/stylesheets/main.472b142f.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.08040f6c.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            
+                .gscrollbar-fixer { padding-right: 15px; }
+                .gdesc-inner { font-size: 0.75rem; }
+                body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+                body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+                body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+                </style><script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="pink" data-md-color-primary="green" data-md-color-scheme="default" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#protocolos-de-comunicacion-serie">
+          Saltar a contenido
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--lifted" data-md-component="header">
+<nav aria-label="Cabecera" class="md-header__inner md-grid">
+<a aria-label="Tips de Cristo" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Tips de Cristo">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Tips de Cristo
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Protocolos Serie
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Modo Oscuro" class="md-option" data-md-color-accent="pink" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="green" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Modo Oscuro">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"></path></svg>
+</label>
+<input aria-label="Modo Claro" class="md-option" data-md-color-accent="pink" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="green" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Modo Claro">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Búsqueda" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Búsqueda" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<a aria-label="Share" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="Share">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"></path></svg>
+</a>
+<button aria-label="Limpiar" class="md-search__icon md-icon" tabindex="-1" title="Limpiar" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/crisconru/tips" title="Ir al repositorio">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    crisconru/tips
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="Pestañas" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+      Índice
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../sw/coding/python/python/">
+        Software
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="./">
+        Hardware
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../iot/iot/">
+        IoT
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../devops/git/git/">
+        DevOps
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../linux/terminal/zsh/">
+        Linux
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navegación" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Tips de Cristo" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Tips de Cristo">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+    Tips de Cristo
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/crisconru/tips" title="Ir al repositorio">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    crisconru/tips
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Índice
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2">
+          Software
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Software" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+          Software
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_1" id="__nav_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_1">
+          Lenguajes
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Lenguajes" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_1">
+<span class="md-nav__icon md-icon"></span>
+          Lenguajes
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_1_1" id="__nav_2_1_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_1_1">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Python" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_1_1">
+<span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sw/coding/python/python/">
+        Setup
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sw/coding/python/entornos_virtuales/">
+        Entornos virtuales
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_1_2" id="__nav_2_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_1_2">
+          JavaScript
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="JavaScript" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_1_2">
+<span class="md-nav__icon md-icon"></span>
+          JavaScript
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sw/coding/javascript/javascript/">
+        VanillaJS
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_1_2_2" id="__nav_2_1_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_1_2_2">
+          NodeJS
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="NodeJS" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_2_1_2_2">
+<span class="md-nav__icon md-icon"></span>
+          NodeJS
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sw/coding/javascript/nodejs/typescript/">
+        TypeScript
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sw/coding/javascript/nodejs/tcp/">
+        TCP
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_2" id="__nav_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_2">
+          IDEs
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="IDEs" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_2">
+<span class="md-nav__icon md-icon"></span>
+          IDEs
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sw/coding/ides/vscode/vscode/">
+        Visual Studio code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_3" id="__nav_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_3">
+          Web
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Web" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_3">
+<span class="md-nav__icon md-icon"></span>
+          Web
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_3_1" id="__nav_2_3_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_3_1">
+          Frontend
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Frontend" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_3_1">
+<span class="md-nav__icon md-icon"></span>
+          Frontend
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sw/web/frontend/frontend/">
+        Índice
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sw/web/frontend/html/html/">
+        HTML
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sw/web/frontend/css/css/">
+        CSS
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sw/web/frontend/js/javascript/">
+        VanillaJS
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_3_2" id="__nav_2_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_3_2">
+          Backend
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Backend" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_3_2">
+<span class="md-nav__icon md-icon"></span>
+          Backend
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_3_2_1" id="__nav_2_3_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_3_2_1">
+          Django
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Django" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_2_3_2_1">
+<span class="md-nav__icon md-icon"></span>
+          Django
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sw/web/backend/django/principiante/">
+        Principiante
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sw/web/backend/django/intermedio/">
+        Intermedio
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sw/web/backend/django/avanzado/">
+        Avanzado
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3">
+          Hardware
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Hardware" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Hardware
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Protocolos Serie
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Protocolos Serie
+      </a>
+<nav aria-label="Tabla de contenidos" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#uart-universal-asynchronous-receivertransmitter-serial">
+    UART (Universal Asynchronous Receiver/Transmitter) / Serial
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#spi-serial-peripherial-interface">
+    SPI (Serial Peripherial Interface)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#i2c-inter-integrated-circuit">
+    I2C (Inter-Integrated Circuit)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#otros">
+    Otros
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_2" id="__nav_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2">
+          Arduino
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Arduino" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_2">
+<span class="md-nav__icon md-icon"></span>
+          Arduino
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../arduino/arduino/">
+        Sobre Arduino
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../arduino/stream/">
+        Stream
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../arduino/uart/">
+        UART
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../arduino/bluetooth/">
+        Bluetooth
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../platformio/platformio/">
+        Platformio
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../micropython/micropython/">
+        Micropython
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4">
+          IoT
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="IoT" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          IoT
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../iot/iot/">
+        Que es el IoT
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../iot/mqtt/mqtt/">
+        MQTT
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4_3" id="__nav_4_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_3">
+          Node-Red
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Node-Red" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_3">
+<span class="md-nav__icon md-icon"></span>
+          Node-Red
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../iot/nodered/nodered/">
+        Que es Node-Red
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../iot/nodered/custom-components/custom-components/">
+        Crear Componentes
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5">
+          DevOps
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="DevOps" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          DevOps
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5_1" id="__nav_5_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_1">
+          Git
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Git" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+          Git
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../devops/git/git/">
+        Comandos
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../devops/git/gitflow/gitflow/">
+        Git Flow
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5_2" id="__nav_5_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_2">
+          Docker
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Docker" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+          Docker
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../devops/docker/docker-aclaraciones/">
+        Aclaraciones
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../devops/docker/docker-instalacion/">
+        Instalación
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../devops/docker/docker-hub/">
+        Docker Hub
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../devops/docker/docker-comandos/">
+        Comandos docker
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../devops/docker/docker-contenedores/">
+        Lanzar contenedores
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../devops/docker/docker-imagenes/">
+        Crear imágenes
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../devops/docker/docker-dockerfile/">
+        Dockerfile
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../devops/docker/docker-volumes/">
+        Volumes
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../devops/docker/docker-network/">
+        Network
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../devops/docker/docker-dockercompose/">
+        Docker Compose
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../devops/ansible/ansible/">
+        Ansible
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6">
+          Linux
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Linux" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6_1" id="__nav_6_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6_1">
+          Terminal
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Terminal" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_6_1">
+<span class="md-nav__icon md-icon"></span>
+          Terminal
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../linux/terminal/zsh/">
+        ZSH
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6_1_2" id="__nav_6_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6_1_2">
+          TMUX
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="TMUX" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_6_1_2">
+<span class="md-nav__icon md-icon"></span>
+          TMUX
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../linux/terminal/tmux/tmux-comandos/">
+        Comandos
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../linux/terminal/tmux/tmux-customizar/">
+        Customización
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../linux/terminal/terminal-bash/">
+        Bash Scripting
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../linux/bluetooth/">
+        Bluetooth
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6_2" id="__nav_6_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6_2">
+          Comandos
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Comandos" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_6_2">
+<span class="md-nav__icon md-icon"></span>
+          Comandos
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../linux/comandos/linux-fecha-hora/">
+        Fecha y Hora
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../linux/comandos/linux-ficheros/">
+        Ficheros
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6_3" id="__nav_6_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6_3">
+          Redes
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Redes" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_6_3">
+<span class="md-nav__icon md-icon"></span>
+          Redes
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../linux/redes/redes-linux/">
+        Linux
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../linux/redes/redes-ssh/">
+        SSH
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../linux/redes/redes-iptables/">
+        iptables
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../linux/redes/redes-ipv6/">
+        IPv6
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Tabla de contenidos" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#uart-universal-asynchronous-receivertransmitter-serial">
+    UART (Universal Asynchronous Receiver/Transmitter) / Serial
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#spi-serial-peripherial-interface">
+    SPI (Serial Peripherial Interface)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#i2c-inter-integrated-circuit">
+    I2C (Inter-Integrated Circuit)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#otros">
+    Otros
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="protocolos-de-comunicacion-serie">Protocolos de Comunicación Serie<a class="headerlink" href="#protocolos-de-comunicacion-serie" title="Permanent link">¶</a></h1>
+<details class="note">
+<summary>Recursos usados</summary>
+<ul>
+<li>Este video explica maravillosamente lo que aquí se expone
+    <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/G7aQB6x0LHc" title="YouTube video player" width="560"></iframe></li>
+<li><a href="https://www.drouiz.com/blog/2018/06/25/uart-vs-spi-vs-i2c-diferencias-entre-protocolos/">En esta página</a> hay una tabla maravillosa</li>
+<li><a href="https://solectroshop.com/es/blog/diferencias-de-los-protocolos-de-comunicacion-uart-vs-i2c-vs-spi-n107">En esta página</a> explican los protocolos en profundidad.</li>
+<li>Luis Llamas es una fuente de conocimiento enorme para cualquier maker<ul>
+<li><a href="https://www.luisllamas.es/arduino-puerto-serie/">Arduino Puerto Serie</a></li>
+<li><a href="https://www.luisllamas.es/arduino-spi/">Arduino SPI</a></li>
+<li><a href="https://www.luisllamas.es/arduino-i2c/">Arduino I2C</a></li>
+</ul>
+</li>
+<li>Distancias del cable para Serial<ul>
+<li><a href="https://www.lammertbies.nl/comm/info/rs-232-specs">RS232</a></li>
+<li><a href="https://forum.huawei.com/enterprise/es/velocidad-de-transimisi%C3%B3n-serial-generalmente-a-9600-y-no-115200-%C2%BFpor-qu%C3%A9/thread/506863-100251">Velocidad distancia</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="danger" open="open">
+<summary>No decir nunca más "Maestro-Esclavo"</summary>
+<p>Aunque antiguamente se ha usado el término <strong>Maestro</strong> y <strong>Esclavo</strong>, esto tiene connotaciones muy negativas.</p>
+<p>A partir de ahora se recomienda usar <strong>Controlador</strong> y <strong>Periférico</strong>.</p>
+<p>Las palabras son herramientas, y las herramientas modelan nuestra forma de ver las cosas. No uses herramientas ofensivas.</p>
+<p>Si en algún momento ves estas palabras, se han dejado por legibilidad, para que entiendas el legacy que ya existe, o por error. Pero no porque se esté a a favor de esta terminologóa.</p>
+</details>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="left">UART</th>
+<th align="left">SPI</th>
+<th align="left">I2C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Nombre</td>
+<td align="left">Universal Asynchronous Receiver/Transmitter</td>
+<td align="left">Serial Peripheral Interface</td>
+<td align="left">Inter-Integrated Circuit</td>
+</tr>
+<tr>
+<td align="center">Diagrama</td>
+<td align="left"><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../uart.webp"><img alt="Comunicación UART" src="../uart.webp"/></a></td>
+<td align="left"><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../spi.webp"><img alt="Comunicación SPI" src="../spi.webp"/></a></td>
+<td align="left"><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../i2c.webp"><img alt="Comunicación I2C" src="../i2c.webp"/></a></td>
+</tr>
+<tr>
+<td align="center">Pines</td>
+<td align="left">- TX: Transmisión de datos.<br/>- RX: Recepción de datos.</td>
+<td align="left">- SCLK: Reloj Serial<br/>- MOSI: Salida de maestro, entrada de esclavo.<br/>- MISO: Entrada del maestro y salida del esclavo.<br/>- SS: Selector de esclavo.</td>
+<td align="left">- SDA: Datos<br/>- SCL: Reloj Serial</td>
+</tr>
+<tr>
+<td align="center">Sincronía</td>
+<td align="left">Asincrona</td>
+<td align="left">Sincrona</td>
+<td align="left">Sincrona</td>
+</tr>
+<tr>
+<td align="center">Tranmisión</td>
+<td align="left">Duplex</td>
+<td align="left">Duplex</td>
+<td align="left">Half-duplex</td>
+</tr>
+<tr>
+<td align="center">Topología</td>
+<td align="left">Uno-a-Uno</td>
+<td align="left">Bus</td>
+<td align="left">Bus</td>
+</tr>
+<tr>
+<td align="center">Numero de Masters</td>
+<td align="left">No hay</td>
+<td align="left">Uno</td>
+<td align="left">Varios</td>
+</tr>
+<tr>
+<td align="center">Velocidad máxima</td>
+<td align="left">230Kbbs ~ 460kbb</td>
+<td align="left">10Mbbs ~ 20Mbbs</td>
+<td align="left">Hasta 3.4Mbbs<br/>Algunas variantes hasta 1Mbbs</td>
+</tr>
+<tr>
+<td align="center">Distancia</td>
+<td align="left">Menos de 15 metros</td>
+<td align="left">Comunicaciones dentro de la PCB<br/>Menos de 30cm</td>
+<td align="left">Comunicaciones dentro de la PCB<br/>Menos de 1 metro</td>
+</tr>
+<tr>
+<td align="center">Consumo energético</td>
+<td align="left">Medio</td>
+<td align="left">Bajo</td>
+<td align="left">Medio</td>
+</tr>
+<tr>
+<td align="center">Complejidad HW</td>
+<td align="left">Poco</td>
+<td align="left">Media</td>
+<td align="left">Bastante (según los maestros)</td>
+</tr>
+<tr>
+<td align="center">Direccionamiento SW</td>
+<td align="left">No</td>
+<td align="left">Señal SS (SS1, SS2…) para seleccionar que dispositivo, cuantos más dispositivos más salidas SS necesitamos.</td>
+<td align="left">Todos los maestros pueden comunicarse con todos los esclavos, podemos colocar 27 esclavos y colocar la dirección en el protocolo I2C.</td>
+</tr>
+<tr>
+<td align="center">Ventajas</td>
+<td align="left">Muy simple<br/>Permite conectar de forma rápida dos dispositivos<br/>Suele usarse con RS232 o RS485 por ejemplo.</td>
+<td align="left">Simple.<br/>Dispone de comunicación full duplex<br/>SPI usa push-pull y gran velocidad de datos.<br/>Requiere menos energía que I2C</td>
+<td align="left">Más de un maestro.<br/>Solo necesita dos cables para la comunicación.<br/>Es más sencillo que SPI, al necesitar menos líneas.<br/>Concepto de colector abierto<br/>Tiene control de flujo.</td>
+</tr>
+<tr>
+<td align="center">Desventajas</td>
+<td align="left">Esta limitado a la comunicación entre dos dispositivos.<br/>La velocidad se debe acordar al principio de la conexión en caso de no ser la misma dará lecturas erróneas.</td>
+<td align="left">Cuanto más esclavos, más conexiones se necesitan.<br/>Añadir un dispositivo requiere una conexión adicional.<br/>No hay control de flujo.</td>
+<td align="left">Se incrementa la complejidad del circuito cuando aumentan los masteres y los esclavos.<br/>I2C es half duplex<br/>El software puede sobrecargar el procesador.</td>
+</tr>
+<tr>
+<td align="center">Inicio</td>
+<td align="left"></td>
+<td align="left">Motorola en 1980</td>
+<td align="left">Philips en 1982</td>
+</tr>
+</tbody>
+</table>
+<h2 id="uart-universal-asynchronous-receivertransmitter-serial">UART (Universal Asynchronous Receiver/Transmitter) / Serial<a class="headerlink" href="#uart-universal-asynchronous-receivertransmitter-serial" title="Permanent link">¶</a></h2>
+<p>El Transmisor / Receptor Universal Asíncrono es la comunicación serie ASÍNCRONA más sencilla que existe.
+Es comunicación 1 a 1.
+Solo necesita dos conexiones:</p>
+<ol>
+<li>GND - Referencia a tierra</li>
+<li>TX / RX - Por donde se mandan / reciben datos.</li>
+</ol>
+<p>En realidad es una comunicación simplex (de un solo sentido). Pero normalmente una UART viene preparada con una señal TX y otra RX, así que se consigue una comunicación duplex (1 simplex para escribir y 1 simplex para leer).</p>
+<p>Como el TX emite datos cuando quiere, no hay reloj, hace falta que TX y RX compartan una configuración. Esta se compone de:</p>
+<ol>
+<li>Velocidad de la transmisión en baudios.</li>
+<li>Longitud de las tramas en bits.</li>
+<li>Bits de Start y Stop.</li>
+</ol>
+<p>La nomenclatura típica para definir esta configuración es <code>&lt;velocidad&gt;/&lt;longitud&gt;&lt;paridad&gt;&lt;bits stop&gt;</code>.
+A veces la velocidad se indica por separado, y la nomenclatura solo se pone como <code>&lt;longitud&gt;&lt;paridad&gt;&lt;bits stop&gt;</code>.
+La más típica es <code>9600/8N1</code> o <code>8N1</code> a <code>9600</code>:</p>
+<ul>
+<li><code>9600</code> baudios</li>
+<li><code>8</code> bits de datos / trama</li>
+<li><code>N</code> no hay paridad (no se mide si los bits a 1 son pares o impares)</li>
+<li><code>1</code> bit de stop</li>
+</ul>
+<p>¿Como funciona? Supongamos una comunicación 8N1 a 9600 baudios (104 microseg por bit):</p>
+<ol>
+<li>El TX y RX tienen la misma configuración.</li>
+<li>El TX está en reposo mandando 1 todo el rato.</li>
+<li>Cuando TX empieza a transmitir, manda el bit de Start, que es un 0.</li>
+<li>Después de manda los 8 bits de datos.</li>
+<li>El RX lee cada bit a partir de la mitad para evitar estados transitorios.<ul>
+<li>Después del bit de start, espera 52 microseg para leer el primer bit.</li>
+<li>Después lee cada bit a 104 microseg.</li>
+</ul>
+</li>
+<li>El TX después de mandar los 8 bits de datos, manda el bit de Stop, que será a 0, y luego ya pone la línea a 1 todo el rato.</li>
+<li>El RX después de leer el bit de Stop, empieza a leer 1 todo el rato y se queda a la espera de que vuelva a recibir un bit de Start.</li>
+</ol>
+<figure>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../serial.png"><img alt="Ejemplo trama en 8N1" src="../serial.png"/></a>
+</p>
+<figcaption>Ejemplo trama en 8N1</figcaption>
+</figure>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><input id="__tabbed_1_4" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Velocidad de Transmisión</label><label for="__tabbed_1_2">Configuraciones más usadas</label><label for="__tabbed_1_3">Longitud de las tramas</label><label for="__tabbed_1_4">Bits de Start / Stop</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Se mide en baudios, e indica la cantidad de bits que se mandan por segundo.</p>
+<p>Ej: Una velocidad de 9600 baud/seg equivale a que cada bit se manda a 1/9600 = 0,000104167 seg = 104,167 microseg.</p>
+<p>A mayor velocidad, menor distancia efectiva se tiene:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Velocidad (baudios)</th>
+<th align="center">Tiempo por bit (microseg)</th>
+<th align="center">Distancia típica (m)</th>
+<th align="center">Distancia máxima (m)</th>
+<th align="center">Distancia maxima en RS232 (m)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><strong>115200</strong></td>
+<td align="center">8,681</td>
+<td align="center">2~3</td>
+<td align="center">5</td>
+<td align="center">15,24</td>
+</tr>
+<tr>
+<td align="center">57600</td>
+<td align="center">17,361</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">38400</td>
+<td align="center">26,042</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">31250</td>
+<td align="center">32,000</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">28800</td>
+<td align="center">34,722</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">19200</td>
+<td align="center">52,083</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">14400</td>
+<td align="center">69,444</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><strong>9600</strong></td>
+<td align="center">104,166</td>
+<td align="center">10</td>
+<td align="center">&lt;20</td>
+<td align="center">152,4</td>
+</tr>
+<tr>
+<td align="center">4800</td>
+<td align="center">208,333</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">304,8</td>
+</tr>
+<tr>
+<td align="center">2400</td>
+<td align="center">426,666</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">914,4</td>
+</tr>
+<tr>
+<td align="center">1200</td>
+<td align="center">833,333</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">600</td>
+<td align="center">1666,666</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">300</td>
+<td align="center">3333,333</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th align="center">Configuración</th>
+<th align="center">Longitud</th>
+<th align="center">Paridad</th>
+<th align="center">Bits de Stop</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">5N1</td>
+<td align="center">5</td>
+<td align="center">No</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">6N1</td>
+<td align="center">6</td>
+<td align="center">No</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">7N1</td>
+<td align="center">7</td>
+<td align="center">No</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center"><strong>8N1</strong></td>
+<td align="center">8</td>
+<td align="center">No</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">5N2</td>
+<td align="center">5</td>
+<td align="center">No</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">6N2</td>
+<td align="center">6</td>
+<td align="center">No</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">7N2</td>
+<td align="center">7</td>
+<td align="center">No</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">8N2</td>
+<td align="center">8</td>
+<td align="center">No</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">5E1</td>
+<td align="center">5</td>
+<td align="center">Even</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">6E1</td>
+<td align="center">6</td>
+<td align="center">Even</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">7E1</td>
+<td align="center">7</td>
+<td align="center">Even</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">8E1</td>
+<td align="center">8</td>
+<td align="center">Even</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">5E2</td>
+<td align="center">5</td>
+<td align="center">Even</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">6E2</td>
+<td align="center">6</td>
+<td align="center">Even</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">7E2</td>
+<td align="center">7</td>
+<td align="center">Even</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">8E2</td>
+<td align="center">8</td>
+<td align="center">Even</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">5O1</td>
+<td align="center">5</td>
+<td align="center">Odd</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">6O1</td>
+<td align="center">6</td>
+<td align="center">Odd</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">7O1</td>
+<td align="center">7</td>
+<td align="center">Odd</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">8O1</td>
+<td align="center">8</td>
+<td align="center">Odd</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">5O2</td>
+<td align="center">5</td>
+<td align="center">Odd</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">6O2</td>
+<td align="center">6</td>
+<td align="center">Odd</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">7O2</td>
+<td align="center">7</td>
+<td align="center">Odd</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">8O2</td>
+<td align="center">8</td>
+<td align="center">Odd</td>
+<td align="center">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<p>La longitud de las tramas indica la cantidad de bits que son información.</p>
+<p>No se tienen en cuenta los bits de Start y Stop.</p>
+<p>Longitudes típicas son: 8, 7, 6 y 5 bits.</p>
+</div>
+<div class="tabbed-block">
+<p>La línea es activa a nivel bajo, es decir, el TX siempre está a 1 cuando no manda información
+porque así es más inmune al ruido, aunque consuma más.</p>
+<p>Para el Start se utiliza 1 solo bit. Luego la comunicación empieza cuando se recibe un 0, y a partir de ahí se cuentan X bits.</p>
+<p>El último o últimos bits de la trama son el de Stop. Sirven como control de errores, indicando la paridad o no.
+Si se indica la paridad, esto quiere decir la cantidad de bits de datos que están a 1 son pares (Even) o impares (Odd).
+Esto sirve a modo de control de error, pero no indica donde está el error. Y como se envía con cada trama, es demasiado redundante.
+Es preferible implementar un sistema de CRC a enviar los bits de paridad.</p>
+</div>
+</div>
+</input></input></input></input></div>
+<h2 id="spi-serial-peripherial-interface">SPI (Serial Peripherial Interface)<a class="headerlink" href="#spi-serial-peripherial-interface" title="Permanent link">¶</a></h2>
+<p>La Interfaz Serie Periférica, es un protocolo de comunicación serie SÍNCRONO.
+Es para comunicar una unidad con varios periféricos dentro de una placa.
+Esta unidad sería el Controlador, y las demás los Periféricos. Es decir, comunicación 1 a N.
+Necesita de las siguentes conexiones:</p>
+<ol>
+<li>GND - Referencia a tierra</li>
+<li>SCLK (Serial Clock) - Señal de reloj mandada por el Controlador</li>
+<li>MOSI (Master Output Slave Input) / COPI (Controller Output Peripheral Input) - El TX del Controlador y RX del Periférico</li>
+<li>MISO (Master Input Slave Output) / CIPO (Controller Input Peripheral Output) - El RX del Controlador y TX del Periférico</li>
+<li>SSx (Slave Select) / CSx (Chip Select) - Señal que habilita la comunicación con el Periférico</li>
+</ol>
+<figure>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../spi.png"><img alt="Ejemplo conexión SPI 1 a 1" src="../spi.png"/></a>
+</p>
+<figcaption>Conexión SPI con solo un Periférico</figcaption>
+</figure>
+<p>En realidad es una comunicación simplex (de un solo sentido). Pero normalmente tanto el Controlador como los Periféricos para emitir y otra para recibir, así que se consigue una comunicación duplex (1 simplex para escribir y 1 simplex para leer).</p>
+<p>Antes de cada comunicación, el Controlador-Periférico saben cuantos datos / bytes / bits se van a mandar / recibir.</p>
+<p>¿Como funciona?</p>
+<ol>
+<li>El Controlador decide iniciar la comunicación con un Periférico poniendo su señal CS a 0 y haciendo que funcione la señal SCLK.</li>
+<li>El Controlador manda datos por su COPI y el Periférico los lee por su COPI.</li>
+<li>El Controlador recibe datos por su CISO y el Periférico los manda por su CIPO.</li>
+<li>El Controlador vuelve a poner la señal CS a 1.</li>
+</ol>
+<figure>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../spi-protocol.png"><img alt="Muestra de comunicación SPI" src="../spi-protocol.png"/></a>
+</p>
+<figcaption>Muestra de comunicación SPI</figcaption>
+</figure>
+<h2 id="i2c-inter-integrated-circuit">I2C (Inter-Integrated Circuit)<a class="headerlink" href="#i2c-inter-integrated-circuit" title="Permanent link">¶</a></h2>
+<p>El Circuito Inter-Integrado es un protocolo de comunicación serie SÍNCRONO.
+Es para comunicar una unidad con varios periféricos dentro de una placa.
+Esta unidad sería el Controlador, y las demás los Periféricos. Es decir, comunicación 1 a N.
+Necesita de las siguentes conexiones:</p>
+<ol>
+<li>GND - Referencia a tierra</li>
+<li>SCLK (Serial Clock) - Señal de reloj mandada por el Controlador</li>
+<li>SDA (Serial Data) - Por donde transitan los datos del Controlador y los Periféricos</li>
+</ol>
+<figure>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../i2c-bus-esquema.png"><img alt="Ejemplo conexión I2C en bus" src="../i2c-bus-esquema.png"/></a>
+</p>
+<figcaption>Ejemplo conexión I2C en bus</figcaption>
+</figure>
+<p>Es una comunicación half-duplex. Solo un controlador o periférico puede enviar datos por SDA.</p>
+<p>Antes de cada comunicación, el Controlador-Periférico saben cuantos datos / bytes / bits se van a mandar / recibir.</p>
+<p>¿Como funciona?</p>
+<ol>
+<li>Como se comparte SDA, cada Periférico tiene una dirección.</li>
+<li>Un Controlador decide iniciar la comunicación con un Periférico.</li>
+<li>Inicia la señal de SCLK y manda por SDA:<ol>
+<li>La dirección de memoria del Periférico.</li>
+<li>Si quiere transmitir o leer datos.</li>
+<li>Si quiere transmitir, manda los datos.</li>
+<li>Si quiere recibir, espera que el Periférico le mande la información.</li>
+</ol>
+</li>
+<li>El único Periférico que tenga esa dirección es el que ejecutará la acción, y los demás no harán nada.</li>
+<li>Por último el Controlador vuelve a dejar el bus intacto a nivel alto (gracias a las resistencias de pull-up del bus).</li>
+</ol>
+<figure>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../i2c-protocol.png"><img alt="Muestra de comunicación I2C" src="../i2c-protocol.png"/></a>
+</p>
+<figcaption>Muestra de comunicación I2C</figcaption>
+</figure>
+<h2 id="otros">Otros<a class="headerlink" href="#otros" title="Permanent link">¶</a></h2>
+<p>Existen numerosos tipos de comunicaciones serie:</p>
+<ul>
+<li>USART (como UART pero soportando sincronía)</li>
+<li>One Wire (un solo cable)</li>
+<li>Modbus</li>
+<li>CAN bus</li>
+<li>I2S (I2C para sonido)</li>
+<li>...</li>
+</ul>
+</article>
+</div>
+</div>
+<a class="md-top md-icon" data-md-component="top" hidden="" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"></path></svg>
+            Volver al principio
+          </a>
+</main>
+<footer class="md-footer">
+<nav aria-label="Pie" class="md-footer__inner md-grid">
+<a aria-label="Anterior: Avanzado" class="md-footer__link md-footer__link--prev" href="../../sw/web/backend/django/avanzado/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Anterior
+              </span>
+              Avanzado
+            </div>
+</div>
+</a>
+<a aria-label="Siguiente: Sobre Arduino" class="md-footer__link md-footer__link--next" href="../arduino/arduino/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Siguiente
+              </span>
+              Sobre Arduino
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2019 - 2022 Cristóbal Contreras
+    </div>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/crisconru" rel="noopener" target="_blank" title="Github de Cristo">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</a>
+<a class="md-social__link" href="https://twitter.com/crisconru" rel="noopener" target="_blank" title="Github de Cristo">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg>
+</a>
+<a class="md-social__link" href="https://linkedin.com/in/cristobalcontrerasrubio" rel="noopener" target="_blank" title="Github de Cristo">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}}</script>
+<script src="../../assets/javascripts/bundle.d6c3db9e.min.js"></script>
+<script src="../../plugins/mathjax.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

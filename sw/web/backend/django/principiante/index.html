@@ -1,0 +1,1693 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Apuntes de fácil acceso para distintas tecnologías." name="description"/>
+<meta content="Cristóbal Contreras Rubio" name="author"/>
+<link href="https://crisconru.github.io/sw/web/backend/django/principiante/" rel="canonical"/>
+<link href="../../../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-8.5.10" name="generator"/>
+<title>Principiante - Tips de Cristo</title>
+<link href="../../../../../assets/stylesheets/main.472b142f.min.css" rel="stylesheet"/>
+<link href="../../../../../assets/stylesheets/palette.08040f6c.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            
+                .gscrollbar-fixer { padding-right: 15px; }
+                .gdesc-inner { font-size: 0.75rem; }
+                body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+                body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+                body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+                </style><script src="../../../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="pink" data-md-color-primary="green" data-md-color-scheme="default" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#django-principiante">
+          Saltar a contenido
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--lifted" data-md-component="header">
+<nav aria-label="Cabecera" class="md-header__inner md-grid">
+<a aria-label="Tips de Cristo" class="md-header__button md-logo" data-md-component="logo" href="../../../../.." title="Tips de Cristo">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Tips de Cristo
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Principiante
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Modo Oscuro" class="md-option" data-md-color-accent="pink" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="green" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Modo Oscuro">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"></path></svg>
+</label>
+<input aria-label="Modo Claro" class="md-option" data-md-color-accent="pink" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="green" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Modo Claro">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Búsqueda" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Búsqueda" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<a aria-label="Share" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="Share">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"></path></svg>
+</a>
+<button aria-label="Limpiar" class="md-search__icon md-icon" tabindex="-1" title="Limpiar" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/crisconru/tips" title="Ir al repositorio">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    crisconru/tips
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="Pestañas" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../..">
+      Índice
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="../../../../coding/python/python/">
+        Software
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../hw/serie/">
+        Hardware
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../iot/iot/">
+        IoT
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../devops/git/git/">
+        DevOps
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../../linux/terminal/zsh/">
+        Linux
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navegación" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Tips de Cristo" class="md-nav__button md-logo" data-md-component="logo" href="../../../../.." title="Tips de Cristo">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+    Tips de Cristo
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/crisconru/tips" title="Ir al repositorio">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</div>
+<div class="md-source__repository">
+    crisconru/tips
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../..">
+        Índice
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2">
+          Software
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Software" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+          Software
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_1" id="__nav_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_1">
+          Lenguajes
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Lenguajes" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_1">
+<span class="md-nav__icon md-icon"></span>
+          Lenguajes
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_1_1" id="__nav_2_1_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_1_1">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Python" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_1_1">
+<span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../coding/python/python/">
+        Setup
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../coding/python/entornos_virtuales/">
+        Entornos virtuales
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_1_2" id="__nav_2_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_1_2">
+          JavaScript
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="JavaScript" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_1_2">
+<span class="md-nav__icon md-icon"></span>
+          JavaScript
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../coding/javascript/javascript/">
+        VanillaJS
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_1_2_2" id="__nav_2_1_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_1_2_2">
+          NodeJS
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="NodeJS" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_2_1_2_2">
+<span class="md-nav__icon md-icon"></span>
+          NodeJS
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../coding/javascript/nodejs/typescript/">
+        TypeScript
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../coding/javascript/nodejs/tcp/">
+        TCP
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_2" id="__nav_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_2">
+          IDEs
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="IDEs" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_2">
+<span class="md-nav__icon md-icon"></span>
+          IDEs
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../coding/ides/vscode/vscode/">
+        Visual Studio code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" id="__nav_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_3">
+          Web
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Web" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_3">
+<span class="md-nav__icon md-icon"></span>
+          Web
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_3_1" id="__nav_2_3_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_3_1">
+          Frontend
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Frontend" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_3_1">
+<span class="md-nav__icon md-icon"></span>
+          Frontend
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../frontend/frontend/">
+        Índice
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../frontend/html/html/">
+        HTML
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../frontend/css/css/">
+        CSS
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../frontend/js/javascript/">
+        VanillaJS
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_2" id="__nav_2_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_3_2">
+          Backend
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Backend" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_3_2">
+<span class="md-nav__icon md-icon"></span>
+          Backend
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_2_1" id="__nav_2_3_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_3_2_1">
+          Django
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Django" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_2_3_2_1">
+<span class="md-nav__icon md-icon"></span>
+          Django
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Principiante
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Principiante
+      </a>
+<nav aria-label="Tabla de contenidos" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#crear-proyecto-django">
+    Crear proyecto Django
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#django-cli">
+    Django CLI
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#crear-proyecto">
+    Crear Proyecto
+  </a>
+<nav aria-label="Crear Proyecto" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lanzar-servidor">
+    Lanzar servidor
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sincronizar-bbdd-migraciones">
+    Sincronizar BBDD -&gt; Migraciones
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#primera-app-core">
+    Primera app -&gt; Core
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#vistas">
+    Vistas
+  </a>
+<nav aria-label="Vistas" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ejemplo-de-como-se-carga-una-vista-en-el-navegador">
+    Ejemplo de como se carga una vista en el navegador
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#templates">
+    Templates
+  </a>
+<nav aria-label="Templates" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#herencia">
+    Herencia
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#enlaces-relativos">
+    Enlaces relativos
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cargas-ficheros-estaticos-css-js-img-media">
+    Cargas ficheros estáticos (CSS, JS, img, media...)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#templates-tags">
+    Templates tags
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#modelos">
+    Modelos
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#django-admin">
+    Django Admin
+  </a>
+<nav aria-label="Django Admin" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#crear-superusuario">
+    Crear superusuario
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#habilitar-modelo">
+    Habilitar Modelo
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tunear-el-admin">
+    Tunear el Admin
+  </a>
+<nav aria-label="Tunear el Admin" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cambiar-nombre-de-la-app">
+    Cambiar nombre de la app
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cambiar-nombre-del-modelo">
+    Cambiar nombre del modelo
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#servir-ficheros-multimedia">
+    Servir ficheros multimedia
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mvt-modelo-vista-template">
+    MVT Modelo-Vista-Template
+  </a>
+<nav aria-label="MVT Modelo-Vista-Template" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ejemplo-practico">
+    Ejemplo práctico
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../intermedio/">
+        Intermedio
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../avanzado/">
+        Avanzado
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3">
+          Hardware
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Hardware" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Hardware
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../hw/serie/">
+        Protocolos Serie
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_2" id="__nav_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2">
+          Arduino
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Arduino" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_2">
+<span class="md-nav__icon md-icon"></span>
+          Arduino
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../hw/arduino/arduino/">
+        Sobre Arduino
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../hw/arduino/stream/">
+        Stream
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../hw/arduino/uart/">
+        UART
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../hw/arduino/bluetooth/">
+        Bluetooth
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../hw/platformio/platformio/">
+        Platformio
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../hw/micropython/micropython/">
+        Micropython
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4">
+          IoT
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="IoT" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          IoT
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../iot/iot/">
+        Que es el IoT
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../iot/mqtt/mqtt/">
+        MQTT
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4_3" id="__nav_4_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_3">
+          Node-Red
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Node-Red" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_3">
+<span class="md-nav__icon md-icon"></span>
+          Node-Red
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../iot/nodered/nodered/">
+        Que es Node-Red
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../iot/nodered/custom-components/custom-components/">
+        Crear Componentes
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5">
+          DevOps
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="DevOps" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          DevOps
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5_1" id="__nav_5_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_1">
+          Git
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Git" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_1">
+<span class="md-nav__icon md-icon"></span>
+          Git
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../devops/git/git/">
+        Comandos
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../devops/git/gitflow/gitflow/">
+        Git Flow
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5_2" id="__nav_5_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_2">
+          Docker
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Docker" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+          Docker
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../devops/docker/docker-aclaraciones/">
+        Aclaraciones
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../devops/docker/docker-instalacion/">
+        Instalación
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../devops/docker/docker-hub/">
+        Docker Hub
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../devops/docker/docker-comandos/">
+        Comandos docker
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../devops/docker/docker-contenedores/">
+        Lanzar contenedores
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../devops/docker/docker-imagenes/">
+        Crear imágenes
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../devops/docker/docker-dockerfile/">
+        Dockerfile
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../devops/docker/docker-volumes/">
+        Volumes
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../devops/docker/docker-network/">
+        Network
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../devops/docker/docker-dockercompose/">
+        Docker Compose
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../devops/ansible/ansible/">
+        Ansible
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6">
+          Linux
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Linux" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6_1" id="__nav_6_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6_1">
+          Terminal
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Terminal" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_6_1">
+<span class="md-nav__icon md-icon"></span>
+          Terminal
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../linux/terminal/zsh/">
+        ZSH
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6_1_2" id="__nav_6_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6_1_2">
+          TMUX
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="TMUX" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_6_1_2">
+<span class="md-nav__icon md-icon"></span>
+          TMUX
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../linux/terminal/tmux/tmux-comandos/">
+        Comandos
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../linux/terminal/tmux/tmux-customizar/">
+        Customización
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../linux/terminal/terminal-bash/">
+        Bash Scripting
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../linux/bluetooth/">
+        Bluetooth
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6_2" id="__nav_6_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6_2">
+          Comandos
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Comandos" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_6_2">
+<span class="md-nav__icon md-icon"></span>
+          Comandos
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../linux/comandos/linux-fecha-hora/">
+        Fecha y Hora
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../linux/comandos/linux-ficheros/">
+        Ficheros
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6_3" id="__nav_6_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6_3">
+          Redes
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Redes" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_6_3">
+<span class="md-nav__icon md-icon"></span>
+          Redes
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../linux/redes/redes-linux/">
+        Linux
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../linux/redes/redes-ssh/">
+        SSH
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../linux/redes/redes-iptables/">
+        iptables
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../linux/redes/redes-ipv6/">
+        IPv6
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Tabla de contenidos" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#crear-proyecto-django">
+    Crear proyecto Django
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#django-cli">
+    Django CLI
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#crear-proyecto">
+    Crear Proyecto
+  </a>
+<nav aria-label="Crear Proyecto" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lanzar-servidor">
+    Lanzar servidor
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sincronizar-bbdd-migraciones">
+    Sincronizar BBDD -&gt; Migraciones
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#primera-app-core">
+    Primera app -&gt; Core
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#vistas">
+    Vistas
+  </a>
+<nav aria-label="Vistas" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ejemplo-de-como-se-carga-una-vista-en-el-navegador">
+    Ejemplo de como se carga una vista en el navegador
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#templates">
+    Templates
+  </a>
+<nav aria-label="Templates" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#herencia">
+    Herencia
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#enlaces-relativos">
+    Enlaces relativos
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cargas-ficheros-estaticos-css-js-img-media">
+    Cargas ficheros estáticos (CSS, JS, img, media...)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#templates-tags">
+    Templates tags
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#modelos">
+    Modelos
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#django-admin">
+    Django Admin
+  </a>
+<nav aria-label="Django Admin" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#crear-superusuario">
+    Crear superusuario
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#habilitar-modelo">
+    Habilitar Modelo
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tunear-el-admin">
+    Tunear el Admin
+  </a>
+<nav aria-label="Tunear el Admin" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cambiar-nombre-de-la-app">
+    Cambiar nombre de la app
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cambiar-nombre-del-modelo">
+    Cambiar nombre del modelo
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#servir-ficheros-multimedia">
+    Servir ficheros multimedia
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mvt-modelo-vista-template">
+    MVT Modelo-Vista-Template
+  </a>
+<nav aria-label="MVT Modelo-Vista-Template" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ejemplo-practico">
+    Ejemplo práctico
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="django-principiante">Django Principiante<a class="headerlink" href="#django-principiante" title="Permanent link">¶</a></h1>
+<p>TODO:</p>
+<p>Vamos a ver como empezar con Django a través de un mini ejemplo.</p>
+<h2 id="crear-proyecto-django">Crear proyecto Django<a class="headerlink" href="#crear-proyecto-django" title="Permanent link">¶</a></h2>
+<p>Instalamos Django</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="1 "></span></a>pip install django
+</code></pre></div>
+<h2 id="django-cli">Django CLI<a class="headerlink" href="#django-cli" title="Permanent link">¶</a></h2>
+<p>Django tiene un CLI (menu de comandos) llamado <code>django-admin</code> que es con el que se trabaja. Desde una terminal donde este Django instalado lo ejecutamos y salen todas las opciones que tiene</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos="1 "></span></a>django-admin
+</code></pre></div>
+<h2 id="crear-proyecto">Crear Proyecto<a class="headerlink" href="#crear-proyecto" title="Permanent link">¶</a></h2>
+<p>Para crear nuestro primer proyecto hacemos</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos="1 "></span></a>django-admin startproject &lt;proyecto&gt;
+</code></pre></div>
+<p>Veremos que se ha generado una con la siguiente estructura (supongamos que he llamado al proyecto <code>miproyecto</code>):</p>
+<ul>
+<li>miproyecto -&gt; Proyecto Django<ul>
+<li>miproyecto -&gt; App principal del proyecto, contiene configuracion inicial y despliegue.<ul>
+<li><strong>init</strong>.py -&gt; Para inicializar el proyecto e indicar que es un paquete.</li>
+<li>settings.py -&gt; Toda la configuración del proyecto Django.</li>
+<li>urls.py -&gt; Punto de entrada de todas nuestras peticiones http (ver una web, consumir un webservice, etc).</li>
+<li>wsgi.py -&gt; Encargado del despliegue (implementar el protocolo WSGI que usan todas las apps webs hechas en Python).</li>
+</ul>
+</li>
+<li>manage.py -&gt; Script para gestionar el proyecto desde la terminal.</li>
+</ul>
+</li>
+</ul>
+<p>El otro CLI con el que cuenta Django es ese último fichero llamado <code>manage.py</code>. Si lo ejecutamos en la terminal tal cual, veremos todas las opciones que tiene (ordenadas ademas por temáticas). </p>
+<h3 id="lanzar-servidor">Lanzar servidor<a class="headerlink" href="#lanzar-servidor" title="Permanent link">¶</a></h3>
+<p>Si ejecutamos ahora el comando</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos="1 "></span></a>python manage.py runserver
+</code></pre></div>
+<p>Veremos como ha arrancado un servidor de pruebas para poder ver desde el navegador (http://127.0.0.1:8000) nuestro proyecto Django. Para pararlo es tan fácil como usar Ctrl+C</p>
+<h3 id="sincronizar-bbdd-migraciones">Sincronizar BBDD -&gt; Migraciones<a class="headerlink" href="#sincronizar-bbdd-migraciones" title="Permanent link">¶</a></h3>
+<p>Una vez arrancado, necesitamos generar las bases de datos y demás. Paramos el servidor y hacemos</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos" data-linenos="1 "></span></a>python manage.py migrate
+</code></pre></div>
+<h2 id="primera-app-core">Primera app -&gt; Core<a class="headerlink" href="#primera-app-core" title="Permanent link">¶</a></h2>
+<p>Un proyecto Django está compuesto por muchas apps. Todas estas apps son independientes y pueden compartir recursos. Aparte de la app principal, la que se llama igual que el proyecto, se suele crear otra "central" llamada <strong>CORE</strong>.</p>
+<p>Para crear una app se hace</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos" data-linenos="1 "></span></a>python manage.py startapp &lt;app&gt;
+</code></pre></div>
+<p>En este caso creamos <code>core</code>, y al hacerlo se crea una carpeta <code>core</code> con los siguientes ficheros:</p>
+<ul>
+<li>core<ul>
+<li>migrations -&gt; Carpeta donde se guardan los cambios del modelo de la bbdd</li>
+<li><strong>init</strong>.py -&gt; Definir paquete</li>
+<li>admin.py -&gt; Fichero encargado de la configuracion de la app en el Django Admin</li>
+<li>apps.py -&gt; Configuracion de la app.</li>
+<li>models.py -&gt; Es donde se definen el modelo de la bbdd para la app.</li>
+<li>tests.py -&gt; Fichero de pruebas.</li>
+<li>views.py -&gt; Es donde se definen las Vistas (las funciones / clases que se ejecutan cuando se accede a una url).</li>
+</ul>
+</li>
+</ul>
+<h2 id="vistas">Vistas<a class="headerlink" href="#vistas" title="Permanent link">¶</a></h2>
+<p>Cada vez que marca una url en el navegador, el proceso que sigue Django para ofrecer la web es el siguiente:</p>
+<ol>
+<li>Se entra al fichero <code>urls.py</code> de la app principal del proyecto (la que se llama como el propio proyecto).</li>
+<li>En ese fichero se busca en que vista despacha esa url.<ol>
+<li>Puede haber una vista definida.</li>
+<li>Puede haber una redicción a otro fichero <code>urls.py</code> de la app encargada de despachar esa vista.</li>
+</ol>
+</li>
+<li>Dentro del <code>urls.py</code> final se indica que vista del <code>views.py</code> de la app ejecuta.</li>
+<li>En el <code>views.py</code> de la app se ejecuta la vista correspondiente y se devuelve la respuesta para el navegador.</li>
+</ol>
+<p>Existen 2 tipos de vistas:</p>
+<ul>
+<li>Function views -&gt; El encargado de generar la vista es una función.<ul>
+<li>Son para vistas que apenas tienen operaciones, más simples.</li>
+</ul>
+</li>
+<li>Class-based views -&gt; El encargado de generar la vista es una clase.<ul>
+<li>Son para vistas mas complejas.</li>
+<li>Son las más usadas.</li>
+</ul>
+</li>
+</ul>
+<h3 id="ejemplo-de-como-se-carga-una-vista-en-el-navegador">Ejemplo de como se carga una vista en el navegador<a class="headerlink" href="#ejemplo-de-como-se-carga-una-vista-en-el-navegador" title="Permanent link">¶</a></h3>
+<p>Un ejemplo donde se pasa por <code>urls.py</code> de <strong>miproyecto</strong> que redirecciona al <code>urls.py</code> de <strong>core</strong> y despacha la function view <strong>home</strong>:</p>
+<p>miproyecto -&gt; urls.py</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos" data-linenos="1 "></span></a><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><a href="#__codelineno-6-2"><span class="linenos" data-linenos="2 "></span></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><a href="#__codelineno-6-3"><span class="linenos" data-linenos="3 "></span></a><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><a href="#__codelineno-6-4"><span class="linenos" data-linenos="4 "></span></a>    <span class="c1"># Path del core</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><a href="#__codelineno-6-5"><span class="linenos" data-linenos="5 "></span></a>    <span class="n">path</span><span class="p">(</span><span class="s1">''</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">'core.urls'</span><span class="p">)),</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><a href="#__codelineno-6-6"><span class="linenos" data-linenos="6 "></span></a><span class="p">]</span>
+</code></pre></div>
+<p>core -&gt; urls.py</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><a href="#__codelineno-7-1"><span class="linenos" data-linenos="1 "></span></a><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><a href="#__codelineno-7-2"><span class="linenos" data-linenos="2 "></span></a><span class="kn">from</span> <span class="nn">core</span> <span class="kn">import</span> <span class="n">views</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><a href="#__codelineno-7-3"><span class="linenos" data-linenos="3 "></span></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><a href="#__codelineno-7-4"><span class="linenos" data-linenos="4 "></span></a><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><a href="#__codelineno-7-5"><span class="linenos" data-linenos="5 "></span></a>    <span class="n">path</span><span class="p">(</span><span class="s1">''</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">home</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'home'</span><span class="p">),</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a><a href="#__codelineno-7-6"><span class="linenos" data-linenos="6 "></span></a><span class="p">]</span>
+</code></pre></div>
+<p>core -&gt; views.py</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><a href="#__codelineno-8-1"><span class="linenos" data-linenos="1 "></span></a><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><a href="#__codelineno-8-2"><span class="linenos" data-linenos="2 "></span></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><a href="#__codelineno-8-3"><span class="linenos" data-linenos="3 "></span></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><a href="#__codelineno-8-4"><span class="linenos" data-linenos="4 "></span></a><span class="k">def</span> <span class="nf">home</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><a href="#__codelineno-8-5"><span class="linenos" data-linenos="5 "></span></a>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s1">'&lt;h1&gt;Vista home&lt;/h1&gt;'</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="templates">Templates<a class="headerlink" href="#templates" title="Permanent link">¶</a></h2>
+<p>En el ejemplo anterior poníamos código HTML, <strong><em>a pelo</em></strong>, para generar las vistas. Esto no es ni óptimo ni escalable. Lo normal es usar plantillas HTML / templates, que son ficheros HTML que se van a usar para generar cada vista.</p>
+<p>Para usar templates en una app hay que crear dentro de la app:</p>
+<ol>
+<li>Carpeta <strong>templates</strong>.</li>
+<li>Dentro de esta otra carpeta que se llama igual que la app.</li>
+</ol>
+<p>Es decir que en <strong>core</strong> tendríamos</p>
+<ul>
+<li>miproyecto<ul>
+<li>core<ul>
+<li>templates<ul>
+<li>core</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Esto se hace así porque Django cuando se despliega el proyecto, busca todas las carpetas <strong>templates</strong> dentro de cada app y mete lo que haya dentro en una carpeta <strong>templates</strong> genérica para él.</p>
+<p>Supongamos que hemos creado el fichero <strong>home.html</strong> en el directorio <strong>miproyecto/core/templates/core</strong>, la forma de despacharlo en <strong>views.py</strong> de <strong>core</strong> se hace:</p>
+<ol>
+<li>
+<p>Poner la app <strong>core</strong> en el <code>settings.py</code> del proyecto Django</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><a href="#__codelineno-9-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="c1"># Application definition</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><a href="#__codelineno-9-2"><span class="linenos" data-linenos=" 2 "></span></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><a href="#__codelineno-9-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><a href="#__codelineno-9-4"><span class="linenos" data-linenos=" 4 "></span></a>    <span class="s1">'core.apps.CoreConfig'</span><span class="p">,</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a><a href="#__codelineno-9-5"><span class="linenos" data-linenos=" 5 "></span></a>    <span class="s1">'portfolio.apps.PortfolioConfig'</span><span class="p">,</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><a href="#__codelineno-9-6"><span class="linenos" data-linenos=" 6 "></span></a>    <span class="s1">'django.contrib.admin'</span><span class="p">,</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><a href="#__codelineno-9-7"><span class="linenos" data-linenos=" 7 "></span></a>    <span class="s1">'django.contrib.auth'</span><span class="p">,</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a><a href="#__codelineno-9-8"><span class="linenos" data-linenos=" 8 "></span></a>    <span class="s1">'django.contrib.contenttypes'</span><span class="p">,</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a><a href="#__codelineno-9-9"><span class="linenos" data-linenos=" 9 "></span></a>    <span class="s1">'django.contrib.sessions'</span><span class="p">,</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a><a href="#__codelineno-9-10"><span class="linenos" data-linenos="10 "></span></a>    <span class="s1">'django.contrib.messages'</span><span class="p">,</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a><a href="#__codelineno-9-11"><span class="linenos" data-linenos="11 "></span></a>    <span class="s1">'django.contrib.staticfiles'</span><span class="p">,</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12"></a><a href="#__codelineno-9-12"><span class="linenos" data-linenos="12 "></span></a><span class="p">]</span>
+</code></pre></div>
+</li>
+<li>
+<p>Modificar el <strong>views.py</strong> con</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><a href="#__codelineno-10-1"><span class="linenos" data-linenos="1 "></span></a><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><a href="#__codelineno-10-2"><span class="linenos" data-linenos="2 "></span></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><a href="#__codelineno-10-3"><span class="linenos" data-linenos="3 "></span></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><a href="#__codelineno-10-4"><span class="linenos" data-linenos="4 "></span></a><span class="k">def</span> <span class="nf">home</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><a href="#__codelineno-10-5"><span class="linenos" data-linenos="5 "></span></a>    <span class="c1"># Template -&gt; fichero html para devolver</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a><a href="#__codelineno-10-6"><span class="linenos" data-linenos="6 "></span></a>    <span class="n">template</span> <span class="o">=</span> <span class="s1">'core/home.html'</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a><a href="#__codelineno-10-7"><span class="linenos" data-linenos="7 "></span></a>    <span class="c1"># Context -&gt; diccionario con variables para el html</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a><a href="#__codelineno-10-8"><span class="linenos" data-linenos="8 "></span></a>    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="n">mivariable</span><span class="p">:</span> <span class="s1">'Hola home'</span><span class="p">}</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9"></a><a href="#__codelineno-10-9"><span class="linenos" data-linenos="9 "></span></a>    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+</code></pre></div>
+</li>
+</ol>
+<h3 id="herencia">Herencia<a class="headerlink" href="#herencia" title="Permanent link">¶</a></h3>
+<p>La gracia de las plantillas es poder reutilizar código html. Lo normal es definir una plantilla base, <strong>base.html</strong>, o varias, y reusarla en las demás.</p>
+<p>Creo un fichero <strong>base.html</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><a href="#__codelineno-11-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a><a href="#__codelineno-11-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">"en"</span><span class="p">&gt;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a><a href="#__codelineno-11-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a><a href="#__codelineno-11-4"><span class="linenos" data-linenos=" 4 "></span></a>    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">"UTF-8"</span><span class="p">&gt;</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a><a href="#__codelineno-11-5"><span class="linenos" data-linenos=" 5 "></span></a>    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">"viewport"</span> <span class="na">content</span><span class="o">=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="p">&gt;</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a><a href="#__codelineno-11-6"><span class="linenos" data-linenos=" 6 "></span></a>    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content</span><span class="o">=</span><span class="s">"ie=edge"</span><span class="p">&gt;</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a><a href="#__codelineno-11-7"><span class="linenos" data-linenos=" 7 "></span></a>    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>{% block title %}{% endblock %}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a><a href="#__codelineno-11-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9"></a><a href="#__codelineno-11-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10"></a><a href="#__codelineno-11-10"><span class="linenos" data-linenos="10 "></span></a>    <span class="cm">&lt;!-- Cabecera --&gt;</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11"></a><a href="#__codelineno-11-11"><span class="linenos" data-linenos="11 "></span></a>    {% block header %}{% endblock %}
+<a id="__codelineno-11-12" name="__codelineno-11-12"></a><a href="#__codelineno-11-12"><span class="linenos" data-linenos="12 "></span></a>    <span class="cm">&lt;!-- Contenido --&gt;</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13"></a><a href="#__codelineno-11-13"><span class="linenos" data-linenos="13 "></span></a>    {% block content %}{% endblock %}
+<a id="__codelineno-11-14" name="__codelineno-11-14"></a><a href="#__codelineno-11-14"><span class="linenos" data-linenos="14 "></span></a>    <span class="cm">&lt;!-- Pie de página --&gt;</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15"></a><a href="#__codelineno-11-15"><span class="linenos" data-linenos="15 "></span></a>    {% block footer %}{% endblock %}
+<a id="__codelineno-11-16" name="__codelineno-11-16"></a><a href="#__codelineno-11-16"><span class="linenos" data-linenos="16 "></span></a><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17"></a><a href="#__codelineno-11-17"><span class="linenos" data-linenos="17 "></span></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Las partes que van entre <code>{% block &lt;bloque&gt; %}{% endblock %}</code>, serán las partes que se harán en cada fichero a parte. Todo lo demás es común.</p>
+<p>Ahora en el <strong>home.html</strong> haríamos lo siguiente</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><a href="#__codelineno-12-1"><span class="linenos" data-linenos=" 1 "></span></a>{% extends 'core/base.html' %}
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a><a href="#__codelineno-12-2"><span class="linenos" data-linenos=" 2 "></span></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a><a href="#__codelineno-12-3"><span class="linenos" data-linenos=" 3 "></span></a>{% block title %}Home{% endblock %}
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a><a href="#__codelineno-12-4"><span class="linenos" data-linenos=" 4 "></span></a>
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a><a href="#__codelineno-12-5"><span class="linenos" data-linenos=" 5 "></span></a>{% block header %}
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a><a href="#__codelineno-12-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>HOME<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7"></a><a href="#__codelineno-12-7"><span class="linenos" data-linenos=" 7 "></span></a>{% endblock %}
+<a id="__codelineno-12-8" name="__codelineno-12-8"></a><a href="#__codelineno-12-8"><span class="linenos" data-linenos=" 8 "></span></a>
+<a id="__codelineno-12-9" name="__codelineno-12-9"></a><a href="#__codelineno-12-9"><span class="linenos" data-linenos=" 9 "></span></a>{% block content %}
+<a id="__codelineno-12-10" name="__codelineno-12-10"></a><a href="#__codelineno-12-10"><span class="linenos" data-linenos="10 "></span></a><span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>{{ mivariable }}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11"></a><a href="#__codelineno-12-11"><span class="linenos" data-linenos="11 "></span></a>{% endblock %}
+<a id="__codelineno-12-12" name="__codelineno-12-12"></a><a href="#__codelineno-12-12"><span class="linenos" data-linenos="12 "></span></a>
+<a id="__codelineno-12-13" name="__codelineno-12-13"></a><a href="#__codelineno-12-13"><span class="linenos" data-linenos="13 "></span></a>{% block footer %}
+<a id="__codelineno-12-14" name="__codelineno-12-14"></a><a href="#__codelineno-12-14"><span class="linenos" data-linenos="14 "></span></a><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Footer de la home<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15"></a><a href="#__codelineno-12-15"><span class="linenos" data-linenos="15 "></span></a>{% endblock %}
+</code></pre></div>
+<ol>
+<li>Extendemos la plantilla base</li>
+<li>Generamos el contenido de cada bloque</li>
+<li>Si se pasa alguna variable en el context de la vista, podemos ponerla con <code>{{ &lt;variable&gt; }}</code></li>
+</ol>
+<h3 id="enlaces-relativos">Enlaces relativos<a class="headerlink" href="#enlaces-relativos" title="Permanent link">¶</a></h3>
+<p>Si queremos enlazar entre secciones de nuestra web, la manera de hacerlo es usando</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><a href="#__codelineno-13-1"><span class="linenos" data-linenos="1 "></span></a><span class="cp">{%</span> <span class="k">url</span> <span class="o">&lt;</span><span class="nv">vista</span><span class="o">&gt;</span> <span class="cp">%}</span><span class="x"></span>
+</code></pre></div>
+<p>Por ejemplo <code>{% url 'home' %}</code>. El nombre de la vista, es decir, <code>&lt;vista&gt;</code> lo hemos definido en el <code>urls.py</code> anteriormente.</p>
+<h3 id="cargas-ficheros-estaticos-css-js-img-media">Cargas ficheros estáticos (CSS, JS, img, media...)<a class="headerlink" href="#cargas-ficheros-estaticos-css-js-img-media" title="Permanent link">¶</a></h3>
+<p>Para poder cargar los estilos, imágenes, scripts JS, etc, primero hay que crear una carpeta donde los contenga. Esta carpeta va a seguir el mismo princpio que la carpeta <strong>templates</strong>, pero se va a llamar <strong>static</strong>. Es decir, que dentro de cada app que tenga ficheros estáticos tendremos:</p>
+<ul>
+<li>&lt; proyecto-django &gt;<ul>
+<li>&lt; app &gt;<ul>
+<li>static<ul>
+<li>&lt; app &gt;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Ya que luego Django recolectará todas las carpetas static en una <strong>static</strong> común. En nuestro ejemplo tendríamos <strong>miproyecto/core/static/core/</strong>.</p>
+<p>Una vez hecho esto, lo siguiente será en el <strong>base.html</strong> y cada plantilla poner lo siguiente:</p>
+<ol>
+<li><code>{% load static %}</code><ul>
+<li>Tanto en el <code>&lt;head&gt;&lt;/head&gt;</code> del <code>base.html</code>.</li>
+<li>Como en cada plantilla, <strong>solo se debe poner una vez</strong>:<ul>
+<li>Puede ser al principio, despues del <code>{% entends '&lt;app&gt;/base.html' %}</code>.</li>
+<li>Como dentro de un <code>{% block &lt;bloque&gt; %}{% endblock %}</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Luego en cada enlace hacia el fichero estático, ponemos <code>"{% static '&lt;app&gt;/&lt;path-al-estatico&gt;' %}"</code>.</li>
+</ol>
+<p>Un ejemplo podría ser</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><a href="#__codelineno-14-1"><span class="linenos" data-linenos="1 "></span></a><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a><a href="#__codelineno-14-2"><span class="linenos" data-linenos="2 "></span></a>  <span class="cm">&lt;!-- Estilos y fuentes --&gt;</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a><a href="#__codelineno-14-3"><span class="linenos" data-linenos="3 "></span></a>  {% load static %}
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a><a href="#__codelineno-14-4"><span class="linenos" data-linenos="4 "></span></a>  <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">"{% static 'core/bootstrap/css/bootstrap.min.css' %}"</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span><span class="p">&gt;</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5"></a><a href="#__codelineno-14-5"><span class="linenos" data-linenos="5 "></span></a><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6"></a><a href="#__codelineno-14-6"><span class="linenos" data-linenos="6 "></span></a><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7"></a><a href="#__codelineno-14-7"><span class="linenos" data-linenos="7 "></span></a>    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"{% static 'core/jquery/jquery.min.js' %}"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8"></a><a href="#__codelineno-14-8"><span class="linenos" data-linenos="8 "></span></a><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="templates-tags">Templates tags<a class="headerlink" href="#templates-tags" title="Permanent link">¶</a></h3>
+<p>Dentro de este sistema de plantillas lo que hemos estado usando se llaman Template Tags -&gt; información oficial <a href="https://docs.djangoproject.com/en/2.1/ref/templates/builtins/">aquí</a></p>
+<p>Existen muchos, como por ejemplo el <code>{% block &lt;bloque&gt; %}{% endblock %}</code>, o cuando queremos referirnos a una variable del contexto que usamos <code>{{ variable }}</code>.</p>
+<p>Django permite muchos y muy diversos, como por ejemplo el típico <code>if</code>, <code>for</code>, y demás. También hay una variable de la propia web que es <code>request</code> y esta a su vez contiene más variables e información, como <code>request.path</code>, que indica en que path tenemos en la url.</p>
+<p>Por ejemplo, supongamos que queremos ver un salto de línea en cierto sitio, si y solo si, si estoy en la home. La forma de hacerlo sería, en el <code>&lt;body&gt;</code> del <code>base.html</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><a href="#__codelineno-15-1"><span class="linenos" data-linenos="1 "></span></a>{% if request.path != "/home/" %}<span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;</span>{% endif %}
+</code></pre></div>
+<h2 id="modelos">Modelos<a class="headerlink" href="#modelos" title="Permanent link">¶</a></h2>
+<p>Django cuenta con su propio ORM para trabajar con las BBDD y trabaja siguiendo el paradigma MVT (Modelo Vista Template). Cada modelo es una clase heredará de una clase Modelo especifica.</p>
+<p>Por ejemplo supongamos que queremos tener una sección que va a ser un proyecto, y cada proyecto contiene un título, una descripción y una imagen. Esto lo modelaríamos en bbdd de la siguiente manera</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a><a href="#__codelineno-16-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a><a href="#__codelineno-16-2"><span class="linenos" data-linenos=" 2 "></span></a>
+<a id="__codelineno-16-3" name="__codelineno-16-3"></a><a href="#__codelineno-16-3"><span class="linenos" data-linenos=" 3 "></span></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4"></a><a href="#__codelineno-16-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="k">class</span> <span class="nc">Project</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5"></a><a href="#__codelineno-16-5"><span class="linenos" data-linenos=" 5 "></span></a>    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6"></a><a href="#__codelineno-16-6"><span class="linenos" data-linenos=" 6 "></span></a>    <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7"></a><a href="#__codelineno-16-7"><span class="linenos" data-linenos=" 7 "></span></a>    <span class="n">image</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ImageField</span><span class="p">()</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8"></a><a href="#__codelineno-16-8"><span class="linenos" data-linenos=" 8 "></span></a>    <span class="n">link</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">UrlField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># null para permitir nulo en bbdd, blank para permitir vacío en html</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9"></a><a href="#__codelineno-16-9"><span class="linenos" data-linenos=" 9 "></span></a>    <span class="n">created</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10"></a><a href="#__codelineno-16-10"><span class="linenos" data-linenos="10 "></span></a>    <span class="n">updated</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<p>Se han añadido dos campos para poder tener un control de cuando se creó, <code>created</code>, y cuando se ha actualizado, <code>updated</code>.</p>
+<p>Para aplicar estos cambios a la bbdd tenemos que hacer</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a><a href="#__codelineno-17-1"><span class="linenos" data-linenos="1 "></span></a>python manage.py makemigrations <span class="o">[</span>&lt;app&gt;<span class="o">]</span>
+</code></pre></div>
+<p>Si queremos ponemos la app especifica, o sino no ponemos nada y hará todas las apps. Después de hacer las migraciones, tenemos que aplicarlas, para ello</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a><a href="#__codelineno-18-1"><span class="linenos" data-linenos="1 "></span></a>python manage.py migrate <span class="o">[</span>&lt;app&gt;<span class="o">]</span>
+</code></pre></div>
+<h2 id="django-admin">Django Admin<a class="headerlink" href="#django-admin" title="Permanent link">¶</a></h2>
+<p>En el <code>urls.py</code> del proyecto tenemos una redirección a una cosa llamada admin</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a><a href="#__codelineno-19-1"><span class="linenos" data-linenos="1 "></span></a><span class="n">path</span><span class="p">(</span><span class="s1">'admin/'</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
+</code></pre></div>
+<p>Si en el navegador lo abrimos, veremos que sale un login. Esto es una herramienta potentísima que tiene Django, el <strong><em>Panel de Administrador</em></strong>.</p>
+<h3 id="crear-superusuario">Crear superusuario<a class="headerlink" href="#crear-superusuario" title="Permanent link">¶</a></h3>
+<p>Para poder acceder a él necesitamos crear primero el superusuario del proyecto</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a><a href="#__codelineno-20-1"><span class="linenos" data-linenos="1 "></span></a>python manage.py createsuperuser
+</code></pre></div>
+<p>Completamos el registro y volvemos a acceder al Django Admin con este usuario nuevo creado.</p>
+<h3 id="habilitar-modelo">Habilitar Modelo<a class="headerlink" href="#habilitar-modelo" title="Permanent link">¶</a></h3>
+<p>Para poder trabajar con un modelo de una app debemos hacer lo siguiente en el fichero <code>admin.py</code> de la app correspondiente. Por ejemplo para el /miproyecto/core/admin.py tengo que poner</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a><a href="#__codelineno-21-1"><span class="linenos" data-linenos="1 "></span></a><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2"></a><a href="#__codelineno-21-2"><span class="linenos" data-linenos="2 "></span></a><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Project</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3"></a><a href="#__codelineno-21-3"><span class="linenos" data-linenos="3 "></span></a>
+<a id="__codelineno-21-4" name="__codelineno-21-4"></a><a href="#__codelineno-21-4"><span class="linenos" data-linenos="4 "></span></a><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Project</span><span class="p">)</span>
+</code></pre></div>
+<p>Ahora podremos manipular el modelo desde el Admin.</p>
+<h3 id="tunear-el-admin">Tunear el Admin<a class="headerlink" href="#tunear-el-admin" title="Permanent link">¶</a></h3>
+<h4 id="cambiar-nombre-de-la-app">Cambiar nombre de la app<a class="headerlink" href="#cambiar-nombre-de-la-app" title="Permanent link">¶</a></h4>
+<p>En el fichero <code>apps.py</code> de la app, debemos de añadir el campo <code>verbose_name</code> con el nombre que queramos. Por ejemplo a la app core la voy a llamar principal, así que el /miproyecto/core/apps.py debe quedar así</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a><a href="#__codelineno-22-1"><span class="linenos" data-linenos="1 "></span></a><span class="kn">from</span> <span class="nn">django.apps</span> <span class="kn">import</span> <span class="n">AppConfig</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2"></a><a href="#__codelineno-22-2"><span class="linenos" data-linenos="2 "></span></a>
+<a id="__codelineno-22-3" name="__codelineno-22-3"></a><a href="#__codelineno-22-3"><span class="linenos" data-linenos="3 "></span></a>
+<a id="__codelineno-22-4" name="__codelineno-22-4"></a><a href="#__codelineno-22-4"><span class="linenos" data-linenos="4 "></span></a><span class="k">class</span> <span class="nc">CoreConfig</span><span class="p">(</span><span class="n">AppConfig</span><span class="p">):</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5"></a><a href="#__codelineno-22-5"><span class="linenos" data-linenos="5 "></span></a>    <span class="n">name</span> <span class="o">=</span> <span class="s1">'core'</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6"></a><a href="#__codelineno-22-6"><span class="linenos" data-linenos="6 "></span></a>    <span class="n">vebose_name</span> <span class="o">=</span> <span class="s1">'Principal'</span>
+</code></pre></div>
+<p>Recordemos que en el /miproyecto/miproyecto/settings.py en la parte de apps instaladas debe aparecer</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a><a href="#__codelineno-23-1"><span class="linenos" data-linenos="1 "></span></a><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2"></a><a href="#__codelineno-23-2"><span class="linenos" data-linenos="2 "></span></a>    <span class="s1">'core.apps.CoreConfig'</span><span class="p">,</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3"></a><a href="#__codelineno-23-3"><span class="linenos" data-linenos="3 "></span></a>    <span class="o">...</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4"></a><a href="#__codelineno-23-4"><span class="linenos" data-linenos="4 "></span></a><span class="p">]</span>
+</code></pre></div>
+<h4 id="cambiar-nombre-del-modelo">Cambiar nombre del modelo<a class="headerlink" href="#cambiar-nombre-del-modelo" title="Permanent link">¶</a></h4>
+<p>Dentro de la clase del modelo, debemos crear una subclase llamada <code>Meta</code> (para metadata) y debe contener el atributo <code>verbose_name</code>.</p>
+<p>Si queremos que luego cada objeto de ese modelo tenga un nombre más fácil de leer, debemos añadir el método <code>__str__</code> a la clase del modelo.</p>
+<p>Por último, para que cada campo aparezca con el nombre que queramos, le añadimos el parámetro <code>verbose_name</code> a cada campo del modelo.</p>
+<p>Siguiendo con el ejemplo, en /miproyecto/core/models.py pondremos al modelo <code>Project</code> el nombre <code>Proyecto</code>. Además le vamos a añadir el plural, y vamos a permitir que se ordene por fecha de creación más nueva a más vieja (con <code>-created</code>, si hubieramos puesto solo <code>created</code> sería de más antiguo al más nuevo). Para el nombre de cada proyecto le vamos a poner su título:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a><a href="#__codelineno-24-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2"></a><a href="#__codelineno-24-2"><span class="linenos" data-linenos=" 2 "></span></a>
+<a id="__codelineno-24-3" name="__codelineno-24-3"></a><a href="#__codelineno-24-3"><span class="linenos" data-linenos=" 3 "></span></a>
+<a id="__codelineno-24-4" name="__codelineno-24-4"></a><a href="#__codelineno-24-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="k">class</span> <span class="nc">Project</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5"></a><a href="#__codelineno-24-5"><span class="linenos" data-linenos=" 5 "></span></a>    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">'Titulo'</span><span class="p">)</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6"></a><a href="#__codelineno-24-6"><span class="linenos" data-linenos=" 6 "></span></a>    <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="s1">'Descripción'</span><span class="p">)</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7"></a><a href="#__codelineno-24-7"><span class="linenos" data-linenos=" 7 "></span></a>    <span class="n">image</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ImageField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="s1">'Imagen'</span><span class="p">)</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8"></a><a href="#__codelineno-24-8"><span class="linenos" data-linenos=" 8 "></span></a>    <span class="n">created</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">'Creado'</span><span class="p">)</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9"></a><a href="#__codelineno-24-9"><span class="linenos" data-linenos=" 9 "></span></a>    <span class="n">updated</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">'Actualizado'</span><span class="p">)</span>
+<a id="__codelineno-24-10" name="__codelineno-24-10"></a><a href="#__codelineno-24-10"><span class="linenos" data-linenos="10 "></span></a>
+<a id="__codelineno-24-11" name="__codelineno-24-11"></a><a href="#__codelineno-24-11"><span class="linenos" data-linenos="11 "></span></a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<a id="__codelineno-24-12" name="__codelineno-24-12"></a><a href="#__codelineno-24-12"><span class="linenos" data-linenos="12 "></span></a>        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s1">'proyecto'</span>
+<a id="__codelineno-24-13" name="__codelineno-24-13"></a><a href="#__codelineno-24-13"><span class="linenos" data-linenos="13 "></span></a>        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s1">'proyectos'</span>
+<a id="__codelineno-24-14" name="__codelineno-24-14"></a><a href="#__codelineno-24-14"><span class="linenos" data-linenos="14 "></span></a>        <span class="n">ordering</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'-created'</span><span class="p">]</span>
+<a id="__codelineno-24-15" name="__codelineno-24-15"></a><a href="#__codelineno-24-15"><span class="linenos" data-linenos="15 "></span></a>
+<a id="__codelineno-24-16" name="__codelineno-24-16"></a><a href="#__codelineno-24-16"><span class="linenos" data-linenos="16 "></span></a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-24-17" name="__codelineno-24-17"></a><a href="#__codelineno-24-17"><span class="linenos" data-linenos="17 "></span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span>
+</code></pre></div>
+<p>Los campos <code>created</code> y <code>updated</code> Django los oculta por defecto, ya que son de solo lectura. Para hacer que aparecan debemos de</p>
+<ul>
+<li>Modificar el <code>admin.py</code> de la app<ul>
+<li>Creando un modelo extendido para el Admin<ul>
+<li>Pasándole una tupla con los campos de solo lectura.</li>
+</ul>
+</li>
+<li>Añadiendo el modelo extendido al admin.</li>
+</ul>
+</li>
+</ul>
+<p>/miproyecto/<app>/admin.py</app></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a><a href="#__codelineno-25-1"><span class="linenos" data-linenos="1 "></span></a><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2"></a><a href="#__codelineno-25-2"><span class="linenos" data-linenos="2 "></span></a><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="o">&lt;</span><span class="n">Modelo</span><span class="o">&gt;</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3"></a><a href="#__codelineno-25-3"><span class="linenos" data-linenos="3 "></span></a>
+<a id="__codelineno-25-4" name="__codelineno-25-4"></a><a href="#__codelineno-25-4"><span class="linenos" data-linenos="4 "></span></a>
+<a id="__codelineno-25-5" name="__codelineno-25-5"></a><a href="#__codelineno-25-5"><span class="linenos" data-linenos="5 "></span></a><span class="k">class</span> <span class="err">&lt;</span><span class="nc">Modelo</span><span class="o">&gt;</span><span class="n">Admin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6"></a><a href="#__codelineno-25-6"><span class="linenos" data-linenos="6 "></span></a>    <span class="n">readonly_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'&lt;campo1&gt;'</span><span class="p">,</span> <span class="s1">'&lt;campo2&gt;'</span><span class="p">)</span>
+<a id="__codelineno-25-7" name="__codelineno-25-7"></a><a href="#__codelineno-25-7"><span class="linenos" data-linenos="7 "></span></a>
+<a id="__codelineno-25-8" name="__codelineno-25-8"></a><a href="#__codelineno-25-8"><span class="linenos" data-linenos="8 "></span></a>
+<a id="__codelineno-25-9" name="__codelineno-25-9"></a><a href="#__codelineno-25-9"><span class="linenos" data-linenos="9 "></span></a><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="o">&lt;</span><span class="n">Modelo</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Modelo</span><span class="o">&gt;</span><span class="n">Admin</span><span class="p">)</span>
+</code></pre></div>
+<p>Lo vemos más fácil con el ejemplo que estamos haciendo, el /miproyecto/core/admin.py tiene que quedar así</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a><a href="#__codelineno-26-1"><span class="linenos" data-linenos="1 "></span></a><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2"></a><a href="#__codelineno-26-2"><span class="linenos" data-linenos="2 "></span></a><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Project</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3"></a><a href="#__codelineno-26-3"><span class="linenos" data-linenos="3 "></span></a>
+<a id="__codelineno-26-4" name="__codelineno-26-4"></a><a href="#__codelineno-26-4"><span class="linenos" data-linenos="4 "></span></a>
+<a id="__codelineno-26-5" name="__codelineno-26-5"></a><a href="#__codelineno-26-5"><span class="linenos" data-linenos="5 "></span></a><span class="k">class</span> <span class="nc">ProjectAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6"></a><a href="#__codelineno-26-6"><span class="linenos" data-linenos="6 "></span></a>    <span class="n">readonly_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'created'</span><span class="p">,</span> <span class="s1">'updated'</span><span class="p">)</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7"></a><a href="#__codelineno-26-7"><span class="linenos" data-linenos="7 "></span></a>
+<a id="__codelineno-26-8" name="__codelineno-26-8"></a><a href="#__codelineno-26-8"><span class="linenos" data-linenos="8 "></span></a>
+<a id="__codelineno-26-9" name="__codelineno-26-9"></a><a href="#__codelineno-26-9"><span class="linenos" data-linenos="9 "></span></a><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Project</span><span class="p">,</span> <span class="n">ProjectAdmin</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="servir-ficheros-multimedia">Servir ficheros multimedia<a class="headerlink" href="#servir-ficheros-multimedia" title="Permanent link">¶</a></h2>
+<p>Django por defecto no puede servir ficheros multimedia (imágenes, vídeos, etc). Los pasos para habilitarlos son</p>
+<ol>
+<li>Crear una carpeta común llamada <code>media</code> por ejemplo, y estaría al mismo nivel que las apps, es decir <proyecto>/media.</proyecto></li>
+<li>
+<p>En el <code>settings.py</code> (<proyecto>/<proyecto>/settings.py) del proyecto debemos de indicarle donde está la carpeta de estos archivos con</proyecto></proyecto></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a><a href="#__codelineno-27-1"><span class="linenos" data-linenos="1 "></span></a><span class="c1"># Media files</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2"></a><a href="#__codelineno-27-2"><span class="linenos" data-linenos="2 "></span></a><span class="n">MEDIA_URL</span> <span class="o">=</span> <span class="s1">'/media/'</span>  <span class="c1"># Ruta del navegador para encontrarlos</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3"></a><a href="#__codelineno-27-3"><span class="linenos" data-linenos="3 "></span></a><span class="n">MEDIA_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">'media'</span><span class="p">)</span>  <span class="c1"># Ruta para encontrarlos dentro del Django</span>
+</code></pre></div>
+</li>
+<li>
+<p>Si en el modelo tenemos algún formulario donde los usuarios pueden subir este tipo de ficheros, debemos añadirle el parámetro <code>upload_to</code> con el nombre del directorio que tendrá dentro de la carpeta <code>media</code>
+   Por ejemplo en el /miproyecto/core/models.py hacemos que las imágenes de los proyectos las guarde en la carpeta /miproyecto/media/projects que Django generará automáticamente con</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1"></a><a href="#__codelineno-28-1"><span class="linenos" data-linenos="1 "></span></a><span class="k">class</span> <span class="nc">Project</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2"></a><a href="#__codelineno-28-2"><span class="linenos" data-linenos="2 "></span></a>    <span class="o">...</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3"></a><a href="#__codelineno-28-3"><span class="linenos" data-linenos="3 "></span></a>    <span class="n">image</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ImageField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="s1">'Imagen'</span><span class="p">,</span> <span class="n">upload_to</span><span class="o">=</span><span class="s1">'projects'</span><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p>Ahora tenemos que habilitar una url para el directorio <code>media</code>, pero que solo sea accesible cuando estamos en modo <code>debug</code>.</p>
+<ol>
+<li>Modificar el <code>urls.py</code> del proyecto (<proyecto>/<proyecto>/urls.py) con</proyecto></proyecto></li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1"></a><a href="#__codelineno-29-1"><span class="linenos" data-linenos="1 "></span></a><span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2"></a><a href="#__codelineno-29-2"><span class="linenos" data-linenos="2 "></span></a>
+<a id="__codelineno-29-3" name="__codelineno-29-3"></a><a href="#__codelineno-29-3"><span class="linenos" data-linenos="3 "></span></a><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4"></a><a href="#__codelineno-29-4"><span class="linenos" data-linenos="4 "></span></a>
+<a id="__codelineno-29-5" name="__codelineno-29-5"></a><a href="#__codelineno-29-5"><span class="linenos" data-linenos="5 "></span></a><span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span>
+<a id="__codelineno-29-6" name="__codelineno-29-6"></a><a href="#__codelineno-29-6"><span class="linenos" data-linenos="6 "></span></a>    <span class="kn">from</span> <span class="nn">django.conf.urls.static</span> <span class="kn">import</span> <span class="n">static</span>
+<a id="__codelineno-29-7" name="__codelineno-29-7"></a><a href="#__codelineno-29-7"><span class="linenos" data-linenos="7 "></span></a>    <span class="n">urlpatterns</span> <span class="o">+=</span> <span class="n">static</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_URL</span><span class="p">,</span> <span class="n">document_root</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_ROOT</span><span class="p">)</span>
+</code></pre></div>
+</li>
+</ol>
+<h2 id="mvt-modelo-vista-template">MVT Modelo-Vista-Template<a class="headerlink" href="#mvt-modelo-vista-template" title="Permanent link">¶</a></h2>
+<p>Django se basa en el paradigma MVT, que está basado en el MVC (Modelo-Vista-Controlador). Estos paradigmas indican básicamente como es el flujo de trabajo y a la vez permiten desacoplar las distintas partes del proyecto. Es un poco lioso al principio si vienes del MVC.</p>
+<p>En el MVC tienes:</p>
+<ul>
+<li>Modelo -&gt; Como está creada y almacenada la información (BBDD).</li>
+<li>Vista -&gt; Es la parte encargada de la interfaz visual (Frontend).</li>
+<li>Controlador -&gt; Como se manipula y trabaja con la información detrás de la interfaz (Backend).</li>
+</ul>
+<p>En el MVT hay:</p>
+<ul>
+<li>Modelo -&gt; Igual que el anterior (BBDD).</li>
+<li>Vista -&gt; Equivale en realidad al Controlador (Backend).<ul>
+<li>Por eso decía que es lioso, porque al Controlador en Django se le llama Vista.</li>
+<li>Y a la Vista se le llama Template.</li>
+</ul>
+</li>
+<li>Template -&gt; Equivale a la Vista (Frontend).</li>
+</ul>
+<p>Hay que tener en cuenta que <strong>MVT define el flujo de desarrollo</strong>. En el MVT nosotros desarrollamos siguiendo estos pasos:</p>
+<ol>
+<li>MODELO<ul>
+<li><code>models.py</code> -&gt; Creamos / modificamos el Modelo (BBDD).</li>
+<li><code>admin.py</code> -&gt; Habilitamos las opciones que sean necesarias en el Admin.</li>
+</ul>
+</li>
+<li>VISTA<ul>
+<li><code>views.py</code> -&gt; Creamos / modificamos la Vista (Backend).</li>
+<li><code>urls.py</code> -&gt; Habilitamos el acceso a través de la web a esa vista.</li>
+</ul>
+</li>
+<li>TEMPLATE<ul>
+<li><code>templates/&lt;app&gt;/</code> -&gt; Creamos / modificamos la Template (Frontend).</li>
+<li><code>static/&lt;app&gt;/</code> -&gt; Creamos / modificamos los estáticos (CSS's, JS's).</li>
+</ul>
+</li>
+</ol>
+<p><strong>NOTA</strong>: Un <strong>mnemónico</strong> para recordar esto es <strong>MAVUTS</strong> -&gt; Models.py Admin.py Views.py Urls.py Templates Static.</p>
+<p>Pero el flujo que sigue Django para servir una web en un enlace concreto es:</p>
+<ol>
+<li>El navegador hace una petición a una url concreta.</li>
+<li>Eso entra por el <code>urls.py</code> del proyecto y se redirecciona hasta llegar al <code>urls.py</code> de la app concreta.</li>
+<li>De ahí se pasa a la vista, <code>views.py</code>.</li>
+<li>El <code>views.py</code> interactua con la bbdd gracias al <code>models.py</code>.</li>
+<li>Después computar toda la info, devuelve la template específica, <code>&lt;app&gt;/templates/&lt;app&gt;/&lt;vista&gt;.html</code>, ya formateada (con los tags sustituidos por su valor final).</li>
+<li>El navegador renderiza el fichero y sirve la web.</li>
+</ol>
+<h3 id="ejemplo-practico">Ejemplo práctico<a class="headerlink" href="#ejemplo-practico" title="Permanent link">¶</a></h3>
+<p>Para que tu editor no te de problemas, se recomienda instalar el linter <code>pylint-django</code>. Para activarlo hay que hacer:</p>
+<ul>
+<li>Editar los <code>pylintArgs</code> con<ul>
+<li><code>--errors-only</code></li>
+<li><code>--load-plugins</code></li>
+<li><code>pytlint_django</code></li>
+</ul>
+</li>
+</ul>
+<p>Supongamos que vamos a querer tener una sección portfolio en esta web, llena de los proyectos. Lo primero será crear la app portfolio</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1"></a><a href="#__codelineno-30-1"><span class="linenos" data-linenos="1 "></span></a>python manage.py startapp portfolio
+</code></pre></div>
+<ol>
+<li>
+<p>Tendremos nuestra nueva app portfolio junto con <code>core</code> y <code>miproyecto</code>. Una vez creada, damos de alta la app en el <code>settings.py</code> del proyecto</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1"></a><a href="#__codelineno-31-1"><span class="linenos" data-linenos="1 "></span></a><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2"></a><a href="#__codelineno-31-2"><span class="linenos" data-linenos="2 "></span></a>    <span class="s1">'portfolio.apps.PortfolioConfig'</span><span class="p">,</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3"></a><a href="#__codelineno-31-3"><span class="linenos" data-linenos="3 "></span></a><span class="p">]</span>
+</code></pre></div>
+</li>
+<li>
+<p>Modelo -&gt; <code>models.py</code>:</p>
+<ul>
+<li>Quitamos <code>Projects</code> del modelo de <code>core</code> (en su <code>models.py</code>) y nos lo llevamos al <code>models.py</code> de <code>portfolio</code>.</li>
+<li>Hacemos las migraciones en la base de datos con</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1"></a><a href="#__codelineno-32-1"><span class="linenos" data-linenos="1 "></span></a>python manage.py makemigrations
+<a id="__codelineno-32-2" name="__codelineno-32-2"></a><a href="#__codelineno-32-2"><span class="linenos" data-linenos="2 "></span></a>python manage.py migrate
+</code></pre></div>
+</li>
+<li>
+<p>Admin -&gt; <code>admin.py</code>:</p>
+<ul>
+<li>Quitamos el <code>Projects</code> de <code>core</code> del Admin en su <code>admin.py</code>.</li>
+<li>Damos de alta <code>Projects</code> de <code>portfolio</code> en el Admin con su <code>admin.py</code>.</li>
+</ul>
+</li>
+<li>
+<p>Vista -&gt; <code>views.py</code>:</p>
+<ul>
+<li>Creamos la vista <code>portfolio</code> en el <code>views.py</code>.</li>
+<li>Podemmos usar el modelo en la vista de la siguiente manera</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1"></a><a href="#__codelineno-33-1"><span class="linenos" data-linenos="1 "></span></a><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2"></a><a href="#__codelineno-33-2"><span class="linenos" data-linenos="2 "></span></a><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Project</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3"></a><a href="#__codelineno-33-3"><span class="linenos" data-linenos="3 "></span></a>
+<a id="__codelineno-33-4" name="__codelineno-33-4"></a><a href="#__codelineno-33-4"><span class="linenos" data-linenos="4 "></span></a>
+<a id="__codelineno-33-5" name="__codelineno-33-5"></a><a href="#__codelineno-33-5"><span class="linenos" data-linenos="5 "></span></a><span class="k">def</span> <span class="nf">portfolio</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-33-6" name="__codelineno-33-6"></a><a href="#__codelineno-33-6"><span class="linenos" data-linenos="6 "></span></a>    <span class="n">template</span> <span class="o">=</span> <span class="s1">'portfolio/portfolio.html'</span>
+<a id="__codelineno-33-7" name="__codelineno-33-7"></a><a href="#__codelineno-33-7"><span class="linenos" data-linenos="7 "></span></a>    <span class="n">projects</span> <span class="o">=</span> <span class="n">Project</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<a id="__codelineno-33-8" name="__codelineno-33-8"></a><a href="#__codelineno-33-8"><span class="linenos" data-linenos="8 "></span></a>    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'projects'</span><span class="p">:</span> <span class="n">projects</span><span class="p">}</span>
+<a id="__codelineno-33-9" name="__codelineno-33-9"></a><a href="#__codelineno-33-9"><span class="linenos" data-linenos="9 "></span></a>    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p>Urls -&gt; <code>urls.py</code>:</p>
+<ul>
+<li>En el <code>urls.py</code> del proyecto redireccionamos al <code>urls.py</code> de <code>portfolio</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1"></a><a href="#__codelineno-34-1"><span class="linenos" data-linenos="1 "></span></a><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2"></a><a href="#__codelineno-34-2"><span class="linenos" data-linenos="2 "></span></a>
+<a id="__codelineno-34-3" name="__codelineno-34-3"></a><a href="#__codelineno-34-3"><span class="linenos" data-linenos="3 "></span></a><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-34-4" name="__codelineno-34-4"></a><a href="#__codelineno-34-4"><span class="linenos" data-linenos="4 "></span></a>    <span class="n">path</span><span class="p">(</span><span class="s1">'portfolio/'</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">'portfolio.urls'</span><span class="p">)),</span>
+<a id="__codelineno-34-5" name="__codelineno-34-5"></a><a href="#__codelineno-34-5"><span class="linenos" data-linenos="5 "></span></a><span class="p">]</span>
+</code></pre></div>
+<ul>
+<li>En el <code>urls.py</code> de <code>portfolio</code> enlazamos la vista creada.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1"></a><a href="#__codelineno-35-1"><span class="linenos" data-linenos="1 "></span></a><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2"></a><a href="#__codelineno-35-2"><span class="linenos" data-linenos="2 "></span></a><span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3"></a><a href="#__codelineno-35-3"><span class="linenos" data-linenos="3 "></span></a>
+<a id="__codelineno-35-4" name="__codelineno-35-4"></a><a href="#__codelineno-35-4"><span class="linenos" data-linenos="4 "></span></a><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-35-5" name="__codelineno-35-5"></a><a href="#__codelineno-35-5"><span class="linenos" data-linenos="5 "></span></a>    <span class="n">path</span><span class="p">(</span><span class="s1">''</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">portfolio</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'portfolio'</span><span class="p">),</span>
+<a id="__codelineno-35-6" name="__codelineno-35-6"></a><a href="#__codelineno-35-6"><span class="linenos" data-linenos="6 "></span></a><span class="p">]</span>
+</code></pre></div>
+</li>
+<li>
+<p>Template -&gt; <code>miproyecto/portfolio/templates/portfolio/&lt;plantilla&gt;.html</code></p>
+<ul>
+<li>Creamos el template <code>miproyecto/portfolio/templates/portfolio/portfolio.html</code>.</li>
+<li>Dentro de esta template, heredamos del <code>base.html</code> del <code>templates</code> de <code>core</code>.</li>
+<li>Un ejemplo de como podríamos usar el modelo dentro de la plantilla podria ser un template-tag <code>{% for %}</code>, ya que le hemos pasado todos los proyectos.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1"></a><a href="#__codelineno-36-1"><span class="linenos" data-linenos=" 1 "></span></a>{% extends 'core/base.html' %}
+<a id="__codelineno-36-2" name="__codelineno-36-2"></a><a href="#__codelineno-36-2"><span class="linenos" data-linenos=" 2 "></span></a>{% load static %}
+<a id="__codelineno-36-3" name="__codelineno-36-3"></a><a href="#__codelineno-36-3"><span class="linenos" data-linenos=" 3 "></span></a>{% block title%}Portfolio{% endblock%}
+<a id="__codelineno-36-4" name="__codelineno-36-4"></a><a href="#__codelineno-36-4"><span class="linenos" data-linenos=" 4 "></span></a>...
+<a id="__codelineno-36-5" name="__codelineno-36-5"></a><a href="#__codelineno-36-5"><span class="linenos" data-linenos=" 5 "></span></a>{% block content%}
+<a id="__codelineno-36-6" name="__codelineno-36-6"></a><a href="#__codelineno-36-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+<a id="__codelineno-36-7" name="__codelineno-36-7"></a><a href="#__codelineno-36-7"><span class="linenos" data-linenos=" 7 "></span></a>    {% for project in projects %}
+<a id="__codelineno-36-8" name="__codelineno-36-8"></a><a href="#__codelineno-36-8"><span class="linenos" data-linenos=" 8 "></span></a>    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+<a id="__codelineno-36-9" name="__codelineno-36-9"></a><a href="#__codelineno-36-9"><span class="linenos" data-linenos=" 9 "></span></a>        Título: {{project.title}}
+<a id="__codelineno-36-10" name="__codelineno-36-10"></a><a href="#__codelineno-36-10"><span class="linenos" data-linenos="10 "></span></a>        Descripción: {{project.description}}
+<a id="__codelineno-36-11" name="__codelineno-36-11"></a><a href="#__codelineno-36-11"><span class="linenos" data-linenos="11 "></span></a>        Imagen: {{project.image.url}}
+<a id="__codelineno-36-12" name="__codelineno-36-12"></a><a href="#__codelineno-36-12"><span class="linenos" data-linenos="12 "></span></a>    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<a id="__codelineno-36-13" name="__codelineno-36-13"></a><a href="#__codelineno-36-13"><span class="linenos" data-linenos="13 "></span></a>    {% endfor %}
+<a id="__codelineno-36-14" name="__codelineno-36-14"></a><a href="#__codelineno-36-14"><span class="linenos" data-linenos="14 "></span></a><span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<a id="__codelineno-36-15" name="__codelineno-36-15"></a><a href="#__codelineno-36-15"><span class="linenos" data-linenos="15 "></span></a>{% endblock }
+</code></pre></div>
+</li>
+<li>
+<p>Static -&gt; <code>miproyecto/portfolio/static/portfolio/&lt;archivos&gt;</code></p>
+<ul>
+<li>si necesito cualquier estático lo uso en <code>portfolio.html</code> con</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1"></a><a href="#__codelineno-37-1"><span class="linenos" data-linenos="1 "></span></a>{% static 'portfolio/<span class="p">&lt;</span><span class="nt">fichero-estatico</span><span class="p">&gt;</span>' %}
+</code></pre></div>
+</li>
+</ol>
+</article>
+</div>
+</div>
+<a class="md-top md-icon" data-md-component="top" hidden="" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"></path></svg>
+            Volver al principio
+          </a>
+</main>
+<footer class="md-footer">
+<nav aria-label="Pie" class="md-footer__inner md-grid">
+<a aria-label="Anterior: VanillaJS" class="md-footer__link md-footer__link--prev" href="../../../frontend/js/javascript/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Anterior
+              </span>
+              VanillaJS
+            </div>
+</div>
+</a>
+<a aria-label="Siguiente: Intermedio" class="md-footer__link md-footer__link--next" href="../intermedio/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Siguiente
+              </span>
+              Intermedio
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2019 - 2022 Cristóbal Contreras
+    </div>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/crisconru" rel="noopener" target="_blank" title="Github de Cristo">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</a>
+<a class="md-social__link" href="https://twitter.com/crisconru" rel="noopener" target="_blank" title="Github de Cristo">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg>
+</a>
+<a class="md-social__link" href="https://linkedin.com/in/cristobalcontrerasrubio" rel="noopener" target="_blank" title="Github de Cristo">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share"], "search": "../../../../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}}</script>
+<script src="../../../../../assets/javascripts/bundle.d6c3db9e.min.js"></script>
+<script src="../../../../../plugins/mathjax.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
